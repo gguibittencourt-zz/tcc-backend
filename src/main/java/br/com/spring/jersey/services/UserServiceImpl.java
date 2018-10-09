@@ -5,9 +5,10 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class ExampleServiceImpl implements ExampleService {
+public class UserServiceImpl implements UserService {
+
     @Override
-    public String ok() throws Exception {
+    public String ok() {
         return "Ok! " + new Date();
     }
 }

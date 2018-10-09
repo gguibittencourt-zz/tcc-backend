@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="teste-estagio:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="Spring.teste-estagio.war">
-      <element id="artifact" artifact-name="teste-estagio:war exploded" />
-    </root>
-  </artifact>
-</component>

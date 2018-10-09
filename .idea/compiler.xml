@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring-jersey-base" />
         <module name="teste-estagio" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="spring-jersey-base" target="1.8" />
       <module name="teste-estagio" target="1.8" />
     </bytecodeTargetLevel>
   </component>
