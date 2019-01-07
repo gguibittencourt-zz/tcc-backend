@@ -14,15 +14,14 @@
     <properties>
         <jdk.main>1.8</jdk.main>
         <org.jooq.version>3.9.3</org.jooq.version>
-        <org.postgres.version>9.4.1211.jre7</org.postgres.version>
         <org.spring.version>4.3.2.RELEASE</org.spring.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.3-1102-jdbc41</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
         </dependency>
 
         <dependency>
@@ -223,23 +222,17 @@
                     </execution>
                 </executions>
 
-                <dependencies>
-                    <dependency>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>${org.postgres.version}</version>
-                    </dependency>
-                </dependencies>
-
                 <configuration>
                     <jdbc>
-                        <driver>org.postgresql.Driver</driver>
-                        <url>${jdbc.url.db}</url>
+                        <driver>com.mysql.jdbc.Driver</driver>
+                        <url>${jdbc.url}</url>
+                        <user>${jdbc.user}</user>
+                        <password>${jdbc.password}</password>
                     </jdbc>
                     <generator>
                         <name>org.jooq.util.DefaultGenerator</name>
                         <database>
-                            <name>org.jooq.util.postgres.PostgresDatabase</name>
+                            <name>org.jooq.util.mysql.MySQLDatabase</name>
                             <schemata>
                                 <schema>
                                     <inputSchema>public</inputSchema>
