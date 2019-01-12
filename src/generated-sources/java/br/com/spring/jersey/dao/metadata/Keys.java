@@ -4,11 +4,14 @@
 package br.com.spring.jersey.dao.metadata;
 
 
+import br.com.spring.jersey.dao.metadata.tables.Company;
 import br.com.spring.jersey.dao.metadata.tables.User;
+import br.com.spring.jersey.dao.metadata.tables.records.CompanyRecord;
 import br.com.spring.jersey.dao.metadata.tables.records.UserRecord;
 
 import javax.annotation.Generated;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
@@ -32,30 +35,37 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<CompanyRecord, Integer> IDENTITY_COMPANY = Identities0.IDENTITY_COMPANY;
     public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = UniqueKeys0.KEY_COMPANY_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
-    public static final UniqueKey<UserRecord> KEY_USER_USER_USERNAME_UINDEX = UniqueKeys0.KEY_USER_USER_USERNAME_UINDEX;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<UserRecord, CompanyRecord> USER_ID_COMPANY_FK = ForeignKeys0.USER_ID_COMPANY_FK;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
+        public static Identity<CompanyRecord, Integer> IDENTITY_COMPANY = createIdentity(Company.COMPANY, Company.COMPANY.ID_COMPANY);
         public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.ID_USER);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
+        public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = createUniqueKey(Company.COMPANY, "KEY_company_PRIMARY", Company.COMPANY.ID_COMPANY);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID_USER);
-        public static final UniqueKey<UserRecord> KEY_USER_USER_USERNAME_UINDEX = createUniqueKey(User.USER, "KEY_user_user_username_uindex", User.USER.USERNAME);
+    }
+
+    private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<UserRecord, CompanyRecord> USER_ID_COMPANY_FK = createForeignKey(br.com.spring.jersey.dao.metadata.Keys.KEY_COMPANY_PRIMARY, User.USER, "user_id_company_fk", User.USER.ID_COMPANY);
     }
 }

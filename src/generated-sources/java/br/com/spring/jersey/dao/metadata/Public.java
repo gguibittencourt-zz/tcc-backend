@@ -4,6 +4,7 @@
 package br.com.spring.jersey.dao.metadata;
 
 
+import br.com.spring.jersey.dao.metadata.tables.Company;
 import br.com.spring.jersey.dao.metadata.tables.User;
 
 import java.util.ArrayList;
@@ -30,12 +31,17 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -564621046;
+    private static final long serialVersionUID = 69514870;
 
     /**
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
+
+    /**
+     * The table <code>public.company</code>.
+     */
+    public final Company COMPANY = br.com.spring.jersey.dao.metadata.tables.Company.COMPANY;
 
     /**
      * The table <code>public.user</code>.
@@ -67,6 +73,7 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Company.COMPANY,
             User.USER);
     }
 }

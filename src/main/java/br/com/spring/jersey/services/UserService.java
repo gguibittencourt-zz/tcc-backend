@@ -6,7 +6,7 @@ import br.com.spring.jersey.exceptions.BusinessException;
 
 public interface UserService {
 
-    UserLogin login(User user) throws Exception;
+    UserLogin login(User user) throws BusinessException;
 
-    boolean register(User user);
+    Integer register(User user);
 }

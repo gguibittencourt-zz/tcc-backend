@@ -4,6 +4,7 @@
 package br.com.spring.jersey.dao.metadata;
 
 
+import br.com.spring.jersey.dao.metadata.tables.Company;
 import br.com.spring.jersey.dao.metadata.tables.User;
 
 import javax.annotation.Generated;
@@ -21,6 +22,11 @@ import javax.annotation.Generated;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>public.company</code>.
+     */
+    public static final Company COMPANY = br.com.spring.jersey.dao.metadata.tables.Company.COMPANY;
 
     /**
      * The table <code>public.user</code>.

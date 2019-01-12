@@ -1,6 +1,8 @@
-package br.com.spring.jersey.dao;
+package br.com.spring.jersey.dao.impl;
 
+import br.com.spring.jersey.dao.UserDAO;
 import br.com.spring.jersey.dao.metadata.Tables;
+import br.com.spring.jersey.dao.metadata.tables.records.UserRecord;
 import br.com.spring.jersey.dto.User;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +36,14 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public int register(User user) {
+    public UserRecord register(User user) {
         return this.dslContext
                 .insertInto(Tables.USER)
                 .set(Tables.USER.NAME, user.getName())
                 .set(Tables.USER.USERNAME, user.getUsername())
                 .set(Tables.USER.PASSWORD, user.getPassword())
-                .execute();
+                .set(Tables.USER.ID_COMPANY, user.getIdCompany())
+                .returning(Tables.USER.ID_USER)
+                .fetchOne();
     }
 }
