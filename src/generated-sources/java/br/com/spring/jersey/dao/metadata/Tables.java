@@ -5,13 +5,18 @@ package br.com.spring.jersey.dao.metadata;
 
 
 import br.com.spring.jersey.dao.metadata.tables.Company;
+import br.com.spring.jersey.dao.metadata.tables.KnowledgeArea;
+import br.com.spring.jersey.dao.metadata.tables.Process;
+import br.com.spring.jersey.dao.metadata.tables.ReKnowledgeAreaReferenceModel;
+import br.com.spring.jersey.dao.metadata.tables.ReProcessKnowledgeArea;
+import br.com.spring.jersey.dao.metadata.tables.ReferenceModel;
 import br.com.spring.jersey.dao.metadata.tables.User;
 
 import javax.annotation.Generated;
 
 
 /**
- * Convenience access to all tables in public
+ * Convenience access to all tables in app
  */
 @Generated(
     value = {
@@ -24,12 +29,37 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
-     * The table <code>public.company</code>.
+     * The table <code>app.company</code>.
      */
     public static final Company COMPANY = br.com.spring.jersey.dao.metadata.tables.Company.COMPANY;
 
     /**
-     * The table <code>public.user</code>.
+     * The table <code>app.knowledge_area</code>.
+     */
+    public static final KnowledgeArea KNOWLEDGE_AREA = br.com.spring.jersey.dao.metadata.tables.KnowledgeArea.KNOWLEDGE_AREA;
+
+    /**
+     * The table <code>app.process</code>.
+     */
+    public static final Process PROCESS = br.com.spring.jersey.dao.metadata.tables.Process.PROCESS;
+
+    /**
+     * The table <code>app.reference_model</code>.
+     */
+    public static final ReferenceModel REFERENCE_MODEL = br.com.spring.jersey.dao.metadata.tables.ReferenceModel.REFERENCE_MODEL;
+
+    /**
+     * The table <code>app.re_knowledge_area_reference_model</code>.
+     */
+    public static final ReKnowledgeAreaReferenceModel RE_KNOWLEDGE_AREA_REFERENCE_MODEL = br.com.spring.jersey.dao.metadata.tables.ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL;
+
+    /**
+     * The table <code>app.re_process_knowledge_area</code>.
+     */
+    public static final ReProcessKnowledgeArea RE_PROCESS_KNOWLEDGE_AREA = br.com.spring.jersey.dao.metadata.tables.ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA;
+
+    /**
+     * The table <code>app.user</code>.
      */
     public static final User USER = br.com.spring.jersey.dao.metadata.tables.User.USER;
 }

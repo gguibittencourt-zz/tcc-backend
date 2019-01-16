@@ -4,8 +4,8 @@
 package br.com.spring.jersey.dao.metadata.tables;
 
 
+import br.com.spring.jersey.dao.metadata.App;
 import br.com.spring.jersey.dao.metadata.Keys;
-import br.com.spring.jersey.dao.metadata.Public;
 import br.com.spring.jersey.dao.metadata.tables.records.UserRecord;
 
 import java.util.Arrays;
@@ -36,10 +36,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 1104531116;
+    private static final long serialVersionUID = 8730712;
 
     /**
-     * The reference instance of <code>public.user</code>
+     * The reference instance of <code>app.user</code>
      */
     public static final User USER = new User();
 
@@ -52,39 +52,44 @@ public class User extends TableImpl<UserRecord> {
     }
 
     /**
-     * The column <code>public.user.id_user</code>.
+     * The column <code>app.user.id_user</code>.
      */
     public final TableField<UserRecord, Integer> ID_USER = createField("id_user", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.user.username</code>.
+     * The column <code>app.user.username</code>.
      */
     public final TableField<UserRecord, String> USERNAME = createField("username", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
 
     /**
-     * The column <code>public.user.name</code>.
+     * The column <code>app.user.name</code>.
      */
     public final TableField<UserRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(200).nullable(false), this, "");
 
     /**
-     * The column <code>public.user.password</code>.
+     * The column <code>app.user.password</code>.
      */
     public final TableField<UserRecord, String> PASSWORD = createField("password", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
 
     /**
-     * The column <code>public.user.id_company</code>.
+     * The column <code>app.user.id_company</code>.
      */
     public final TableField<UserRecord, Integer> ID_COMPANY = createField("id_company", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * Create a <code>public.user</code> table reference
+     * The column <code>app.user.role</code>.
+     */
+    public final TableField<UserRecord, String> ROLE = createField("role", org.jooq.impl.SQLDataType.VARCHAR.length(5).nullable(false), this, "");
+
+    /**
+     * Create a <code>app.user</code> table reference
      */
     public User() {
         this("user", null);
     }
 
     /**
-     * Create an aliased <code>public.user</code> table reference
+     * Create an aliased <code>app.user</code> table reference
      */
     public User(String alias) {
         this(alias, USER);
@@ -103,7 +108,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return App.APP;
     }
 
     /**
@@ -127,7 +132,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<UniqueKey<UserRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserRecord>>asList(Keys.KEY_USER_PRIMARY);
+        return Arrays.<UniqueKey<UserRecord>>asList(Keys.KEY_USER_PRIMARY, Keys.KEY_USER_USER_USERNAME_UINDEX);
     }
 
     /**

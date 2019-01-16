@@ -4,8 +4,8 @@
 package br.com.spring.jersey.dao.metadata.tables;
 
 
+import br.com.spring.jersey.dao.metadata.App;
 import br.com.spring.jersey.dao.metadata.Keys;
-import br.com.spring.jersey.dao.metadata.Public;
 import br.com.spring.jersey.dao.metadata.tables.records.CompanyRecord;
 
 import java.util.Arrays;
@@ -35,10 +35,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Company extends TableImpl<CompanyRecord> {
 
-    private static final long serialVersionUID = -1881935348;
+    private static final long serialVersionUID = -1439185944;
 
     /**
-     * The reference instance of <code>public.company</code>
+     * The reference instance of <code>app.company</code>
      */
     public static final Company COMPANY = new Company();
 
@@ -51,39 +51,39 @@ public class Company extends TableImpl<CompanyRecord> {
     }
 
     /**
-     * The column <code>public.company.id_company</code>.
+     * The column <code>app.company.id_company</code>.
      */
     public final TableField<CompanyRecord, Integer> ID_COMPANY = createField("id_company", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.company.name</code>.
+     * The column <code>app.company.name</code>.
      */
     public final TableField<CompanyRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(200).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>public.company.contributors</code>.
+     * The column <code>app.company.contributors</code>.
      */
     public final TableField<CompanyRecord, Integer> CONTRIBUTORS = createField("contributors", org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>public.company.projects</code>.
+     * The column <code>app.company.projects</code>.
      */
     public final TableField<CompanyRecord, Integer> PROJECTS = createField("projects", org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>public.company.occupation_area</code>.
+     * The column <code>app.company.occupation_area</code>.
      */
     public final TableField<CompanyRecord, String> OCCUPATION_AREA = createField("occupation_area", org.jooq.impl.SQLDataType.VARCHAR.length(200).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * Create a <code>public.company</code> table reference
+     * Create a <code>app.company</code> table reference
      */
     public Company() {
         this("company", null);
     }
 
     /**
-     * Create an aliased <code>public.company</code> table reference
+     * Create an aliased <code>app.company</code> table reference
      */
     public Company(String alias) {
         this(alias, COMPANY);
@@ -102,7 +102,7 @@ public class Company extends TableImpl<CompanyRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return App.APP;
     }
 
     /**

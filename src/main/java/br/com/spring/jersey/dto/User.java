@@ -7,13 +7,15 @@ public class User {
     private String name;
     private String password;
     private Integer idCompany;
+    private String role;
 
-    public User(Integer idUser, String username, String name, String password, Integer idCompany) {
+    public User(Integer idUser, String username, String name, String password, Integer idCompany, String role) {
         this.idUser = idUser;
         this.username = username;
         this.name = name;
         this.password = password;
         this.idCompany = idCompany;
+        this.role = role;
     }
 
     public User(User user) {
@@ -22,6 +24,7 @@ public class User {
         this.name = user.getName();
         this.password = user.getPassword();
         this.idCompany = user.getIdCompany();
+        this.role = user.getRole();
     }
 
     public Integer getIdUser() {
@@ -66,6 +69,15 @@ public class User {
 
     public User setIdCompany(Integer idCompany) {
         this.idCompany = idCompany;
+        return this;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public User setRole(String role) {
+        this.role = role;
         return this;
     }
 

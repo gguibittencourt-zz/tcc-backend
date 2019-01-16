@@ -235,7 +235,7 @@
                             <name>org.jooq.util.mysql.MySQLDatabase</name>
                             <schemata>
                                 <schema>
-                                    <inputSchema>public</inputSchema>
+                                    <inputSchema>app</inputSchema>
                                 </schema>
                             </schemata>
                         </database>

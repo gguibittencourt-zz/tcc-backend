@@ -43,6 +43,7 @@ public class UserDAOImpl implements UserDAO {
                 .set(Tables.USER.USERNAME, user.getUsername())
                 .set(Tables.USER.PASSWORD, user.getPassword())
                 .set(Tables.USER.ID_COMPANY, user.getIdCompany())
+                .set(Tables.USER.ROLE, user.getRole())
                 .returning(Tables.USER.ID_USER)
                 .fetchOne();
     }

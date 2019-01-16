@@ -28,73 +28,73 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CompanyRecord extends UpdatableRecordImpl<CompanyRecord> implements Record5<Integer, String, Integer, Integer, String> {
 
-    private static final long serialVersionUID = -393291354;
+    private static final long serialVersionUID = 1252920100;
 
     /**
-     * Setter for <code>public.company.id_company</code>.
+     * Setter for <code>app.company.id_company</code>.
      */
     public void setIdCompany(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>public.company.id_company</code>.
+     * Getter for <code>app.company.id_company</code>.
      */
     public Integer getIdCompany() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>public.company.name</code>.
+     * Setter for <code>app.company.name</code>.
      */
     public void setName(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.company.name</code>.
+     * Getter for <code>app.company.name</code>.
      */
     public String getName() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>public.company.contributors</code>.
+     * Setter for <code>app.company.contributors</code>.
      */
     public void setContributors(Integer value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>public.company.contributors</code>.
+     * Getter for <code>app.company.contributors</code>.
      */
     public Integer getContributors() {
         return (Integer) get(2);
     }
 
     /**
-     * Setter for <code>public.company.projects</code>.
+     * Setter for <code>app.company.projects</code>.
      */
     public void setProjects(Integer value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>public.company.projects</code>.
+     * Getter for <code>app.company.projects</code>.
      */
     public Integer getProjects() {
         return (Integer) get(3);
     }
 
     /**
-     * Setter for <code>public.company.occupation_area</code>.
+     * Setter for <code>app.company.occupation_area</code>.
      */
     public void setOccupationArea(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>public.company.occupation_area</code>.
+     * Getter for <code>app.company.occupation_area</code>.
      */
     public String getOccupationArea() {
         return (String) get(4);

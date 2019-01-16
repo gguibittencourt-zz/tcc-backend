@@ -5,8 +5,18 @@ package br.com.spring.jersey.dao.metadata;
 
 
 import br.com.spring.jersey.dao.metadata.tables.Company;
+import br.com.spring.jersey.dao.metadata.tables.KnowledgeArea;
+import br.com.spring.jersey.dao.metadata.tables.Process;
+import br.com.spring.jersey.dao.metadata.tables.ReKnowledgeAreaReferenceModel;
+import br.com.spring.jersey.dao.metadata.tables.ReProcessKnowledgeArea;
+import br.com.spring.jersey.dao.metadata.tables.ReferenceModel;
 import br.com.spring.jersey.dao.metadata.tables.User;
 import br.com.spring.jersey.dao.metadata.tables.records.CompanyRecord;
+import br.com.spring.jersey.dao.metadata.tables.records.KnowledgeAreaRecord;
+import br.com.spring.jersey.dao.metadata.tables.records.ProcessRecord;
+import br.com.spring.jersey.dao.metadata.tables.records.ReKnowledgeAreaReferenceModelRecord;
+import br.com.spring.jersey.dao.metadata.tables.records.ReProcessKnowledgeAreaRecord;
+import br.com.spring.jersey.dao.metadata.tables.records.ReferenceModelRecord;
 import br.com.spring.jersey.dao.metadata.tables.records.UserRecord;
 
 import javax.annotation.Generated;
@@ -18,7 +28,7 @@ import org.jooq.impl.AbstractKeys;
 
 
 /**
- * A class modelling foreign key relationships between tables of the <code>public</code> 
+ * A class modelling foreign key relationships between tables of the <code>app</code> 
  * schema
  */
 @Generated(
@@ -36,6 +46,9 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<CompanyRecord, Integer> IDENTITY_COMPANY = Identities0.IDENTITY_COMPANY;
+    public static final Identity<KnowledgeAreaRecord, Integer> IDENTITY_KNOWLEDGE_AREA = Identities0.IDENTITY_KNOWLEDGE_AREA;
+    public static final Identity<ProcessRecord, Integer> IDENTITY_PROCESS = Identities0.IDENTITY_PROCESS;
+    public static final Identity<ReferenceModelRecord, Integer> IDENTITY_REFERENCE_MODEL = Identities0.IDENTITY_REFERENCE_MODEL;
     public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
     // -------------------------------------------------------------------------
@@ -43,12 +56,22 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = UniqueKeys0.KEY_COMPANY_PRIMARY;
+    public static final UniqueKey<KnowledgeAreaRecord> KEY_KNOWLEDGE_AREA_PRIMARY = UniqueKeys0.KEY_KNOWLEDGE_AREA_PRIMARY;
+    public static final UniqueKey<ProcessRecord> KEY_PROCESS_PRIMARY = UniqueKeys0.KEY_PROCESS_PRIMARY;
+    public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = UniqueKeys0.KEY_REFERENCE_MODEL_PRIMARY;
+    public static final UniqueKey<ReKnowledgeAreaReferenceModelRecord> KEY_RE_KNOWLEDGE_AREA_REFERENCE_MODEL_PRIMARY = UniqueKeys0.KEY_RE_KNOWLEDGE_AREA_REFERENCE_MODEL_PRIMARY;
+    public static final UniqueKey<ReProcessKnowledgeAreaRecord> KEY_RE_PROCESS_KNOWLEDGE_AREA_PRIMARY = UniqueKeys0.KEY_RE_PROCESS_KNOWLEDGE_AREA_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
+    public static final UniqueKey<UserRecord> KEY_USER_USER_USERNAME_UINDEX = UniqueKeys0.KEY_USER_USER_USERNAME_UINDEX;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<ReKnowledgeAreaReferenceModelRecord, KnowledgeAreaRecord> RE_KNOWLEDGE_AREA_REFERENCE_MODEL_ID_KNOWLEDGE_AREA_FK = ForeignKeys0.RE_KNOWLEDGE_AREA_REFERENCE_MODEL_ID_KNOWLEDGE_AREA_FK;
+    public static final ForeignKey<ReKnowledgeAreaReferenceModelRecord, ReferenceModelRecord> RE_KNOWLEDGE_AREA_REFERENCE_MODEL_ID_REFERENCE_MODEL_FK = ForeignKeys0.RE_KNOWLEDGE_AREA_REFERENCE_MODEL_ID_REFERENCE_MODEL_FK;
+    public static final ForeignKey<ReProcessKnowledgeAreaRecord, ProcessRecord> RE_PROCESS_KNOWLEDGE_AREA_ID_PROCESS_FK = ForeignKeys0.RE_PROCESS_KNOWLEDGE_AREA_ID_PROCESS_FK;
+    public static final ForeignKey<ReProcessKnowledgeAreaRecord, KnowledgeAreaRecord> RE_PROCESS_KNOWLEDGE_AREA_ID_KNOWLEDGE_AREA_FK = ForeignKeys0.RE_PROCESS_KNOWLEDGE_AREA_ID_KNOWLEDGE_AREA_FK;
     public static final ForeignKey<UserRecord, CompanyRecord> USER_ID_COMPANY_FK = ForeignKeys0.USER_ID_COMPANY_FK;
 
     // -------------------------------------------------------------------------
@@ -57,15 +80,28 @@ public class Keys {
 
     private static class Identities0 extends AbstractKeys {
         public static Identity<CompanyRecord, Integer> IDENTITY_COMPANY = createIdentity(Company.COMPANY, Company.COMPANY.ID_COMPANY);
+        public static Identity<KnowledgeAreaRecord, Integer> IDENTITY_KNOWLEDGE_AREA = createIdentity(KnowledgeArea.KNOWLEDGE_AREA, KnowledgeArea.KNOWLEDGE_AREA.ID_KNOWLEDGE_AREA);
+        public static Identity<ProcessRecord, Integer> IDENTITY_PROCESS = createIdentity(Process.PROCESS, Process.PROCESS.ID_PROCESS);
+        public static Identity<ReferenceModelRecord, Integer> IDENTITY_REFERENCE_MODEL = createIdentity(ReferenceModel.REFERENCE_MODEL, ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
         public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.ID_USER);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = createUniqueKey(Company.COMPANY, "KEY_company_PRIMARY", Company.COMPANY.ID_COMPANY);
+        public static final UniqueKey<KnowledgeAreaRecord> KEY_KNOWLEDGE_AREA_PRIMARY = createUniqueKey(KnowledgeArea.KNOWLEDGE_AREA, "KEY_knowledge_area_PRIMARY", KnowledgeArea.KNOWLEDGE_AREA.ID_KNOWLEDGE_AREA);
+        public static final UniqueKey<ProcessRecord> KEY_PROCESS_PRIMARY = createUniqueKey(Process.PROCESS, "KEY_process_PRIMARY", Process.PROCESS.ID_PROCESS);
+        public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = createUniqueKey(ReferenceModel.REFERENCE_MODEL, "KEY_reference_model_PRIMARY", ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
+        public static final UniqueKey<ReKnowledgeAreaReferenceModelRecord> KEY_RE_KNOWLEDGE_AREA_REFERENCE_MODEL_PRIMARY = createUniqueKey(ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL, "KEY_re_knowledge_area_reference_model_PRIMARY", ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL.ID_KNOWLEDGE_AREA, ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL.ID_REFERENCE_MODEL);
+        public static final UniqueKey<ReProcessKnowledgeAreaRecord> KEY_RE_PROCESS_KNOWLEDGE_AREA_PRIMARY = createUniqueKey(ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA, "KEY_re_process_knowledge_area_PRIMARY", ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA.ID_PROCESS, ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA.ID_KNOWLEDGE_AREA);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID_USER);
+        public static final UniqueKey<UserRecord> KEY_USER_USER_USERNAME_UINDEX = createUniqueKey(User.USER, "KEY_user_user_username_uindex", User.USER.USERNAME);
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<ReKnowledgeAreaReferenceModelRecord, KnowledgeAreaRecord> RE_KNOWLEDGE_AREA_REFERENCE_MODEL_ID_KNOWLEDGE_AREA_FK = createForeignKey(br.com.spring.jersey.dao.metadata.Keys.KEY_KNOWLEDGE_AREA_PRIMARY, ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL, "re_knowledge_area_reference_model_id_knowledge_area_fk", ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL.ID_KNOWLEDGE_AREA);
+        public static final ForeignKey<ReKnowledgeAreaReferenceModelRecord, ReferenceModelRecord> RE_KNOWLEDGE_AREA_REFERENCE_MODEL_ID_REFERENCE_MODEL_FK = createForeignKey(br.com.spring.jersey.dao.metadata.Keys.KEY_REFERENCE_MODEL_PRIMARY, ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL, "re_knowledge_area_reference_model_id_reference_model_fk", ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL.ID_REFERENCE_MODEL);
+        public static final ForeignKey<ReProcessKnowledgeAreaRecord, ProcessRecord> RE_PROCESS_KNOWLEDGE_AREA_ID_PROCESS_FK = createForeignKey(br.com.spring.jersey.dao.metadata.Keys.KEY_PROCESS_PRIMARY, ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA, "re_process_knowledge_area_id_process_fk", ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA.ID_PROCESS);
+        public static final ForeignKey<ReProcessKnowledgeAreaRecord, KnowledgeAreaRecord> RE_PROCESS_KNOWLEDGE_AREA_ID_KNOWLEDGE_AREA_FK = createForeignKey(br.com.spring.jersey.dao.metadata.Keys.KEY_KNOWLEDGE_AREA_PRIMARY, ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA, "re_process_knowledge_area_id_knowledge_area_fk", ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA.ID_KNOWLEDGE_AREA);
         public static final ForeignKey<UserRecord, CompanyRecord> USER_ID_COMPANY_FK = createForeignKey(br.com.spring.jersey.dao.metadata.Keys.KEY_COMPANY_PRIMARY, User.USER, "user_id_company_fk", User.USER.ID_COMPANY);
     }
 }
