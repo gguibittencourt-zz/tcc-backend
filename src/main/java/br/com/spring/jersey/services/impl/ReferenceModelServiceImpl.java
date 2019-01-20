@@ -33,4 +33,9 @@ public class ReferenceModelServiceImpl implements ReferenceModelService {
         return this.referenceModelDAO.register(referenceModel);
     }
 
+    @Override
+    public Integer update(Integer idReferenceModel, ReferenceModel referenceModel) {
+        return this.referenceModelDAO.update(idReferenceModel, referenceModel);
+    }
+
 }

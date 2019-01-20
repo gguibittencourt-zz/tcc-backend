@@ -47,13 +47,22 @@ public class ReferenceModelDAOImpl implements ReferenceModelDAO {
         return this.dslContext
                 .insertInto(Tables.REFERENCE_MODEL)
                 .set(Tables.REFERENCE_MODEL.NAME, referenceModel.getName())
-                .set(Tables.REFERENCE_MODEL.JSON_REFERENCE_MODEL, GSON.toJsonTree(referenceModel.getKnowledgeAreas()))
+                .set(Tables.REFERENCE_MODEL.KNOWLEDGE_AREAS, GSON.toJson(referenceModel.getKnowledgeAreas()))
                 .returning(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL)
                 .fetchOne().getIdReferenceModel();
     }
 
+    @Override
+    public Integer update(Integer idReferenceModel, ReferenceModel referenceModel) {
+        return this.dslContext
+                .update(Tables.REFERENCE_MODEL)
+                .set(Tables.REFERENCE_MODEL.NAME, referenceModel.getName())
+                .where(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel))
+                .execute();
+    }
+
     private ReferenceModel template(Record referenceModelRecord) {
-        Collection<KnowledgeArea> knowledgeAreas = GSON.fromJson(String.valueOf(referenceModelRecord.get(Tables.REFERENCE_MODEL.JSON_REFERENCE_MODEL)), Constants.KNOWLEDGE_AREA_LIST_TYPE);
+        Collection<KnowledgeArea> knowledgeAreas = GSON.fromJson(String.valueOf(referenceModelRecord.get(Tables.REFERENCE_MODEL.KNOWLEDGE_AREAS)), Constants.KNOWLEDGE_AREA_LIST_TYPE);
         return new ReferenceModel()
                 .setIdReferenceModel(referenceModelRecord.get(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL))
                 .setName(referenceModelRecord.get(Tables.REFERENCE_MODEL.NAME))

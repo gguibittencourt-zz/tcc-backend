@@ -6,10 +6,7 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
@@ -49,6 +46,15 @@ public class ReferenceModelResource {
         this.referenceModelService.register(referenceModel);
         return Response.ok(GSON.toJson(referenceModel))
                 .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
+
+    @PUT
+    @Path("/{idReferenceModel}")
+    public Response update(@PathParam("idReferenceModel") Integer idReferenceModel, String referenceModelJson) {
+        ReferenceModel referenceModel = GSON.fromJson(referenceModelJson, ReferenceModel.class);
+        this.referenceModelService.update(idReferenceModel, referenceModel);
+        return Response.ok()
                 .build();
     }
 }

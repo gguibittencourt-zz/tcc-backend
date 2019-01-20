@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ReferenceModelRecord extends UpdatableRecordImpl<ReferenceModelRecord> implements Record3<Integer, String, Object> {
 
-    private static final long serialVersionUID = 2053136378;
+    private static final long serialVersionUID = -467608013;
 
     /**
      * Setter for <code>app.reference_model.id_reference_model</code>.
@@ -59,16 +59,16 @@ public class ReferenceModelRecord extends UpdatableRecordImpl<ReferenceModelReco
     }
 
     /**
-     * Setter for <code>app.reference_model.json_reference_model</code>.
+     * Setter for <code>app.reference_model.knowledge_areas</code>.
      */
-    public void setJsonReferenceModel(Object value) {
+    public void setKnowledgeAreas(Object value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>app.reference_model.json_reference_model</code>.
+     * Getter for <code>app.reference_model.knowledge_areas</code>.
      */
-    public Object getJsonReferenceModel() {
+    public Object getKnowledgeAreas() {
         return (Object) get(2);
     }
 
@@ -125,7 +125,7 @@ public class ReferenceModelRecord extends UpdatableRecordImpl<ReferenceModelReco
      */
     @Override
     public Field<Object> field3() {
-        return ReferenceModel.REFERENCE_MODEL.JSON_REFERENCE_MODEL;
+        return ReferenceModel.REFERENCE_MODEL.KNOWLEDGE_AREAS;
     }
 
     /**
@@ -149,7 +149,7 @@ public class ReferenceModelRecord extends UpdatableRecordImpl<ReferenceModelReco
      */
     @Override
     public Object value3() {
-        return getJsonReferenceModel();
+        return getKnowledgeAreas();
     }
 
     /**
@@ -175,7 +175,7 @@ public class ReferenceModelRecord extends UpdatableRecordImpl<ReferenceModelReco
      */
     @Override
     public ReferenceModelRecord value3(Object value) {
-        setJsonReferenceModel(value);
+        setKnowledgeAreas(value);
         return this;
     }
 
@@ -204,11 +204,11 @@ public class ReferenceModelRecord extends UpdatableRecordImpl<ReferenceModelReco
     /**
      * Create a detached, initialised ReferenceModelRecord
      */
-    public ReferenceModelRecord(Integer idReferenceModel, String name, Object jsonReferenceModel) {
+    public ReferenceModelRecord(Integer idReferenceModel, String name, Object knowledgeAreas) {
         super(ReferenceModel.REFERENCE_MODEL);
 
         set(0, idReferenceModel);
         set(1, name);
-        set(2, jsonReferenceModel);
+        set(2, knowledgeAreas);
     }
 }

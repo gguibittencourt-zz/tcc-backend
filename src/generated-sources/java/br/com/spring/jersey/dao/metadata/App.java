@@ -5,10 +5,6 @@ package br.com.spring.jersey.dao.metadata;
 
 
 import br.com.spring.jersey.dao.metadata.tables.Company;
-import br.com.spring.jersey.dao.metadata.tables.KnowledgeArea;
-import br.com.spring.jersey.dao.metadata.tables.Process;
-import br.com.spring.jersey.dao.metadata.tables.ReKnowledgeAreaReferenceModel;
-import br.com.spring.jersey.dao.metadata.tables.ReProcessKnowledgeArea;
 import br.com.spring.jersey.dao.metadata.tables.ReferenceModel;
 import br.com.spring.jersey.dao.metadata.tables.User;
 
@@ -36,7 +32,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class App extends SchemaImpl {
 
-    private static final long serialVersionUID = -318151062;
+    private static final long serialVersionUID = -1662555706;
 
     /**
      * The reference instance of <code>app</code>
@@ -49,29 +45,9 @@ public class App extends SchemaImpl {
     public final Company COMPANY = br.com.spring.jersey.dao.metadata.tables.Company.COMPANY;
 
     /**
-     * The table <code>app.knowledge_area</code>.
-     */
-    public final KnowledgeArea KNOWLEDGE_AREA = br.com.spring.jersey.dao.metadata.tables.KnowledgeArea.KNOWLEDGE_AREA;
-
-    /**
-     * The table <code>app.process</code>.
-     */
-    public final Process PROCESS = br.com.spring.jersey.dao.metadata.tables.Process.PROCESS;
-
-    /**
      * The table <code>app.reference_model</code>.
      */
     public final ReferenceModel REFERENCE_MODEL = br.com.spring.jersey.dao.metadata.tables.ReferenceModel.REFERENCE_MODEL;
-
-    /**
-     * The table <code>app.re_knowledge_area_reference_model</code>.
-     */
-    public final ReKnowledgeAreaReferenceModel RE_KNOWLEDGE_AREA_REFERENCE_MODEL = br.com.spring.jersey.dao.metadata.tables.ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL;
-
-    /**
-     * The table <code>app.re_process_knowledge_area</code>.
-     */
-    public final ReProcessKnowledgeArea RE_PROCESS_KNOWLEDGE_AREA = br.com.spring.jersey.dao.metadata.tables.ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA;
 
     /**
      * The table <code>app.user</code>.
@@ -104,11 +80,7 @@ public class App extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Company.COMPANY,
-            KnowledgeArea.KNOWLEDGE_AREA,
-            Process.PROCESS,
             ReferenceModel.REFERENCE_MODEL,
-            ReKnowledgeAreaReferenceModel.RE_KNOWLEDGE_AREA_REFERENCE_MODEL,
-            ReProcessKnowledgeArea.RE_PROCESS_KNOWLEDGE_AREA,
             User.USER);
     }
 }

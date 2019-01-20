@@ -35,7 +35,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ReferenceModel extends TableImpl<ReferenceModelRecord> {
 
-    private static final long serialVersionUID = -80659807;
+    private static final long serialVersionUID = 2022682478;
 
     /**
      * The reference instance of <code>app.reference_model</code>
@@ -61,9 +61,9 @@ public class ReferenceModel extends TableImpl<ReferenceModelRecord> {
     public final TableField<ReferenceModelRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(200).nullable(false), this, "");
 
     /**
-     * The column <code>app.reference_model.json_reference_model</code>.
+     * The column <code>app.reference_model.knowledge_areas</code>.
      */
-    public final TableField<ReferenceModelRecord, Object> JSON_REFERENCE_MODEL = createField("json_reference_model", org.jooq.impl.DefaultDataType.getDefaultDataType("json"), this, "");
+    public final TableField<ReferenceModelRecord, Object> KNOWLEDGE_AREAS = createField("knowledge_areas", org.jooq.impl.DefaultDataType.getDefaultDataType("json"), this, "");
 
     /**
      * Create a <code>app.reference_model</code> table reference
