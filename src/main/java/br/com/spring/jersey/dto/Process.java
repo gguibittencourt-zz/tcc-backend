@@ -2,15 +2,15 @@ package br.com.spring.jersey.dto;
 
 public class Process {
 
-    private Integer idProcess;
+    private String idProcess;
     private String name;
     private String purpose;
 
-    public Integer getIdProcess() {
+    public String getIdProcess() {
         return idProcess;
     }
 
-    public Process setIdProcess(Integer idProcess) {
+    public Process setIdProcess(String idProcess) {
         this.idProcess = idProcess;
         return this;
     }

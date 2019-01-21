@@ -57,6 +57,15 @@ public class ReferenceModelDAOImpl implements ReferenceModelDAO {
         return this.dslContext
                 .update(Tables.REFERENCE_MODEL)
                 .set(Tables.REFERENCE_MODEL.NAME, referenceModel.getName())
+                .set(Tables.REFERENCE_MODEL.KNOWLEDGE_AREAS, GSON.toJson(referenceModel.getKnowledgeAreas()))
+                .where(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel))
+                .execute();
+    }
+
+    @Override
+    public Integer delete(Integer idReferenceModel) {
+        return this.dslContext
+                .deleteFrom(Tables.REFERENCE_MODEL)
                 .where(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel))
                 .execute();
     }

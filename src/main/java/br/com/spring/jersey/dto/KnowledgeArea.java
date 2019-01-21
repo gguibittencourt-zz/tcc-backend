@@ -4,16 +4,16 @@ import java.util.Collection;
 
 public class KnowledgeArea {
 
-    private Integer idKnowledgeArea;
+    private String idKnowledgeArea;
     private String name;
     private String purpose;
     private Collection<Process> processes;
 
-    public Integer getIdKnowledgeArea() {
+    public String getIdKnowledgeArea() {
         return idKnowledgeArea;
     }
 
-    public KnowledgeArea setIdKnowledgeArea(Integer idKnowledgeArea) {
+    public KnowledgeArea setIdKnowledgeArea(String idKnowledgeArea) {
         this.idKnowledgeArea = idKnowledgeArea;
         return this;
     }

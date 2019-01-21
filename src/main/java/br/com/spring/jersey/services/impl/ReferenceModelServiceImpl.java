@@ -38,4 +38,9 @@ public class ReferenceModelServiceImpl implements ReferenceModelService {
         return this.referenceModelDAO.update(idReferenceModel, referenceModel);
     }
 
+    @Override
+    public Integer delete(Integer idReferenceModel) {
+        return this.referenceModelDAO.delete(idReferenceModel);
+    }
+
 }

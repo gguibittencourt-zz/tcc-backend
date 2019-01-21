@@ -13,4 +13,6 @@ public interface ReferenceModelService {
     Integer register(ReferenceModel referenceModel);
 
     Integer update(Integer idReferenceModel, ReferenceModel referenceModel);
+
+    Integer delete(Integer idReferenceModel);
 }

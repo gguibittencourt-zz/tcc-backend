@@ -57,4 +57,13 @@ public class ReferenceModelResource {
         return Response.ok()
                 .build();
     }
+
+
+    @DELETE
+    @Path("/{idReferenceModel}")
+    public Response delete(@PathParam("idReferenceModel") Integer idReferenceModel) {
+        this.referenceModelService.delete(idReferenceModel);
+        return Response.ok()
+                .build();
+    }
 }
