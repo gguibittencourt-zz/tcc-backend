@@ -5,9 +5,11 @@ package br.com.spring.jersey.dao.metadata;
 
 
 import br.com.spring.jersey.dao.metadata.tables.Company;
+import br.com.spring.jersey.dao.metadata.tables.MeasurementFramework;
 import br.com.spring.jersey.dao.metadata.tables.ReferenceModel;
 import br.com.spring.jersey.dao.metadata.tables.User;
 import br.com.spring.jersey.dao.metadata.tables.records.CompanyRecord;
+import br.com.spring.jersey.dao.metadata.tables.records.MeasurementFrameworkRecord;
 import br.com.spring.jersey.dao.metadata.tables.records.ReferenceModelRecord;
 import br.com.spring.jersey.dao.metadata.tables.records.UserRecord;
 
@@ -38,6 +40,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<CompanyRecord, Integer> IDENTITY_COMPANY = Identities0.IDENTITY_COMPANY;
+    public static final Identity<MeasurementFrameworkRecord, Integer> IDENTITY_MEASUREMENT_FRAMEWORK = Identities0.IDENTITY_MEASUREMENT_FRAMEWORK;
     public static final Identity<ReferenceModelRecord, Integer> IDENTITY_REFERENCE_MODEL = Identities0.IDENTITY_REFERENCE_MODEL;
     public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
@@ -46,6 +49,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = UniqueKeys0.KEY_COMPANY_PRIMARY;
+    public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_PRIMARY = UniqueKeys0.KEY_MEASUREMENT_FRAMEWORK_PRIMARY;
     public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = UniqueKeys0.KEY_REFERENCE_MODEL_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_USER_USERNAME_UINDEX = UniqueKeys0.KEY_USER_USER_USERNAME_UINDEX;
@@ -54,6 +58,7 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<MeasurementFrameworkRecord, ReferenceModelRecord> ID_REFERENCE_MODEL_MEASUREMENT_FRAMEWORK_FK = ForeignKeys0.ID_REFERENCE_MODEL_MEASUREMENT_FRAMEWORK_FK;
     public static final ForeignKey<UserRecord, CompanyRecord> USER_ID_COMPANY_FK = ForeignKeys0.USER_ID_COMPANY_FK;
 
     // -------------------------------------------------------------------------
@@ -62,18 +67,21 @@ public class Keys {
 
     private static class Identities0 extends AbstractKeys {
         public static Identity<CompanyRecord, Integer> IDENTITY_COMPANY = createIdentity(Company.COMPANY, Company.COMPANY.ID_COMPANY);
+        public static Identity<MeasurementFrameworkRecord, Integer> IDENTITY_MEASUREMENT_FRAMEWORK = createIdentity(MeasurementFramework.MEASUREMENT_FRAMEWORK, MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK);
         public static Identity<ReferenceModelRecord, Integer> IDENTITY_REFERENCE_MODEL = createIdentity(ReferenceModel.REFERENCE_MODEL, ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
         public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.ID_USER);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = createUniqueKey(Company.COMPANY, "KEY_company_PRIMARY", Company.COMPANY.ID_COMPANY);
+        public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_PRIMARY = createUniqueKey(MeasurementFramework.MEASUREMENT_FRAMEWORK, "KEY_measurement_framework_PRIMARY", MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK);
         public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = createUniqueKey(ReferenceModel.REFERENCE_MODEL, "KEY_reference_model_PRIMARY", ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID_USER);
         public static final UniqueKey<UserRecord> KEY_USER_USER_USERNAME_UINDEX = createUniqueKey(User.USER, "KEY_user_user_username_uindex", User.USER.USERNAME);
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<MeasurementFrameworkRecord, ReferenceModelRecord> ID_REFERENCE_MODEL_MEASUREMENT_FRAMEWORK_FK = createForeignKey(br.com.spring.jersey.dao.metadata.Keys.KEY_REFERENCE_MODEL_PRIMARY, MeasurementFramework.MEASUREMENT_FRAMEWORK, "id_reference_model_measurement_framework_fk", MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_REFERENCE_MODEL);
         public static final ForeignKey<UserRecord, CompanyRecord> USER_ID_COMPANY_FK = createForeignKey(br.com.spring.jersey.dao.metadata.Keys.KEY_COMPANY_PRIMARY, User.USER, "user_id_company_fk", User.USER.ID_COMPANY);
     }
 }

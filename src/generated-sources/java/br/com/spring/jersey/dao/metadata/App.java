@@ -5,6 +5,7 @@ package br.com.spring.jersey.dao.metadata;
 
 
 import br.com.spring.jersey.dao.metadata.tables.Company;
+import br.com.spring.jersey.dao.metadata.tables.MeasurementFramework;
 import br.com.spring.jersey.dao.metadata.tables.ReferenceModel;
 import br.com.spring.jersey.dao.metadata.tables.User;
 
@@ -32,7 +33,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class App extends SchemaImpl {
 
-    private static final long serialVersionUID = -1662555706;
+    private static final long serialVersionUID = 1069910520;
 
     /**
      * The reference instance of <code>app</code>
@@ -43,6 +44,11 @@ public class App extends SchemaImpl {
      * The table <code>app.company</code>.
      */
     public final Company COMPANY = br.com.spring.jersey.dao.metadata.tables.Company.COMPANY;
+
+    /**
+     * The table <code>app.measurement_framework</code>.
+     */
+    public final MeasurementFramework MEASUREMENT_FRAMEWORK = br.com.spring.jersey.dao.metadata.tables.MeasurementFramework.MEASUREMENT_FRAMEWORK;
 
     /**
      * The table <code>app.reference_model</code>.
@@ -80,6 +86,7 @@ public class App extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Company.COMPANY,
+            MeasurementFramework.MEASUREMENT_FRAMEWORK,
             ReferenceModel.REFERENCE_MODEL,
             User.USER);
     }
