@@ -16,7 +16,7 @@
 
     <filter>
         <filter-name>simpleCORSFilter</filter-name>
-        <filter-class>br.com.spring.jersey.resources.filter.SimpleCORSFilter</filter-class>
+        <filter-class>br.com.tcc.resources.filter.SimpleCORSFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>simpleCORSFilter</filter-name>
@@ -50,7 +50,7 @@
             <param-name>
                 com.sun.jersey.config.property.packages
             </param-name>
-            <param-value>br.com.spring.jersey.resources;</param-value>
+            <param-value>br.com.tcc.resources;</param-value>
         </init-param>
 
     </servlet>

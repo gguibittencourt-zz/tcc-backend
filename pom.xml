@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>br.com.spring.jersey</groupId>
-    <artifactId>projeto-base</artifactId>
+    <groupId>br.com.tcc</groupId>
+    <artifactId>backend</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
 
@@ -224,7 +224,7 @@
 
                 <configuration>
                     <jdbc>
-                        <driver>com.mysql.jdbc.Driver</driver>
+                        <driver>${jdbc.driverClassName}</driver>
                         <url>${jdbc.url}</url>
                         <user>${jdbc.user}</user>
                         <password>${jdbc.password}</password>
@@ -245,7 +245,7 @@
                             <javaTimeTypes>true</javaTimeTypes>
                         </generate>
                         <target>
-                            <packageName>br.com.spring.jersey.dao.metadata</packageName>
+                            <packageName>br.com.tcc.dao.metadata</packageName>
                             <directory>src/generated-sources/java</directory>
                         </target>
                     </generator>
