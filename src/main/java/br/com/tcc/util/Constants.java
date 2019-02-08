@@ -1,6 +1,7 @@
 package br.com.tcc.util;
 
 import br.com.tcc.dto.KnowledgeArea;
+import br.com.tcc.dto.Question;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -14,5 +15,8 @@ public class Constants {
     }.getType();
 
     public static final Type KNOWLEDGE_AREA_LIST_TYPE = new TypeToken<Collection<KnowledgeArea>>() {
+    }.getType();
+
+    public static final Type QUESTION_LIST_TYPE = new TypeToken<Collection<Question>>() {
     }.getType();
 }

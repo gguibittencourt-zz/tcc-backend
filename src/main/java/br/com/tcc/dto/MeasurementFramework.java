@@ -1,5 +1,6 @@
 package br.com.tcc.dto;
 
+import java.util.Collection;
 import java.util.Objects;
 
 public class MeasurementFramework {
@@ -7,6 +8,7 @@ public class MeasurementFramework {
     private Integer idMeasurementFramework;
     private String name;
     private Integer idReferenceModel;
+    private Collection<Question> questions;
 
     public Integer getIdMeasurementFramework() {
         return idMeasurementFramework;
@@ -35,6 +37,15 @@ public class MeasurementFramework {
         return this;
     }
 
+    public Collection<Question> getQuestions() {
+        return questions;
+    }
+
+    public MeasurementFramework setQuestions(Collection<Question> questions) {
+        this.questions = questions;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,11 +53,12 @@ public class MeasurementFramework {
         MeasurementFramework that = (MeasurementFramework) o;
         return Objects.equals(getIdMeasurementFramework(), that.getIdMeasurementFramework()) &&
                 Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getIdReferenceModel(), that.getIdReferenceModel());
+                Objects.equals(getIdReferenceModel(), that.getIdReferenceModel()) &&
+                Objects.equals(getQuestions(), that.getQuestions());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdMeasurementFramework(), getName(), getIdReferenceModel());
+        return Objects.hash(getIdMeasurementFramework(), getName(), getIdReferenceModel(), getQuestions());
     }
 }
