@@ -6,6 +6,7 @@ public class Question {
 
     private String idQuestion;
     private String idProcess;
+    private String idExpectedResult;
     private String name;
     private String tip;
 
@@ -24,6 +25,15 @@ public class Question {
 
     public Question setIdProcess(String idProcess) {
         this.idProcess = idProcess;
+        return this;
+    }
+
+    public String getIdExpectedResult() {
+        return idExpectedResult;
+    }
+
+    public Question setIdExpectedResult(String idExpectedResult) {
+        this.idExpectedResult = idExpectedResult;
         return this;
     }
 
@@ -53,12 +63,13 @@ public class Question {
         return Objects.equals(getIdQuestion(), question.getIdQuestion()) &&
                 Objects.equals(getIdProcess(), question.getIdProcess()) &&
                 Objects.equals(getName(), question.getName()) &&
+                Objects.equals(getIdExpectedResult(), question.getIdExpectedResult()) &&
                 Objects.equals(getTip(), question.getTip());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getIdQuestion(), getIdProcess(), getName(), getTip());
+        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getName(), getTip());
     }
 }
