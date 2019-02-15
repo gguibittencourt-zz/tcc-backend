@@ -9,7 +9,11 @@ public class Question {
     private String idExpectedResult;
     private String name;
     private String tip;
+    private String type;
     private Boolean dependsOnAnyQuestion;
+    private String idDependentQuestion;
+    private Boolean hasDataSource;
+    private QuestionConfig config;
 
     public String getIdQuestion() {
         return idQuestion;
@@ -56,12 +60,48 @@ public class Question {
         return this;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public Question setType(String type) {
+        this.type = type;
+        return this;
+    }
+
     public Boolean getDependsOnAnyQuestion() {
         return dependsOnAnyQuestion;
     }
 
     public Question setDependsOnAnyQuestion(Boolean dependsOnAnyQuestion) {
         this.dependsOnAnyQuestion = dependsOnAnyQuestion;
+        return this;
+    }
+
+    public String getIdDependentQuestion() {
+        return idDependentQuestion;
+    }
+
+    public Question setIdDependentQuestion(String idDependentQuestion) {
+        this.idDependentQuestion = idDependentQuestion;
+        return this;
+    }
+
+    public Boolean getHasDataSource() {
+        return hasDataSource;
+    }
+
+    public Question setHasDataSource(Boolean hasDataSource) {
+        this.hasDataSource = hasDataSource;
+        return this;
+    }
+
+    public QuestionConfig getConfig() {
+        return config;
+    }
+
+    public Question setConfig(QuestionConfig config) {
+        this.config = config;
         return this;
     }
 
@@ -75,12 +115,15 @@ public class Question {
                 Objects.equals(getIdExpectedResult(), question.getIdExpectedResult()) &&
                 Objects.equals(getName(), question.getName()) &&
                 Objects.equals(getTip(), question.getTip()) &&
-                Objects.equals(getDependsOnAnyQuestion(), question.getDependsOnAnyQuestion());
+                Objects.equals(getType(), question.getType()) &&
+                Objects.equals(getDependsOnAnyQuestion(), question.getDependsOnAnyQuestion()) &&
+                Objects.equals(getIdDependentQuestion(), question.getIdDependentQuestion()) &&
+                Objects.equals(getHasDataSource(), question.getHasDataSource()) &&
+                Objects.equals(getConfig(), question.getConfig());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getName(), getTip(), getDependsOnAnyQuestion());
+        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getName(), getTip(), getType(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getHasDataSource(), getConfig());
     }
 }
