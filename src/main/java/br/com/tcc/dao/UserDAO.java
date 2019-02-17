@@ -9,4 +9,6 @@ public interface UserDAO {
     UserRecord register(User user);
 
     User get(String username, String password);
+
+    int update(Integer idUser, User user);
 }

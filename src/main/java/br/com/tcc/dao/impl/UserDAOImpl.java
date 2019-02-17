@@ -36,6 +36,19 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public int update(Integer idUser, User user) {
+        return this.dslContext
+                .update(Tables.USER)
+                .set(Tables.USER.NAME, user.getName())
+                .set(Tables.USER.USERNAME, user.getUsername())
+                .set(Tables.USER.PASSWORD, user.getPassword())
+                .set(Tables.USER.ID_COMPANY, user.getIdCompany())
+                .set(Tables.USER.ROLE, user.getRole())
+                .where(Tables.USER.ID_USER.eq(idUser))
+                .execute();
+    }
+
+    @Override
     public UserRecord register(User user) {
         return this.dslContext
                 .insertInto(Tables.USER)

@@ -49,4 +49,13 @@ public class UserServiceImpl implements UserService {
         return this.userDAO.register(user.setIdCompany(idCompany)).getIdUser();
     }
 
+    @Override
+    public User get(Integer idUser) {
+        return this.userDAO.get(idUser);
+    }
+
+    @Override
+    public int update(Integer idUser, User user) {
+        return this.userDAO.update(idUser, user);
+    }
 }

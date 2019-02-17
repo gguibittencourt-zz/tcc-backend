@@ -1,5 +1,6 @@
 package br.com.tcc.resources;
 
+import br.com.tcc.dto.ReferenceModel;
 import br.com.tcc.dto.User;
 import br.com.tcc.dto.UserLogin;
 import br.com.tcc.services.UserService;
@@ -41,6 +42,24 @@ public class UserResource {
         this.userService.register(user);
         return Response.ok(GSON.toJson(user))
                 .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
+
+    @PUT
+    @Path("/{idUser}")
+    public Response update(@PathParam("idUser") Integer idUser, String userJson) {
+        User user = GSON.fromJson(userJson, User.class);
+        this.userService.update(idUser, user);
+        return Response.ok()
+                .build();
+    }
+
+    @GET
+    @Path("/{idUser}")
+    public Response get(@PathParam("idUser") Integer idUser) {
+        User user = this.userService.get(idUser);
+        return Response.ok(GSON.toJson(user))
+                .type(MediaType.APPLICATION_JSON_TYPE)
                 .build();
     }
 }
