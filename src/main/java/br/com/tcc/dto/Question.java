@@ -12,6 +12,7 @@ public class Question {
     private String type;
     private Boolean dependsOnAnyQuestion;
     private String idDependentQuestion;
+    private DependentValue dependentValue;
     private Boolean hasDataSource;
     private QuestionConfig config;
 
@@ -105,6 +106,15 @@ public class Question {
         return this;
     }
 
+    public DependentValue getDependentValue() {
+        return dependentValue;
+    }
+
+    public Question setDependentValue(DependentValue dependentValue) {
+        this.dependentValue = dependentValue;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,12 +128,13 @@ public class Question {
                 Objects.equals(getType(), question.getType()) &&
                 Objects.equals(getDependsOnAnyQuestion(), question.getDependsOnAnyQuestion()) &&
                 Objects.equals(getIdDependentQuestion(), question.getIdDependentQuestion()) &&
+                Objects.equals(getDependentValue(), question.getDependentValue()) &&
                 Objects.equals(getHasDataSource(), question.getHasDataSource()) &&
                 Objects.equals(getConfig(), question.getConfig());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getName(), getTip(), getType(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getHasDataSource(), getConfig());
+        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getName(), getTip(), getType(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getHasDataSource(), getConfig());
     }
 }
