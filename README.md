@@ -1,0 +1,4 @@
+-Djdbc.driverClassName=com.mysql.jdbc.Driver
+-Djdbc.url=jdbc:mysql://localhost:3306/app
+-Djdbc.user=
+-Djdbc.password=
