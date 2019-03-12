@@ -9,6 +9,7 @@ public class MeasurementFramework {
     private String name;
     private Integer idReferenceModel;
     private Collection<Question> questions;
+    private Collection<Goal> goals;
 
     public Integer getIdMeasurementFramework() {
         return idMeasurementFramework;
@@ -46,6 +47,15 @@ public class MeasurementFramework {
         return this;
     }
 
+    public Collection<Goal> getGoals() {
+        return goals;
+    }
+
+    public MeasurementFramework setGoals(Collection<Goal> goals) {
+        this.goals = goals;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,11 +64,12 @@ public class MeasurementFramework {
         return Objects.equals(getIdMeasurementFramework(), that.getIdMeasurementFramework()) &&
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getIdReferenceModel(), that.getIdReferenceModel()) &&
-                Objects.equals(getQuestions(), that.getQuestions());
+                Objects.equals(getQuestions(), that.getQuestions()) &&
+                Objects.equals(getGoals(), that.getGoals());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdMeasurementFramework(), getName(), getIdReferenceModel(), getQuestions());
+        return Objects.hash(getIdMeasurementFramework(), getName(), getIdReferenceModel(), getQuestions(), getGoals());
     }
 }
