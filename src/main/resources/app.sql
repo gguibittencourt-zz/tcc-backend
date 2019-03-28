@@ -29,18 +29,33 @@ CREATE UNIQUE INDEX user_username_uindex
 
 CREATE TABLE reference_model
 (
-  id_reference_model   int PRIMARY KEY AUTO_INCREMENT,
-  name                 varchar(200) NOT NULL,
-  knowledge_areas json
+  id_reference_model int PRIMARY KEY AUTO_INCREMENT,
+  name               varchar(200) NOT NULL,
+  knowledge_areas    json
 );
 
 CREATE TABLE measurement_framework
 (
   id_measurement_framework   int PRIMARY KEY AUTO_INCREMENT,
-  name                 varchar(200) NOT NULL,
-  id_reference_model int not null,
+  name                       varchar(200) NOT NULL,
+  id_reference_model         int          not null,
   json_measurement_framework json,
 
   CONSTRAINT id_reference_model_measurement_framework_fk
   FOREIGN KEY (id_reference_model) REFERENCES reference_model (id_reference_model)
+);
+
+CREATE TABLE evaluation
+(
+  id_evaluation            int PRIMARY KEY AUTO_INCREMENT,
+  date                     datetime NOT NULL,
+  id_user                  int      not null,
+  status                   varchar(30),
+  id_measurement_framework int      not null,
+  json_evaluation          json,
+
+  CONSTRAINT id_measurement_framework_evaluation_fk
+  FOREIGN KEY (id_measurement_framework) REFERENCES measurement_framework (id_measurement_framework),
+  CONSTRAINT id_user_evaluation_fk
+  FOREIGN KEY (id_user) REFERENCES user (id_user)
 );

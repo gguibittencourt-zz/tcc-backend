@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MeasurementFrameworkRecord extends UpdatableRecordImpl<MeasurementFrameworkRecord> implements Record4<Integer, String, Integer, Object> {
 
-    private static final long serialVersionUID = -2056733537;
+    private static final long serialVersionUID = 1507333823;
 
     /**
      * Setter for <code>app.measurement_framework.id_measurement_framework</code>.

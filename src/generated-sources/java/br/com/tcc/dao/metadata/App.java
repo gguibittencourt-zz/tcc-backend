@@ -5,6 +5,7 @@ package br.com.tcc.dao.metadata;
 
 
 import br.com.tcc.dao.metadata.tables.Company;
+import br.com.tcc.dao.metadata.tables.Evaluation;
 import br.com.tcc.dao.metadata.tables.MeasurementFramework;
 import br.com.tcc.dao.metadata.tables.ReferenceModel;
 import br.com.tcc.dao.metadata.tables.User;
@@ -33,7 +34,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class App extends SchemaImpl {
 
-    private static final long serialVersionUID = 1069910520;
+    private static final long serialVersionUID = -1024875327;
 
     /**
      * The reference instance of <code>app</code>
@@ -43,22 +44,27 @@ public class App extends SchemaImpl {
     /**
      * The table <code>app.company</code>.
      */
-    public final Company COMPANY = Company.COMPANY;
+    public final Company COMPANY = br.com.tcc.dao.metadata.tables.Company.COMPANY;
+
+    /**
+     * The table <code>app.evaluation</code>.
+     */
+    public final Evaluation EVALUATION = br.com.tcc.dao.metadata.tables.Evaluation.EVALUATION;
 
     /**
      * The table <code>app.measurement_framework</code>.
      */
-    public final MeasurementFramework MEASUREMENT_FRAMEWORK = MeasurementFramework.MEASUREMENT_FRAMEWORK;
+    public final MeasurementFramework MEASUREMENT_FRAMEWORK = br.com.tcc.dao.metadata.tables.MeasurementFramework.MEASUREMENT_FRAMEWORK;
 
     /**
      * The table <code>app.reference_model</code>.
      */
-    public final ReferenceModel REFERENCE_MODEL = ReferenceModel.REFERENCE_MODEL;
+    public final ReferenceModel REFERENCE_MODEL = br.com.tcc.dao.metadata.tables.ReferenceModel.REFERENCE_MODEL;
 
     /**
      * The table <code>app.user</code>.
      */
-    public final User USER = User.USER;
+    public final User USER = br.com.tcc.dao.metadata.tables.User.USER;
 
     /**
      * No further instances allowed
@@ -86,6 +92,7 @@ public class App extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Company.COMPANY,
+            Evaluation.EVALUATION,
             MeasurementFramework.MEASUREMENT_FRAMEWORK,
             ReferenceModel.REFERENCE_MODEL,
             User.USER);

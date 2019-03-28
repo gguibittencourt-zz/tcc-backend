@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CompanyRecord extends UpdatableRecordImpl<CompanyRecord> implements Record5<Integer, String, Integer, Integer, String> {
 
-    private static final long serialVersionUID = 1252920100;
+    private static final long serialVersionUID = -547523260;
 
     /**
      * Setter for <code>app.company.id_company</code>.

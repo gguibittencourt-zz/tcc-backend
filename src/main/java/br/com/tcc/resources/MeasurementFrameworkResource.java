@@ -16,25 +16,33 @@ import java.util.Collection;
 public class MeasurementFrameworkResource {
 
     private static final Gson GSON = new Gson();
-    private final MeasurementFrameworkService measurementFramework;
+    private final MeasurementFrameworkService measurementFrameworkService;
 
     @Autowired
     public MeasurementFrameworkResource(MeasurementFrameworkService measurementFramework) {
-        this.measurementFramework = measurementFramework;
+        this.measurementFrameworkService = measurementFramework;
     }
 
     @GET
     @Path("/{idMeasurementFramework}")
     public Response get(@PathParam("idMeasurementFramework") Integer idMeasurementFramework) {
-        MeasurementFramework measurementFramework = this.measurementFramework.get(idMeasurementFramework);
+        MeasurementFramework measurementFramework = this.measurementFrameworkService.get(idMeasurementFramework);
         return Response.ok(GSON.toJson(measurementFramework))
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .build();
     }
 
     @GET
+    @Path("/list/{idMeasurementFrameworks}")
+    public Response getByList(@PathParam("idMeasurementFrameworks") String idMeasurementFrameworks) {
+        return Response.ok()
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .build();
+    }
+
+    @GET
     public Response list() {
-        Collection<MeasurementFramework> measurementFrameworks = this.measurementFramework.list();
+        Collection<MeasurementFramework> measurementFrameworks = this.measurementFrameworkService.list();
         return Response.ok(GSON.toJson(measurementFrameworks))
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .build();
@@ -43,7 +51,7 @@ public class MeasurementFrameworkResource {
     @POST
     public Response register(String measurementFrameworkJson) {
         MeasurementFramework measurementFramework = GSON.fromJson(measurementFrameworkJson, MeasurementFramework.class);
-        this.measurementFramework.register(measurementFramework);
+        this.measurementFrameworkService.register(measurementFramework);
         return Response.ok(GSON.toJson(measurementFramework))
                 .type(MediaType.APPLICATION_JSON)
                 .build();
@@ -53,7 +61,7 @@ public class MeasurementFrameworkResource {
     @Path("/{idMeasurementFramework}")
     public Response update(@PathParam("idMeasurementFramework") Integer idMeasurementFramework, String measurementFrameworkJson) {
         MeasurementFramework measurementFramework = GSON.fromJson(measurementFrameworkJson, MeasurementFramework.class);
-        this.measurementFramework.update(idMeasurementFramework, measurementFramework);
+        this.measurementFrameworkService.update(idMeasurementFramework, measurementFramework);
         return Response.ok()
                 .build();
     }
@@ -61,7 +69,7 @@ public class MeasurementFrameworkResource {
     @DELETE
     @Path("/{idMeasurementFramework}")
     public Response delete(@PathParam("idMeasurementFramework") Integer idMeasurementFramework) {
-        this.measurementFramework.delete(idMeasurementFramework);
+        this.measurementFrameworkService.delete(idMeasurementFramework);
         return Response.ok()
                 .build();
     }

@@ -27,7 +27,7 @@ import org.jooq.impl.CatalogImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultCatalog extends CatalogImpl {
 
-    private static final long serialVersionUID = -979139832;
+    private static final long serialVersionUID = 1354797096;
 
     /**
      * The reference instance of <code></code>
@@ -37,7 +37,7 @@ public class DefaultCatalog extends CatalogImpl {
     /**
      * The schema <code>app</code>.
      */
-    public final App APP = App.APP;
+    public final App APP = br.com.tcc.dao.metadata.App.APP;
 
     /**
      * No further instances allowed

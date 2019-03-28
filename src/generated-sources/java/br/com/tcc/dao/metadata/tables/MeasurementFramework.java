@@ -36,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MeasurementFramework extends TableImpl<MeasurementFrameworkRecord> {
 
-    private static final long serialVersionUID = -328564225;
+    private static final long serialVersionUID = 556955071;
 
     /**
      * The reference instance of <code>app.measurement_framework</code>
