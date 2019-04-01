@@ -15,4 +15,6 @@ public interface MeasurementFrameworkService {
     Integer update(Integer idMeasurementFramework, MeasurementFramework referenceModel);
 
     Integer delete(Integer idMeasurementFramework);
+
+    Collection<MeasurementFramework> listByIds(Collection<Integer> idsMeasurementFramwork);
 }

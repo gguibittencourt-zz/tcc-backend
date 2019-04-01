@@ -3,6 +3,8 @@ package br.com.tcc.dao.impl;
 import br.com.tcc.dao.EvaluationDAO;
 import br.com.tcc.dao.metadata.Tables;
 import br.com.tcc.dto.Evaluation;
+import br.com.tcc.dto.Result;
+import br.com.tcc.util.Constants;
 import com.google.gson.Gson;
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -48,6 +50,7 @@ public class EvaluationDAOImpl implements EvaluationDAO {
                 .set(Tables.EVALUATION.ID_MEASUREMENT_FRAMEWORK, evaluation.getIdMeasurementFramework())
                 .set(Tables.EVALUATION.STATUS, evaluation.getStatus())
                 .set(Tables.EVALUATION.DATE, evaluation.getDate())
+                .set(Tables.EVALUATION.JSON_EVALUATION, GSON.toJson(evaluation.getResults()))
                 .returning(Tables.EVALUATION.ID_EVALUATION)
                 .fetchOne().getIdEvaluation();
     }
@@ -60,6 +63,7 @@ public class EvaluationDAOImpl implements EvaluationDAO {
                 .set(Tables.EVALUATION.ID_MEASUREMENT_FRAMEWORK, evaluation.getIdMeasurementFramework())
                 .set(Tables.EVALUATION.STATUS, evaluation.getStatus())
                 .set(Tables.EVALUATION.DATE, evaluation.getDate())
+                .set(Tables.EVALUATION.JSON_EVALUATION, GSON.toJson(evaluation.getResults()))
                 .where(Tables.EVALUATION.ID_EVALUATION.eq(idEvaluation))
                 .execute();
     }
@@ -73,11 +77,13 @@ public class EvaluationDAOImpl implements EvaluationDAO {
     }
 
     private Evaluation template(Record measurementFrameworkRecord) {
+        Collection<Result> results = GSON.fromJson(String.valueOf(measurementFrameworkRecord.get(Tables.EVALUATION.JSON_EVALUATION)), Constants.RESULT_LIST_TYPE);
         return new Evaluation()
                 .setIdEvaluation(measurementFrameworkRecord.get(Tables.EVALUATION.ID_EVALUATION))
                 .setIdMeasurementFramework(measurementFrameworkRecord.get(Tables.EVALUATION.ID_MEASUREMENT_FRAMEWORK))
                 .setIdUser(measurementFrameworkRecord.get(Tables.EVALUATION.ID_USER))
                 .setStatus(measurementFrameworkRecord.get(Tables.EVALUATION.STATUS))
-                .setDate(measurementFrameworkRecord.get(Tables.EVALUATION.DATE));
+                .setDate(measurementFrameworkRecord.get(Tables.EVALUATION.DATE))
+                .setResults(results);
     }
 }

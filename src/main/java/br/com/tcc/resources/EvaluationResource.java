@@ -33,14 +33,6 @@ public class EvaluationResource {
     }
 
     @GET
-    @Path("/list/{idEvaluations}")
-    public Response getByList(@PathParam("idEvaluations") String idEvaluations) {
-        return Response.ok()
-                .type(MediaType.APPLICATION_JSON_TYPE)
-                .build();
-    }
-
-    @GET
     public Response list() {
         Collection<Evaluation> evaluations = this.evaluationService.list();
         return Response.ok(GSON.toJson(evaluations))

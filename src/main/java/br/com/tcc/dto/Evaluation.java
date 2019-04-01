@@ -1,6 +1,9 @@
 package br.com.tcc.dto;
 
+import br.com.tcc.dao.metadata.enums.EvaluationStatus;
+
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Objects;
 
 public class Evaluation {
@@ -8,8 +11,9 @@ public class Evaluation {
     private Integer idEvaluation;
     private LocalDateTime date;
     private Integer idUser;
-    private String status;
+    private EvaluationStatus status;
     private Integer idMeasurementFramework;
+    private Collection<Result> results;
 
     public Integer getIdEvaluation() {
         return idEvaluation;
@@ -38,11 +42,11 @@ public class Evaluation {
         return this;
     }
 
-    public String getStatus() {
+    public EvaluationStatus getStatus() {
         return status;
     }
 
-    public Evaluation setStatus(String status) {
+    public Evaluation setStatus(EvaluationStatus status) {
         this.status = status;
         return this;
     }
@@ -56,6 +60,16 @@ public class Evaluation {
         return this;
     }
 
+    public Collection<Result> getResults() {
+        return results;
+    }
+
+    public Evaluation setResults(Collection<Result> results) {
+        this.results = results;
+        return this;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,11 +79,12 @@ public class Evaluation {
                 Objects.equals(getDate(), that.getDate()) &&
                 Objects.equals(getIdUser(), that.getIdUser()) &&
                 Objects.equals(getStatus(), that.getStatus()) &&
-                Objects.equals(getIdMeasurementFramework(), that.getIdMeasurementFramework());
+                Objects.equals(getIdMeasurementFramework(), that.getIdMeasurementFramework()) &&
+                Objects.equals(getResults(), that.getResults());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdEvaluation(), getDate(), getIdUser(), getStatus(), getIdMeasurementFramework());
+        return Objects.hash(getIdEvaluation(), getDate(), getIdUser(), getStatus(), getIdMeasurementFramework(), getResults());
     }
 }

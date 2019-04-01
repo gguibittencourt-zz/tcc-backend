@@ -43,4 +43,9 @@ public class MeasurementFrameworkServiceImpl implements MeasurementFrameworkServ
         return this.measurementFrameworkDAO.delete(idMeasurementFramework);
     }
 
+    @Override
+    public Collection<MeasurementFramework> listByIds(Collection<Integer> idsMeasurementFramework) {
+        return this.measurementFrameworkDAO.listByIds(idsMeasurementFramework);
+    }
+
 }

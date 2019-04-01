@@ -6,6 +6,7 @@ package br.com.tcc.dao.metadata.tables;
 
 import br.com.tcc.dao.metadata.App;
 import br.com.tcc.dao.metadata.Keys;
+import br.com.tcc.dao.metadata.enums.EvaluationStatus;
 import br.com.tcc.dao.metadata.tables.records.EvaluationRecord;
 
 import java.time.LocalDateTime;
@@ -37,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Evaluation extends TableImpl<EvaluationRecord> {
 
-    private static final long serialVersionUID = -1603766178;
+    private static final long serialVersionUID = 2087413723;
 
     /**
      * The reference instance of <code>app.evaluation</code>
@@ -70,7 +71,7 @@ public class Evaluation extends TableImpl<EvaluationRecord> {
     /**
      * The column <code>app.evaluation.status</code>.
      */
-    public final TableField<EvaluationRecord, String> STATUS = createField("status", org.jooq.impl.SQLDataType.VARCHAR.length(30), this, "");
+    public final TableField<EvaluationRecord, EvaluationStatus> STATUS = createField("status", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(br.com.tcc.dao.metadata.enums.EvaluationStatus.class), this, "");
 
     /**
      * The column <code>app.evaluation.id_measurement_framework</code>.

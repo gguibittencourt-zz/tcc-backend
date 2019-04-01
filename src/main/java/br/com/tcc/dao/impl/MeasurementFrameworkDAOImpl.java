@@ -80,6 +80,15 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .execute();
     }
 
+    @Override
+    public Collection<MeasurementFramework> listByIds(Collection<Integer> idsMeasurementFramework) {
+        return this.dslContext
+                .selectFrom(Tables.MEASUREMENT_FRAMEWORK)
+                .where(Tables.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK.in(idsMeasurementFramework))
+                .fetch()
+                .map(this::template);
+    }
+
     private MeasurementFramework template(Record measurementFrameworkRecord) {
         MeasurementFrameworkConfig config = GSON.fromJson(String.valueOf(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.JSON_MEASUREMENT_FRAMEWORK)), MeasurementFrameworkConfig.class);
         return new MeasurementFramework()

@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
+import static br.com.tcc.util.Constants.INTEGER_LIST_TYPE;
+
 @Path("measurement-frameworks")
 @Controller
 public class MeasurementFrameworkResource {
@@ -32,13 +34,16 @@ public class MeasurementFrameworkResource {
                 .build();
     }
 
-    @GET
-    @Path("/list/{idMeasurementFrameworks}")
-    public Response getByList(@PathParam("idMeasurementFrameworks") String idMeasurementFrameworks) {
-        return Response.ok()
+    @POST
+    @Path("/list")
+    public Response getByList(String idsMeasurementFrameworks) {
+        Collection<Integer> ids = GSON.fromJson(idsMeasurementFrameworks, INTEGER_LIST_TYPE);
+        Collection<MeasurementFramework> measurementFrameworks = this.measurementFrameworkService.listByIds(ids);
+        return Response.ok(GSON.toJson(measurementFrameworks))
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .build();
     }
+
 
     @GET
     public Response list() {

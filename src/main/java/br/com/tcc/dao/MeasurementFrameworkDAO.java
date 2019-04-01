@@ -15,4 +15,6 @@ public interface MeasurementFrameworkDAO {
     Integer update(Integer idMeasurementFramework, MeasurementFramework measurementFramework);
 
     Integer delete(Integer idMeasurementFramework);
+
+    Collection<MeasurementFramework> listByIds(Collection<Integer> idsMeasurementFramework);
 }

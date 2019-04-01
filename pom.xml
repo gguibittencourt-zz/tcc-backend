@@ -238,6 +238,15 @@
                                     <inputSchema>app</inputSchema>
                                 </schema>
                             </schemata>
+                            <forcedTypes>
+                                <forcedType>
+                                    <userType>br.com.tcc.dto.Status</userType>
+                                    <converter>
+                                        br.com.tcc.util.EnumConverters
+                                    </converter>
+                                    <types>evaluation_status</types>
+                                </forcedType>
+                            </forcedTypes>
                         </database>
                         <generate>
                             <relations>false</relations>

@@ -1,11 +1,15 @@
 package br.com.tcc.services.impl;
 
 import br.com.tcc.dao.EvaluationDAO;
+import br.com.tcc.dao.metadata.enums.EvaluationStatus;
 import br.com.tcc.dto.Evaluation;
+import br.com.tcc.dto.Status;
 import br.com.tcc.services.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Service
@@ -30,6 +34,9 @@ public class EvaluationServiceImpl implements EvaluationService {
 
     @Override
     public Integer register(Evaluation evaluation) {
+        evaluation
+                .setDate(LocalDateTime.now())
+                .setStatus(EvaluationStatus.initiated);
         return this.evaluationDAO.register(evaluation);
     }
 

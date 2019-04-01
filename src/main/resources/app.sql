@@ -50,10 +50,9 @@ CREATE TABLE evaluation
   id_evaluation            int PRIMARY KEY AUTO_INCREMENT,
   date                     datetime NOT NULL,
   id_user                  int      not null,
-  status                   varchar(30),
+  status                   ENUM ('initiated', 'in_progress', 'finalized'),
   id_measurement_framework int      not null,
   json_evaluation          json,
-
   CONSTRAINT id_measurement_framework_evaluation_fk
   FOREIGN KEY (id_measurement_framework) REFERENCES measurement_framework (id_measurement_framework),
   CONSTRAINT id_user_evaluation_fk
