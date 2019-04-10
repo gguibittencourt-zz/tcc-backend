@@ -36,7 +36,7 @@ public class EvaluationServiceImpl implements EvaluationService {
     public Integer register(Evaluation evaluation) {
         evaluation
                 .setDate(LocalDateTime.now())
-                .setStatus(EvaluationStatus.initiated);
+                .setStatus(EvaluationStatus.in_progress);
         return this.evaluationDAO.register(evaluation);
     }
 
