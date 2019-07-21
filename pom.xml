@@ -244,7 +244,7 @@
                                     <converter>
                                         br.com.tcc.util.EnumConverters
                                     </converter>
-                                    <types>evaluation_status</types>
+                                    <types>assessment_status</types>
                                 </forcedType>
                             </forcedTypes>
                         </database>

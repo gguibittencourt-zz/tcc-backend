@@ -4,8 +4,8 @@
 package br.com.tcc.dao.metadata;
 
 
+import br.com.tcc.dao.metadata.tables.Assessment;
 import br.com.tcc.dao.metadata.tables.Company;
-import br.com.tcc.dao.metadata.tables.Evaluation;
 import br.com.tcc.dao.metadata.tables.MeasurementFramework;
 import br.com.tcc.dao.metadata.tables.ReferenceModel;
 import br.com.tcc.dao.metadata.tables.User;
@@ -27,14 +27,14 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
+     * The table <code>app.assessment</code>.
+     */
+    public static final Assessment ASSESSMENT = br.com.tcc.dao.metadata.tables.Assessment.ASSESSMENT;
+
+    /**
      * The table <code>app.company</code>.
      */
     public static final Company COMPANY = br.com.tcc.dao.metadata.tables.Company.COMPANY;
-
-    /**
-     * The table <code>app.evaluation</code>.
-     */
-    public static final Evaluation EVALUATION = br.com.tcc.dao.metadata.tables.Evaluation.EVALUATION;
 
     /**
      * The table <code>app.measurement_framework</code>.

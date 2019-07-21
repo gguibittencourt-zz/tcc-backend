@@ -4,13 +4,13 @@
 package br.com.tcc.dao.metadata;
 
 
+import br.com.tcc.dao.metadata.tables.Assessment;
 import br.com.tcc.dao.metadata.tables.Company;
-import br.com.tcc.dao.metadata.tables.Evaluation;
 import br.com.tcc.dao.metadata.tables.MeasurementFramework;
 import br.com.tcc.dao.metadata.tables.ReferenceModel;
 import br.com.tcc.dao.metadata.tables.User;
+import br.com.tcc.dao.metadata.tables.records.AssessmentRecord;
 import br.com.tcc.dao.metadata.tables.records.CompanyRecord;
-import br.com.tcc.dao.metadata.tables.records.EvaluationRecord;
 import br.com.tcc.dao.metadata.tables.records.MeasurementFrameworkRecord;
 import br.com.tcc.dao.metadata.tables.records.ReferenceModelRecord;
 import br.com.tcc.dao.metadata.tables.records.UserRecord;
@@ -41,8 +41,8 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<AssessmentRecord, Integer> IDENTITY_ASSESSMENT = Identities0.IDENTITY_ASSESSMENT;
     public static final Identity<CompanyRecord, Integer> IDENTITY_COMPANY = Identities0.IDENTITY_COMPANY;
-    public static final Identity<EvaluationRecord, Integer> IDENTITY_EVALUATION = Identities0.IDENTITY_EVALUATION;
     public static final Identity<MeasurementFrameworkRecord, Integer> IDENTITY_MEASUREMENT_FRAMEWORK = Identities0.IDENTITY_MEASUREMENT_FRAMEWORK;
     public static final Identity<ReferenceModelRecord, Integer> IDENTITY_REFERENCE_MODEL = Identities0.IDENTITY_REFERENCE_MODEL;
     public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
@@ -51,8 +51,8 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<AssessmentRecord> KEY_ASSESSMENT_PRIMARY = UniqueKeys0.KEY_ASSESSMENT_PRIMARY;
     public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = UniqueKeys0.KEY_COMPANY_PRIMARY;
-    public static final UniqueKey<EvaluationRecord> KEY_EVALUATION_PRIMARY = UniqueKeys0.KEY_EVALUATION_PRIMARY;
     public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_PRIMARY = UniqueKeys0.KEY_MEASUREMENT_FRAMEWORK_PRIMARY;
     public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = UniqueKeys0.KEY_REFERENCE_MODEL_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
@@ -62,8 +62,7 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<EvaluationRecord, UserRecord> ID_USER_EVALUATION_FK = ForeignKeys0.ID_USER_EVALUATION_FK;
-    public static final ForeignKey<EvaluationRecord, MeasurementFrameworkRecord> ID_MEASUREMENT_FRAMEWORK_EVALUATION_FK = ForeignKeys0.ID_MEASUREMENT_FRAMEWORK_EVALUATION_FK;
+    public static final ForeignKey<AssessmentRecord, UserRecord> ID_USER_ASSESSMENT_FK = ForeignKeys0.ID_USER_ASSESSMENT_FK;
     public static final ForeignKey<MeasurementFrameworkRecord, ReferenceModelRecord> ID_REFERENCE_MODEL_MEASUREMENT_FRAMEWORK_FK = ForeignKeys0.ID_REFERENCE_MODEL_MEASUREMENT_FRAMEWORK_FK;
     public static final ForeignKey<UserRecord, CompanyRecord> USER_ID_COMPANY_FK = ForeignKeys0.USER_ID_COMPANY_FK;
 
@@ -72,16 +71,16 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
+        public static Identity<AssessmentRecord, Integer> IDENTITY_ASSESSMENT = createIdentity(Assessment.ASSESSMENT, Assessment.ASSESSMENT.ID_ASSESSMENT);
         public static Identity<CompanyRecord, Integer> IDENTITY_COMPANY = createIdentity(Company.COMPANY, Company.COMPANY.ID_COMPANY);
-        public static Identity<EvaluationRecord, Integer> IDENTITY_EVALUATION = createIdentity(Evaluation.EVALUATION, Evaluation.EVALUATION.ID_EVALUATION);
         public static Identity<MeasurementFrameworkRecord, Integer> IDENTITY_MEASUREMENT_FRAMEWORK = createIdentity(MeasurementFramework.MEASUREMENT_FRAMEWORK, MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK);
         public static Identity<ReferenceModelRecord, Integer> IDENTITY_REFERENCE_MODEL = createIdentity(ReferenceModel.REFERENCE_MODEL, ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
         public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.ID_USER);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
+        public static final UniqueKey<AssessmentRecord> KEY_ASSESSMENT_PRIMARY = createUniqueKey(Assessment.ASSESSMENT, "KEY_assessment_PRIMARY", Assessment.ASSESSMENT.ID_ASSESSMENT);
         public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = createUniqueKey(Company.COMPANY, "KEY_company_PRIMARY", Company.COMPANY.ID_COMPANY);
-        public static final UniqueKey<EvaluationRecord> KEY_EVALUATION_PRIMARY = createUniqueKey(Evaluation.EVALUATION, "KEY_evaluation_PRIMARY", Evaluation.EVALUATION.ID_EVALUATION);
         public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_PRIMARY = createUniqueKey(MeasurementFramework.MEASUREMENT_FRAMEWORK, "KEY_measurement_framework_PRIMARY", MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK);
         public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = createUniqueKey(ReferenceModel.REFERENCE_MODEL, "KEY_reference_model_PRIMARY", ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID_USER);
@@ -89,8 +88,7 @@ public class Keys {
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
-        public static final ForeignKey<EvaluationRecord, UserRecord> ID_USER_EVALUATION_FK = createForeignKey(br.com.tcc.dao.metadata.Keys.KEY_USER_PRIMARY, Evaluation.EVALUATION, "id_user_evaluation_fk", Evaluation.EVALUATION.ID_USER);
-        public static final ForeignKey<EvaluationRecord, MeasurementFrameworkRecord> ID_MEASUREMENT_FRAMEWORK_EVALUATION_FK = createForeignKey(br.com.tcc.dao.metadata.Keys.KEY_MEASUREMENT_FRAMEWORK_PRIMARY, Evaluation.EVALUATION, "id_measurement_framework_evaluation_fk", Evaluation.EVALUATION.ID_MEASUREMENT_FRAMEWORK);
+        public static final ForeignKey<AssessmentRecord, UserRecord> ID_USER_ASSESSMENT_FK = createForeignKey(br.com.tcc.dao.metadata.Keys.KEY_USER_PRIMARY, Assessment.ASSESSMENT, "id_user_assessment_fk", Assessment.ASSESSMENT.ID_USER);
         public static final ForeignKey<MeasurementFrameworkRecord, ReferenceModelRecord> ID_REFERENCE_MODEL_MEASUREMENT_FRAMEWORK_FK = createForeignKey(br.com.tcc.dao.metadata.Keys.KEY_REFERENCE_MODEL_PRIMARY, MeasurementFramework.MEASUREMENT_FRAMEWORK, "id_reference_model_measurement_framework_fk", MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_REFERENCE_MODEL);
         public static final ForeignKey<UserRecord, CompanyRecord> USER_ID_COMPANY_FK = createForeignKey(br.com.tcc.dao.metadata.Keys.KEY_COMPANY_PRIMARY, User.USER, "user_id_company_fk", User.USER.ID_COMPANY);
     }

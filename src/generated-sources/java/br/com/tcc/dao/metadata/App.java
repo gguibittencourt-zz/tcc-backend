@@ -4,8 +4,8 @@
 package br.com.tcc.dao.metadata;
 
 
+import br.com.tcc.dao.metadata.tables.Assessment;
 import br.com.tcc.dao.metadata.tables.Company;
-import br.com.tcc.dao.metadata.tables.Evaluation;
 import br.com.tcc.dao.metadata.tables.MeasurementFramework;
 import br.com.tcc.dao.metadata.tables.ReferenceModel;
 import br.com.tcc.dao.metadata.tables.User;
@@ -34,7 +34,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class App extends SchemaImpl {
 
-    private static final long serialVersionUID = -1024875327;
+    private static final long serialVersionUID = -598427539;
 
     /**
      * The reference instance of <code>app</code>
@@ -42,14 +42,14 @@ public class App extends SchemaImpl {
     public static final App APP = new App();
 
     /**
+     * The table <code>app.assessment</code>.
+     */
+    public final Assessment ASSESSMENT = br.com.tcc.dao.metadata.tables.Assessment.ASSESSMENT;
+
+    /**
      * The table <code>app.company</code>.
      */
     public final Company COMPANY = br.com.tcc.dao.metadata.tables.Company.COMPANY;
-
-    /**
-     * The table <code>app.evaluation</code>.
-     */
-    public final Evaluation EVALUATION = br.com.tcc.dao.metadata.tables.Evaluation.EVALUATION;
 
     /**
      * The table <code>app.measurement_framework</code>.
@@ -91,8 +91,8 @@ public class App extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Assessment.ASSESSMENT,
             Company.COMPANY,
-            Evaluation.EVALUATION,
             MeasurementFramework.MEASUREMENT_FRAMEWORK,
             ReferenceModel.REFERENCE_MODEL,
             User.USER);
