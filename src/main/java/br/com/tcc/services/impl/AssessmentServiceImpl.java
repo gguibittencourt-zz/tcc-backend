@@ -34,7 +34,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     public Integer register(Assessment assessment) {
         assessment
                 .setDate(LocalDateTime.now())
-                .setStatus(AssessmentStatus.initiated);
+                .setStatus(assessment.getStatus() == null ? AssessmentStatus.in_progress : assessment.getStatus());
         return this.assessmentDAO.register(assessment);
     }
 

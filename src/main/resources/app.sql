@@ -50,7 +50,7 @@ CREATE TABLE assessment
   id_assessment            int PRIMARY KEY AUTO_INCREMENT,
   date                     datetime NOT NULL,
   id_user                  int      not null,
-  status                   ENUM ('initiated', 'in_progress', 'finalized'),
+  status                   ENUM ('in_progress', 'finalized'),
   json_assessment          json,
   CONSTRAINT id_user_assessment_fk
   FOREIGN KEY (id_user) REFERENCES user (id_user)

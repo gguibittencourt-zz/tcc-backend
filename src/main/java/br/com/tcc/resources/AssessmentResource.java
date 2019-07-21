@@ -1,6 +1,8 @@
 package br.com.tcc.resources;
 
+import br.com.tcc.dao.metadata.enums.AssessmentStatus;
 import br.com.tcc.dto.Assessment;
+import br.com.tcc.dto.ReferenceModel;
 import br.com.tcc.services.AssessmentService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,23 @@ public class AssessmentResource {
     public Response register(String assessmentJson) {
         Assessment assessment = GSON.fromJson(assessmentJson, Assessment.class);
         this.assessmentService.register(assessment);
+        return Response.ok(GSON.toJson(assessment))
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
+
+    @PUT
+    @Path("/finish")
+    public Response finish(String assessmentJson) {
+        Assessment assessment = GSON.fromJson(assessmentJson, Assessment.class);
+        assessment.setStatus(AssessmentStatus.finalized);
+
+        if (assessment.getIdAssessment() != null) {
+            this.assessmentService.update(assessment.getIdAssessment(), assessment);
+        } else {
+            this.assessmentService.register(assessment);
+        }
+
         return Response.ok(GSON.toJson(assessment))
                 .type(MediaType.APPLICATION_JSON)
                 .build();

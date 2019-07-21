@@ -20,7 +20,7 @@ public class ReferenceModelServiceImpl implements ReferenceModelService {
 
     @Override
     public Collection<ReferenceModel> list() {
-        return this.referenceModelDAO.list();
+         return this.referenceModelDAO.list();
     }
 
     @Override

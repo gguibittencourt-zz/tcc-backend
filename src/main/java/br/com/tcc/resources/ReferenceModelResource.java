@@ -1,7 +1,6 @@
 package br.com.tcc.resources;
 
 import br.com.tcc.dto.ReferenceModel;
-import br.com.tcc.exception.BusinessException;
 import br.com.tcc.services.ReferenceModelService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
