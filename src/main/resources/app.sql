@@ -38,6 +38,7 @@ CREATE TABLE measurement_framework
 (
   id_measurement_framework   int PRIMARY KEY AUTO_INCREMENT,
   name                       varchar(200) NOT NULL UNIQUE,
+  type                       varchar(200) NOT NULL,
   id_reference_model         int          not null,
   json_measurement_framework json,
 

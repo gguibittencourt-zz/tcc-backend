@@ -24,6 +24,8 @@ import org.jooq.Schema;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public enum AssessmentStatus implements EnumType {
 
+    initiated("initiated"),
+
     in_progress("in_progress"),
 
     finalized("finalized");

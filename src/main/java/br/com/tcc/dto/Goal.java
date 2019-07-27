@@ -7,6 +7,7 @@ public class Goal {
     private String idGoal;
     private String idReference;
     private Float percentage;
+    private MetricScale metrics;
 
     public String getIdGoal() {
         return idGoal;

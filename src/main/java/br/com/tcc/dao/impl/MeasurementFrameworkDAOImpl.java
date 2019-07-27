@@ -52,6 +52,7 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
         return this.dslContext
                 .insertInto(Tables.MEASUREMENT_FRAMEWORK)
                 .set(Tables.MEASUREMENT_FRAMEWORK.NAME, measurementFramework.getName())
+                .set(Tables.MEASUREMENT_FRAMEWORK.TYPE, measurementFramework.getType())
                 .set(Tables.MEASUREMENT_FRAMEWORK.ID_REFERENCE_MODEL, measurementFramework.getIdReferenceModel())
                 .set(Tables.MEASUREMENT_FRAMEWORK.JSON_MEASUREMENT_FRAMEWORK, GSON.toJson(config))
                 .returning(Tables.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK)
@@ -66,6 +67,7 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
         return this.dslContext
                 .update(Tables.MEASUREMENT_FRAMEWORK)
                 .set(Tables.MEASUREMENT_FRAMEWORK.NAME, measurementFramework.getName())
+                .set(Tables.MEASUREMENT_FRAMEWORK.TYPE, measurementFramework.getType())
                 .set(Tables.MEASUREMENT_FRAMEWORK.ID_REFERENCE_MODEL, measurementFramework.getIdReferenceModel())
                 .set(Tables.MEASUREMENT_FRAMEWORK.JSON_MEASUREMENT_FRAMEWORK, GSON.toJson(config))
                 .where(Tables.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK.eq(idMeasurementFramework))
@@ -95,6 +97,7 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .setIdMeasurementFramework(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK))
                 .setIdReferenceModel(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.ID_REFERENCE_MODEL))
                 .setName(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.NAME))
+                .setType(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.TYPE))
                 .setQuestions(config.getQuestions())
                 .setGoals(config.getGoals());
     }

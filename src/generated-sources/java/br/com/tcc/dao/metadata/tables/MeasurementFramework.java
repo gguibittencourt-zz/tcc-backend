@@ -36,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MeasurementFramework extends TableImpl<MeasurementFrameworkRecord> {
 
-    private static final long serialVersionUID = 556955071;
+    private static final long serialVersionUID = 209340248;
 
     /**
      * The reference instance of <code>app.measurement_framework</code>
@@ -60,6 +60,11 @@ public class MeasurementFramework extends TableImpl<MeasurementFrameworkRecord> 
      * The column <code>app.measurement_framework.name</code>.
      */
     public final TableField<MeasurementFrameworkRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(200).nullable(false), this, "");
+
+    /**
+     * The column <code>app.measurement_framework.type</code>.
+     */
+    public final TableField<MeasurementFrameworkRecord, String> TYPE = createField("type", org.jooq.impl.SQLDataType.VARCHAR.length(200).nullable(false), this, "");
 
     /**
      * The column <code>app.measurement_framework.id_reference_model</code>.
@@ -122,7 +127,7 @@ public class MeasurementFramework extends TableImpl<MeasurementFrameworkRecord> 
      */
     @Override
     public List<UniqueKey<MeasurementFrameworkRecord>> getKeys() {
-        return Arrays.<UniqueKey<MeasurementFrameworkRecord>>asList(Keys.KEY_MEASUREMENT_FRAMEWORK_PRIMARY);
+        return Arrays.<UniqueKey<MeasurementFrameworkRecord>>asList(Keys.KEY_MEASUREMENT_FRAMEWORK_PRIMARY, Keys.KEY_MEASUREMENT_FRAMEWORK_NAME);
     }
 
     /**
