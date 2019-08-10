@@ -8,7 +8,6 @@ public class MetricScale {
     private String idMetricScale;
     private String name;
     private Collection<MetricScale> values;
-    private Collection<MetricScale> valueMetrics;
 
     public String getIdMetricScale() {
         return idMetricScale;
@@ -37,15 +36,6 @@ public class MetricScale {
         return this;
     }
 
-    public Collection<MetricScale> getValueMetrics() {
-        return valueMetrics;
-    }
-
-    public MetricScale setValueMetrics(Collection<MetricScale> valueMetrics) {
-        this.valueMetrics = valueMetrics;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,12 +43,11 @@ public class MetricScale {
         MetricScale that = (MetricScale) o;
         return Objects.equals(getIdMetricScale(), that.getIdMetricScale()) &&
                 Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getValues(), that.getValues()) &&
-                Objects.equals(getValueMetrics(), that.getValueMetrics());
+                Objects.equals(getValues(), that.getValues());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdMetricScale(), getName(), getValues(), getValueMetrics());
+        return Objects.hash(getIdMetricScale(), getName(), getValues());
     }
 }

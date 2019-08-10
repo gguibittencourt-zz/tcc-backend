@@ -1,5 +1,6 @@
 package br.com.tcc.dto;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Goal {
@@ -7,7 +8,7 @@ public class Goal {
     private String idGoal;
     private String idReference;
     private Float percentage;
-    private MetricScale metrics;
+    private MetricScale[] metrics;
 
     public String getIdGoal() {
         return idGoal;
@@ -36,6 +37,15 @@ public class Goal {
         return this;
     }
 
+    public MetricScale[] getMetrics() {
+        return metrics;
+    }
+
+    public Goal setMetrics(MetricScale[] metrics) {
+        this.metrics = metrics;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,11 +53,14 @@ public class Goal {
         Goal goal = (Goal) o;
         return Objects.equals(getIdGoal(), goal.getIdGoal()) &&
                 Objects.equals(getIdReference(), goal.getIdReference()) &&
-                Objects.equals(getPercentage(), goal.getPercentage());
+                Objects.equals(getPercentage(), goal.getPercentage()) &&
+                Arrays.equals(getMetrics(), goal.getMetrics());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdGoal(), getIdReference(), getPercentage());
+        int result = Objects.hash(getIdGoal(), getIdReference(), getPercentage());
+        result = 31 * result + Arrays.hashCode(getMetrics());
+        return result;
     }
 }

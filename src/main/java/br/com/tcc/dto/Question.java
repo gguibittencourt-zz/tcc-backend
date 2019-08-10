@@ -10,6 +10,8 @@ public class Question {
     private String name;
     private String tip;
     private String type;
+    private Boolean required;
+    private Object defaultValue;
     private Boolean dependsOnAnyQuestion;
     private String idDependentQuestion;
     private DependentValue dependentValue;
@@ -115,6 +117,24 @@ public class Question {
         return this;
     }
 
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public Question setRequired(Boolean required) {
+        this.required = required;
+        return this;
+    }
+
+    public Object getDefaultValue() {
+        return defaultValue;
+    }
+
+    public Question setDefaultValue(Object defaultValue) {
+        this.defaultValue = defaultValue;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,6 +146,8 @@ public class Question {
                 Objects.equals(getName(), question.getName()) &&
                 Objects.equals(getTip(), question.getTip()) &&
                 Objects.equals(getType(), question.getType()) &&
+                Objects.equals(getRequired(), question.getRequired()) &&
+                Objects.equals(getDefaultValue(), question.getDefaultValue()) &&
                 Objects.equals(getDependsOnAnyQuestion(), question.getDependsOnAnyQuestion()) &&
                 Objects.equals(getIdDependentQuestion(), question.getIdDependentQuestion()) &&
                 Objects.equals(getDependentValue(), question.getDependentValue()) &&
@@ -135,6 +157,6 @@ public class Question {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getName(), getTip(), getType(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getHasDataSource(), getConfig());
+        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getHasDataSource(), getConfig());
     }
 }
