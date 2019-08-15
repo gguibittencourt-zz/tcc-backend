@@ -2,14 +2,11 @@ package br.com.tcc.dao.impl;
 
 import br.com.tcc.dao.MeasurementFrameworkDAO;
 import br.com.tcc.dao.metadata.Tables;
-import br.com.tcc.dto.KnowledgeArea;
 import br.com.tcc.dto.MeasurementFramework;
 import br.com.tcc.dto.MeasurementFrameworkConfig;
-import br.com.tcc.dto.Question;
-import br.com.tcc.util.Constants;
 import com.google.gson.Gson;
-import org.jooq.DSLContext;
-import org.jooq.Record;
+import org.jooq.*;
+import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,8 +25,8 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
 
     @Override
     public Collection<MeasurementFramework> list() {
-        return this.dslContext
-                .selectFrom(Tables.MEASUREMENT_FRAMEWORK)
+        return this.getSelect()
+                .from(Tables.MEASUREMENT_FRAMEWORK)
                 .fetch()
                 .map(this::template);
     }
@@ -37,8 +34,8 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
 
     @Override
     public MeasurementFramework get(Integer idMeasurementFramework) {
-        return this.dslContext
-                .selectFrom(Tables.MEASUREMENT_FRAMEWORK)
+        return this.getSelect()
+                .from(Tables.MEASUREMENT_FRAMEWORK)
                 .where(Tables.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK.eq(idMeasurementFramework))
                 .fetchOne()
                 .map(this::template);
@@ -48,7 +45,9 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
     public Integer register(MeasurementFramework measurementFramework) {
         MeasurementFrameworkConfig config = new MeasurementFrameworkConfig()
                 .setQuestions(measurementFramework.getQuestions())
-                .setGoals(measurementFramework.getGoals());
+                .setGoals(measurementFramework.getGoals())
+                .setClassifications(measurementFramework.getClassifications())
+                .setScaleValues(measurementFramework.getScaleValues());
         return this.dslContext
                 .insertInto(Tables.MEASUREMENT_FRAMEWORK)
                 .set(Tables.MEASUREMENT_FRAMEWORK.NAME, measurementFramework.getName())
@@ -63,7 +62,9 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
     public Integer update(Integer idMeasurementFramework, MeasurementFramework measurementFramework) {
         MeasurementFrameworkConfig config = new MeasurementFrameworkConfig()
                 .setQuestions(measurementFramework.getQuestions())
-                .setGoals(measurementFramework.getGoals());
+                .setGoals(measurementFramework.getGoals())
+                .setClassifications(measurementFramework.getClassifications())
+                .setScaleValues(measurementFramework.getScaleValues());
         return this.dslContext
                 .update(Tables.MEASUREMENT_FRAMEWORK)
                 .set(Tables.MEASUREMENT_FRAMEWORK.NAME, measurementFramework.getName())
@@ -91,6 +92,20 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .map(this::template);
     }
 
+    private SelectSelectStep<Record5<Integer, String, String, Integer, String>> getSelect() {
+        return this.dslContext
+                .select(
+                        Tables.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK,
+                        Tables.MEASUREMENT_FRAMEWORK.NAME,
+                        Tables.MEASUREMENT_FRAMEWORK.TYPE,
+                        Tables.MEASUREMENT_FRAMEWORK.ID_REFERENCE_MODEL,
+                        DSL.field(
+                                "cast({0} as CHAR CHARACTER SET utf8) COLLATE utf8_unicode_ci",
+                                String.class,
+                                Tables.MEASUREMENT_FRAMEWORK.JSON_MEASUREMENT_FRAMEWORK
+                        ).as(Tables.MEASUREMENT_FRAMEWORK.JSON_MEASUREMENT_FRAMEWORK));
+    }
+
     private MeasurementFramework template(Record measurementFrameworkRecord) {
         MeasurementFrameworkConfig config = GSON.fromJson(String.valueOf(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.JSON_MEASUREMENT_FRAMEWORK)), MeasurementFrameworkConfig.class);
         return new MeasurementFramework()
@@ -99,6 +114,8 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .setName(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.NAME))
                 .setType(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.TYPE))
                 .setQuestions(config.getQuestions())
-                .setGoals(config.getGoals());
+                .setClassifications(config.getClassifications())
+                .setGoals(config.getGoals())
+                .setScaleValues(config.getScaleValues());
     }
 }

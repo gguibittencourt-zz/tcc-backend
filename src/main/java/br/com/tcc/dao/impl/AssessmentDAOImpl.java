@@ -2,14 +2,19 @@ package br.com.tcc.dao.impl;
 
 import br.com.tcc.dao.AssessmentDAO;
 import br.com.tcc.dao.metadata.Tables;
+import br.com.tcc.dao.metadata.enums.AssessmentStatus;
 import br.com.tcc.dto.Assessment;
 import br.com.tcc.dto.JsonAssessment;
 import com.google.gson.Gson;
 import org.jooq.DSLContext;
 import org.jooq.Record;
+import org.jooq.Record5;
+import org.jooq.SelectSelectStep;
+import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Repository
@@ -25,8 +30,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     public Collection<Assessment> list() {
-        return this.dslContext
-                .selectFrom(Tables.ASSESSMENT)
+        return this.getSelect()
+                .from(Tables.ASSESSMENT)
                 .fetch()
                 .map(this::template);
     }
@@ -34,8 +39,8 @@ public class AssessmentDAOImpl implements AssessmentDAO {
 
     @Override
     public Assessment get(Integer idAssessment) {
-        return this.dslContext
-                .selectFrom(Tables.ASSESSMENT)
+        return this.getSelect()
+                .from(Tables.ASSESSMENT)
                 .where(Tables.ASSESSMENT.ID_ASSESSMENT.eq(idAssessment))
                 .fetchOne()
                 .map(this::template);
@@ -71,6 +76,20 @@ public class AssessmentDAOImpl implements AssessmentDAO {
                 .deleteFrom(Tables.ASSESSMENT)
                 .where(Tables.ASSESSMENT.ID_ASSESSMENT.eq(idAssessment))
                 .execute();
+    }
+
+    private SelectSelectStep<Record5<Integer, Integer, AssessmentStatus, LocalDateTime, String>> getSelect() {
+        return this.dslContext
+                .select(
+                        Tables.ASSESSMENT.ID_ASSESSMENT,
+                        Tables.ASSESSMENT.ID_USER,
+                        Tables.ASSESSMENT.STATUS,
+                        Tables.ASSESSMENT.DATE,
+                        DSL.field(
+                                "cast({0} as CHAR CHARACTER SET utf8) COLLATE utf8_unicode_ci",
+                                String.class,
+                                Tables.ASSESSMENT.JSON_ASSESSMENT
+                        ).as(Tables.ASSESSMENT.JSON_ASSESSMENT));
     }
 
     private Assessment template(Record measurementFrameworkRecord) {

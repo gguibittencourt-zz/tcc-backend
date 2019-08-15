@@ -56,6 +56,7 @@ public class Keys {
     public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_PRIMARY = UniqueKeys0.KEY_MEASUREMENT_FRAMEWORK_PRIMARY;
     public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_NAME = UniqueKeys0.KEY_MEASUREMENT_FRAMEWORK_NAME;
     public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = UniqueKeys0.KEY_REFERENCE_MODEL_PRIMARY;
+    public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_NAME = UniqueKeys0.KEY_REFERENCE_MODEL_NAME;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_USER_USERNAME_UINDEX = UniqueKeys0.KEY_USER_USER_USERNAME_UINDEX;
 
@@ -85,6 +86,7 @@ public class Keys {
         public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_PRIMARY = createUniqueKey(MeasurementFramework.MEASUREMENT_FRAMEWORK, "KEY_measurement_framework_PRIMARY", MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK);
         public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_NAME = createUniqueKey(MeasurementFramework.MEASUREMENT_FRAMEWORK, "KEY_measurement_framework_name", MeasurementFramework.MEASUREMENT_FRAMEWORK.NAME);
         public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = createUniqueKey(ReferenceModel.REFERENCE_MODEL, "KEY_reference_model_PRIMARY", ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
+        public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_NAME = createUniqueKey(ReferenceModel.REFERENCE_MODEL, "KEY_reference_model_name", ReferenceModel.REFERENCE_MODEL.NAME);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID_USER);
         public static final UniqueKey<UserRecord> KEY_USER_USER_USERNAME_UINDEX = createUniqueKey(User.USER, "KEY_user_user_username_uindex", User.USER.USERNAME);
     }

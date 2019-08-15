@@ -35,7 +35,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ReferenceModel extends TableImpl<ReferenceModelRecord> {
 
-    private static final long serialVersionUID = 1007690670;
+    private static final long serialVersionUID = 1001428395;
 
     /**
      * The reference instance of <code>app.reference_model</code>
@@ -116,7 +116,7 @@ public class ReferenceModel extends TableImpl<ReferenceModelRecord> {
      */
     @Override
     public List<UniqueKey<ReferenceModelRecord>> getKeys() {
-        return Arrays.<UniqueKey<ReferenceModelRecord>>asList(Keys.KEY_REFERENCE_MODEL_PRIMARY);
+        return Arrays.<UniqueKey<ReferenceModelRecord>>asList(Keys.KEY_REFERENCE_MODEL_PRIMARY, Keys.KEY_REFERENCE_MODEL_NAME);
     }
 
     /**

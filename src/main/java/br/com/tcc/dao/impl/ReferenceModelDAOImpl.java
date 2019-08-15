@@ -8,6 +8,9 @@ import br.com.tcc.util.Constants;
 import com.google.gson.Gson;
 import org.jooq.DSLContext;
 import org.jooq.Record;
+import org.jooq.Record3;
+import org.jooq.SelectSelectStep;
+import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,8 +29,8 @@ public class ReferenceModelDAOImpl implements ReferenceModelDAO {
 
     @Override
     public Collection<ReferenceModel> list() {
-        return this.dslContext
-                .selectFrom(Tables.REFERENCE_MODEL)
+        return this.getSelect()
+                .from(Tables.REFERENCE_MODEL)
                 .fetch()
                 .map(this::template);
     }
@@ -35,8 +38,8 @@ public class ReferenceModelDAOImpl implements ReferenceModelDAO {
 
     @Override
     public ReferenceModel get(Integer idReferenceModel) {
-        return this.dslContext
-                .selectFrom(Tables.REFERENCE_MODEL)
+        return this.getSelect()
+                .from(Tables.REFERENCE_MODEL)
                 .where(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel))
                 .fetchOne()
                 .map(this::template);
@@ -68,6 +71,18 @@ public class ReferenceModelDAOImpl implements ReferenceModelDAO {
                 .deleteFrom(Tables.REFERENCE_MODEL)
                 .where(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel))
                 .execute();
+    }
+
+    private SelectSelectStep<Record3<Integer, String, String>> getSelect() {
+        return this.dslContext
+                .select(
+                        Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL,
+                        Tables.REFERENCE_MODEL.NAME,
+                        DSL.field(
+                                "cast({0} as CHAR CHARACTER SET utf8) COLLATE utf8_unicode_ci",
+                                String.class,
+                                Tables.REFERENCE_MODEL.KNOWLEDGE_AREAS
+                        ).as(Tables.REFERENCE_MODEL.KNOWLEDGE_AREAS));
     }
 
     private ReferenceModel template(Record referenceModelRecord) {

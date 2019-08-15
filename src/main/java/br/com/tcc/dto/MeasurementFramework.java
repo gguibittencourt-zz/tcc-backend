@@ -9,8 +9,10 @@ public class MeasurementFramework {
     private String name;
     private String type;
     private Integer idReferenceModel;
+    private Collection<ScaleValues> scaleValues;
     private Collection<Question> questions;
     private Collection<Goal> goals;
+    private Collection<Classification> classifications;
 
     public Integer getIdMeasurementFramework() {
         return idMeasurementFramework;
@@ -66,6 +68,24 @@ public class MeasurementFramework {
         return this;
     }
 
+    public Collection<Classification> getClassifications() {
+        return classifications;
+    }
+
+    public MeasurementFramework setClassifications(Collection<Classification> classifications) {
+        this.classifications = classifications;
+        return this;
+    }
+
+    public Collection<ScaleValues> getScaleValues() {
+        return scaleValues;
+    }
+
+    public MeasurementFramework setScaleValues(Collection<ScaleValues> scaleValues) {
+        this.scaleValues = scaleValues;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,12 +95,14 @@ public class MeasurementFramework {
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getType(), that.getType()) &&
                 Objects.equals(getIdReferenceModel(), that.getIdReferenceModel()) &&
+                Objects.equals(getScaleValues(), that.getScaleValues()) &&
                 Objects.equals(getQuestions(), that.getQuestions()) &&
-                Objects.equals(getGoals(), that.getGoals());
+                Objects.equals(getGoals(), that.getGoals()) &&
+                Objects.equals(getClassifications(), that.getClassifications());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdMeasurementFramework(), getName(), getType(), getIdReferenceModel(), getQuestions(), getGoals());
+        return Objects.hash(getIdMeasurementFramework(), getName(), getType(), getIdReferenceModel(), getScaleValues(), getQuestions(), getGoals(), getClassifications());
     }
 }
