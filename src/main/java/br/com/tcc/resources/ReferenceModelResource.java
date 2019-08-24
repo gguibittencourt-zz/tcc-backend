@@ -59,6 +59,7 @@ public class ReferenceModelResource {
     }
 
 
+
     @DELETE
     @Path("/{idReferenceModel}")
     public Response delete(@PathParam("idReferenceModel") Integer idReferenceModel) {

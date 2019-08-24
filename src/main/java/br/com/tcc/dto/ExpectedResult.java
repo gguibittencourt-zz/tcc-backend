@@ -6,8 +6,6 @@ public class ExpectedResult {
 
     private String idExpectedResult;
     private String name;
-    private String description;
-
 
     public String getIdExpectedResult() {
         return idExpectedResult;
@@ -25,26 +23,17 @@ public class ExpectedResult {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ExpectedResult)) return false;
         ExpectedResult that = (ExpectedResult) o;
         return Objects.equals(getIdExpectedResult(), that.getIdExpectedResult()) &&
-                Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getDescription(), that.getDescription());
+                Objects.equals(getName(), that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdExpectedResult(), getName(), getDescription());
+        return Objects.hash(getIdExpectedResult(), getName());
     }
 }

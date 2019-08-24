@@ -7,6 +7,7 @@ public class Process {
 
     private String idProcess;
     private String name;
+    private String prefix;
     private String purpose;
     private Collection<ExpectedResult> expectedResults;
 
@@ -25,6 +26,15 @@ public class Process {
 
     public Process setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public Process setPrefix(String prefix) {
+        this.prefix = prefix;
         return this;
     }
 
@@ -52,12 +62,13 @@ public class Process {
         Process process = (Process) o;
         return Objects.equals(getIdProcess(), process.getIdProcess()) &&
                 Objects.equals(getName(), process.getName()) &&
+                Objects.equals(getPrefix(), process.getPrefix()) &&
                 Objects.equals(getPurpose(), process.getPurpose()) &&
                 Objects.equals(getExpectedResults(), process.getExpectedResults());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdProcess(), getName(), getPurpose(), getExpectedResults());
+        return Objects.hash(getIdProcess(), getName(), getPrefix(), getPurpose(), getExpectedResults());
     }
 }
