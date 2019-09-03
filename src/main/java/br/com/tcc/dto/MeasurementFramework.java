@@ -12,6 +12,7 @@ public class MeasurementFramework {
     private Collection<ScaleValues> scaleValues;
     private Collection<Question> questions;
     private Collection<Goal> goals;
+    private Collection<ProcessAttribute> processAttributes;
     private Collection<Classification> classifications;
 
     public Integer getIdMeasurementFramework() {
@@ -86,6 +87,15 @@ public class MeasurementFramework {
         return this;
     }
 
+    public Collection<ProcessAttribute> getProcessAttributes() {
+        return processAttributes;
+    }
+
+    public MeasurementFramework setProcessAttributes(Collection<ProcessAttribute> processAttributes) {
+        this.processAttributes = processAttributes;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,11 +108,12 @@ public class MeasurementFramework {
                 Objects.equals(getScaleValues(), that.getScaleValues()) &&
                 Objects.equals(getQuestions(), that.getQuestions()) &&
                 Objects.equals(getGoals(), that.getGoals()) &&
+                Objects.equals(getProcessAttributes(), that.getProcessAttributes()) &&
                 Objects.equals(getClassifications(), that.getClassifications());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdMeasurementFramework(), getName(), getType(), getIdReferenceModel(), getScaleValues(), getQuestions(), getGoals(), getClassifications());
+        return Objects.hash(getIdMeasurementFramework(), getName(), getType(), getIdReferenceModel(), getScaleValues(), getQuestions(), getGoals(), getProcessAttributes(), getClassifications());
     }
 }

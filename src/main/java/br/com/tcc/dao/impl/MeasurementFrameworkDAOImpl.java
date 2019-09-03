@@ -62,6 +62,7 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
     public Integer update(Integer idMeasurementFramework, MeasurementFramework measurementFramework) {
         MeasurementFrameworkConfig config = new MeasurementFrameworkConfig()
                 .setQuestions(measurementFramework.getQuestions())
+                .setProcessAttributes(measurementFramework.getProcessAttributes())
                 .setGoals(measurementFramework.getGoals())
                 .setClassifications(measurementFramework.getClassifications())
                 .setScaleValues(measurementFramework.getScaleValues());
@@ -114,6 +115,7 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .setName(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.NAME))
                 .setType(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.TYPE))
                 .setQuestions(config.getQuestions())
+                .setProcessAttributes(config.getProcessAttributes())
                 .setClassifications(config.getClassifications())
                 .setGoals(config.getGoals())
                 .setScaleValues(config.getScaleValues());
