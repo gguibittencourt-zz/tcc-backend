@@ -43,11 +43,7 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
 
     @Override
     public Integer register(MeasurementFramework measurementFramework) {
-        MeasurementFrameworkConfig config = new MeasurementFrameworkConfig()
-                .setQuestions(measurementFramework.getQuestions())
-                .setGoals(measurementFramework.getGoals())
-                .setClassifications(measurementFramework.getClassifications())
-                .setScaleValues(measurementFramework.getScaleValues());
+        MeasurementFrameworkConfig config = this.getConfig(measurementFramework);
         return this.dslContext
                 .insertInto(Tables.MEASUREMENT_FRAMEWORK)
                 .set(Tables.MEASUREMENT_FRAMEWORK.NAME, measurementFramework.getName())
@@ -60,12 +56,7 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
 
     @Override
     public Integer update(Integer idMeasurementFramework, MeasurementFramework measurementFramework) {
-        MeasurementFrameworkConfig config = new MeasurementFrameworkConfig()
-                .setQuestions(measurementFramework.getQuestions())
-                .setProcessAttributes(measurementFramework.getProcessAttributes())
-                .setGoals(measurementFramework.getGoals())
-                .setClassifications(measurementFramework.getClassifications())
-                .setScaleValues(measurementFramework.getScaleValues());
+        MeasurementFrameworkConfig config = this.getConfig(measurementFramework);
         return this.dslContext
                 .update(Tables.MEASUREMENT_FRAMEWORK)
                 .set(Tables.MEASUREMENT_FRAMEWORK.NAME, measurementFramework.getName())
@@ -119,5 +110,14 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .setClassifications(config.getClassifications())
                 .setGoals(config.getGoals())
                 .setScaleValues(config.getScaleValues());
+    }
+
+    private MeasurementFrameworkConfig getConfig(MeasurementFramework measurementFramework) {
+        return new MeasurementFrameworkConfig()
+                .setQuestions(measurementFramework.getQuestions())
+                .setProcessAttributes(measurementFramework.getProcessAttributes())
+                .setGoals(measurementFramework.getGoals())
+                .setClassifications(measurementFramework.getClassifications())
+                .setScaleValues(measurementFramework.getScaleValues());
     }
 }
