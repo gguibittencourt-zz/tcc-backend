@@ -7,6 +7,7 @@ public class ProcessAttribute {
 
     private String idProcessAttribute;
     private String name;
+    private Boolean generateQuestions;
     private String description;
     private Collection<ProcessAttributeValue> values;
 
@@ -46,6 +47,15 @@ public class ProcessAttribute {
         return this;
     }
 
+    public Boolean getGenerateQuestions() {
+        return generateQuestions;
+    }
+
+    public ProcessAttribute setGenerateQuestions(Boolean generateQuestions) {
+        this.generateQuestions = generateQuestions;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,12 +63,13 @@ public class ProcessAttribute {
         ProcessAttribute that = (ProcessAttribute) o;
         return Objects.equals(getIdProcessAttribute(), that.getIdProcessAttribute()) &&
                 Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getGenerateQuestions(), that.getGenerateQuestions()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getValues(), that.getValues());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdProcessAttribute(), getName(), getDescription(), getValues());
+        return Objects.hash(getIdProcessAttribute(), getName(), getGenerateQuestions(), getDescription(), getValues());
     }
 }
