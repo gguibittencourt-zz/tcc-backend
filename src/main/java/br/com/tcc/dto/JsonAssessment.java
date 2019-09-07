@@ -6,6 +6,7 @@ import java.util.Objects;
 public class JsonAssessment {
 
     private MeasurementFramework measurementFramework;
+    private Classification targetLevel;
     private ReferenceModel referenceModel;
     private Collection<Result> results;
 
@@ -15,6 +16,15 @@ public class JsonAssessment {
 
     public JsonAssessment setMeasurementFramework(MeasurementFramework measurementFramework) {
         this.measurementFramework = measurementFramework;
+        return this;
+    }
+
+    public Classification getTargetLevel() {
+        return targetLevel;
+    }
+
+    public JsonAssessment setTargetLevel(Classification targetLevel) {
+        this.targetLevel = targetLevel;
         return this;
     }
 
@@ -42,12 +52,13 @@ public class JsonAssessment {
         if (!(o instanceof JsonAssessment)) return false;
         JsonAssessment that = (JsonAssessment) o;
         return Objects.equals(getMeasurementFramework(), that.getMeasurementFramework()) &&
+                Objects.equals(getTargetLevel(), that.getTargetLevel()) &&
                 Objects.equals(getReferenceModel(), that.getReferenceModel()) &&
                 Objects.equals(getResults(), that.getResults());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMeasurementFramework(), getReferenceModel(), getResults());
+        return Objects.hash(getMeasurementFramework(), getTargetLevel(), getReferenceModel(), getResults());
     }
 }
