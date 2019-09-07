@@ -1,11 +1,20 @@
 package br.com.tcc.dto;
 
-import java.util.Collection;
 import java.util.Objects;
 
 public class ProcessAttributeValue {
 
+    private String idProcessAttributeValue;
     private String name;
+
+    public String getIdProcessAttributeValue() {
+        return idProcessAttributeValue;
+    }
+
+    public ProcessAttributeValue setIdProcessAttributeValue(String idProcessAttributeValue) {
+        this.idProcessAttributeValue = idProcessAttributeValue;
+        return this;
+    }
 
     public String getName() {
         return name;

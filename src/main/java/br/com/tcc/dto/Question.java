@@ -7,6 +7,8 @@ public class Question {
     private String idQuestion;
     private String idProcess;
     private String idExpectedResult;
+    private String idProcessAttribute;
+    private String idProcessAttributeValue;
     private String name;
     private String tip;
     private String type;
@@ -33,6 +35,24 @@ public class Question {
 
     public Question setIdProcess(String idProcess) {
         this.idProcess = idProcess;
+        return this;
+    }
+
+    public String getIdProcessAttribute() {
+        return idProcessAttribute;
+    }
+
+    public Question setIdProcessAttribute(String idProcessAttribute) {
+        this.idProcessAttribute = idProcessAttribute;
+        return this;
+    }
+
+    public String getIdProcessAttributeValue() {
+        return idProcessAttributeValue;
+    }
+
+    public Question setIdProcessAttributeValue(String idProcessAttributeValue) {
+        this.idProcessAttributeValue = idProcessAttributeValue;
         return this;
     }
 
@@ -143,6 +163,8 @@ public class Question {
         return Objects.equals(getIdQuestion(), question.getIdQuestion()) &&
                 Objects.equals(getIdProcess(), question.getIdProcess()) &&
                 Objects.equals(getIdExpectedResult(), question.getIdExpectedResult()) &&
+                Objects.equals(getIdProcessAttribute(), question.getIdProcessAttribute()) &&
+                Objects.equals(getIdProcessAttributeValue(), question.getIdProcessAttributeValue()) &&
                 Objects.equals(getName(), question.getName()) &&
                 Objects.equals(getTip(), question.getTip()) &&
                 Objects.equals(getType(), question.getType()) &&
@@ -157,6 +179,6 @@ public class Question {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getHasDataSource(), getConfig());
+        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getIdProcessAttribute(), getIdProcessAttributeValue(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getHasDataSource(), getConfig());
     }
 }
