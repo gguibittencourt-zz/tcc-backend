@@ -16,8 +16,8 @@ public class Question {
     private Object defaultValue;
     private Boolean dependsOnAnyQuestion;
     private String idDependentQuestion;
-    private DependentValue dependentValue;
-    private Boolean hasDataSource;
+    private Object dependentValue;
+    private Object updateValue;
     private QuestionConfig config;
 
     public String getIdQuestion() {
@@ -110,15 +110,6 @@ public class Question {
         return this;
     }
 
-    public Boolean getHasDataSource() {
-        return hasDataSource;
-    }
-
-    public Question setHasDataSource(Boolean hasDataSource) {
-        this.hasDataSource = hasDataSource;
-        return this;
-    }
-
     public QuestionConfig getConfig() {
         return config;
     }
@@ -128,12 +119,21 @@ public class Question {
         return this;
     }
 
-    public DependentValue getDependentValue() {
+    public Object getDependentValue() {
         return dependentValue;
     }
 
-    public Question setDependentValue(DependentValue dependentValue) {
+    public Question setDependentValue(Object dependentValue) {
         this.dependentValue = dependentValue;
+        return this;
+    }
+
+    public Object getUpdateValue() {
+        return updateValue;
+    }
+
+    public Question setUpdateValue(Object updateValue) {
+        this.updateValue = updateValue;
         return this;
     }
 
@@ -173,12 +173,12 @@ public class Question {
                 Objects.equals(getDependsOnAnyQuestion(), question.getDependsOnAnyQuestion()) &&
                 Objects.equals(getIdDependentQuestion(), question.getIdDependentQuestion()) &&
                 Objects.equals(getDependentValue(), question.getDependentValue()) &&
-                Objects.equals(getHasDataSource(), question.getHasDataSource()) &&
+                Objects.equals(getUpdateValue(), question.getUpdateValue()) &&
                 Objects.equals(getConfig(), question.getConfig());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getIdProcessAttribute(), getIdProcessAttributeValue(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getHasDataSource(), getConfig());
+        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getIdProcessAttribute(), getIdProcessAttributeValue(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getUpdateValue(), getConfig());
     }
 }
