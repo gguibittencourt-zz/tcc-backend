@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Djdbc.driverClassName=com.mysql.jdbc.Driver -Djdbc.url=mysql://mysql:f662a0570c577307@dokku-mysql-app:3306/app -Djdbc.user=mysql -Djdbc.password=f662a0570c577307 -jar target/*.war
+web:
