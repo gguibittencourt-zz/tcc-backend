@@ -15,4 +15,6 @@ public interface AssessmentService {
     Integer update(Integer idAssessment, Assessment assessment);
 
     Integer delete(Integer idAssessment);
+
+    Assessment finish(Assessment assessment);
 }

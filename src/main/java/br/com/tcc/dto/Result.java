@@ -7,6 +7,9 @@ public class Result {
     private String idResult;
     private String idKnowledgeArea;
     private String idProcess;
+    private String idExpectedResult;
+    private String idProcessAttribute;
+    private String idProcessAttributeValue;
     private String idQuestion;
     private String value;
 
@@ -55,6 +58,33 @@ public class Result {
         return this;
     }
 
+    public String getIdExpectedResult() {
+        return idExpectedResult;
+    }
+
+    public Result setIdExpectedResult(String idExpectedResult) {
+        this.idExpectedResult = idExpectedResult;
+        return this;
+    }
+
+    public String getIdProcessAttribute() {
+        return idProcessAttribute;
+    }
+
+    public Result setIdProcessAttribute(String idProcessAttribute) {
+        this.idProcessAttribute = idProcessAttribute;
+        return this;
+    }
+
+    public String getIdProcessAttributeValue() {
+        return idProcessAttributeValue;
+    }
+
+    public Result setIdProcessAttributeValue(String idProcessAttributeValue) {
+        this.idProcessAttributeValue = idProcessAttributeValue;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,12 +93,15 @@ public class Result {
         return Objects.equals(getIdResult(), result.getIdResult()) &&
                 Objects.equals(getIdKnowledgeArea(), result.getIdKnowledgeArea()) &&
                 Objects.equals(getIdProcess(), result.getIdProcess()) &&
+                Objects.equals(getIdExpectedResult(), result.getIdExpectedResult()) &&
+                Objects.equals(getIdProcessAttribute(), result.getIdProcessAttribute()) &&
+                Objects.equals(getIdProcessAttributeValue(), result.getIdProcessAttributeValue()) &&
                 Objects.equals(getIdQuestion(), result.getIdQuestion()) &&
                 Objects.equals(getValue(), result.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdResult(), getIdKnowledgeArea(), getIdProcess(), getIdQuestion(), getValue());
+        return Objects.hash(getIdResult(), getIdKnowledgeArea(), getIdProcess(), getIdExpectedResult(), getIdProcessAttribute(), getIdProcessAttributeValue(), getIdQuestion(), getValue());
     }
 }
