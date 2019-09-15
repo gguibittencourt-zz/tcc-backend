@@ -28,6 +28,14 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getByUsername(String username) {
+        return this.dslContext
+                .selectFrom(Tables.USER)
+                .where(Tables.USER.USERNAME.eq(username))
+                .fetchOneInto(User.class);
+    }
+
+    @Override
     public User get(String username, String password) {
         return this.dslContext
                 .selectFrom(Tables.USER)

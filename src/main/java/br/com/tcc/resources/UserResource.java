@@ -3,6 +3,7 @@ package br.com.tcc.resources;
 import br.com.tcc.dto.ReferenceModel;
 import br.com.tcc.dto.User;
 import br.com.tcc.dto.UserLogin;
+import br.com.tcc.exceptions.BusinessException;
 import br.com.tcc.services.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class UserResource {
 
     @POST
     @Path("/register")
-    public Response register(String userJson) {
+    public Response register(String userJson) throws BusinessException {
         User user = GSON.fromJson(userJson, User.class);
         this.userService.register(user);
         return Response.ok(GSON.toJson(user))

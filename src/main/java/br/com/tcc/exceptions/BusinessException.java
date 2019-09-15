@@ -1,6 +1,6 @@
 package br.com.tcc.exceptions;
 
-public class BusinessException extends Exception {
+public class BusinessException extends RuntimeException {
 
 
     private static final long serialVersionUID = -8999932578270387947L;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,7 +71,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     @SuppressWarnings("unchecked")
     private void checkMaturity(Assessment assessment) {
         JsonAssessment jsonAssessment = assessment.getJsonAssessment();
-        Collection<LevelResult> levelResults = new ArrayList<>();
+        List<LevelResult> levelResults = new ArrayList<>();
         Classification targetLevel = jsonAssessment.getTargetLevel();
         MeasurementFramework measurementFramework = jsonAssessment.getMeasurementFramework();
         ReferenceModel referenceModel = jsonAssessment.getReferenceModel();
@@ -115,7 +116,7 @@ public class AssessmentServiceImpl implements AssessmentService {
                                     .filter(result -> !result.getValue().equals("5"))
                                     .collect(Collectors.toList());
                             processResult.getResultsWithError().addAll(resultsWithError);
-                             if (!resultsWithError.isEmpty() && processResult.getResult().equals("Satisfeito")) {
+                            if (!resultsWithError.isEmpty() && processResult.getResult().equals("Satisfeito")) {
                                 processResult.setResult("Não satisfeito");
                             }
                         });
@@ -124,7 +125,18 @@ public class AssessmentServiceImpl implements AssessmentService {
             });
             levelResults.add(levelResult);
         });
-
+        AtomicReference<String> assessmentResult = new AtomicReference<>("");
+        levelResults.forEach(levelResult -> {
+            boolean hasNotSatisfied = levelResult.getProcesses().stream().anyMatch(processResult -> processResult.getResult().equals("Não satisfeito"));
+            if (hasNotSatisfied) {
+                if (assessmentResult.get().equals("")) {
+                    assessmentResult.set(String.format("Não atendeu aos requisitos de processos e capacidade do Modelo de Referência %s do %s.", referenceModel.getName(), levelResult.getClassification().getName()));
+                }
+            } else {
+                assessmentResult.set(String.format("Atendeu aos requisitos de processos e capacidade do Modelo de Referência %s do %s.", referenceModel.getName(), levelResult.getClassification().getName()));
+            }
+        });
+        jsonAssessment.setAssessmentResult(assessmentResult.get());
         jsonAssessment.setLevelResults(levelResults);
         assessment.setJsonAssessment(jsonAssessment);
     }

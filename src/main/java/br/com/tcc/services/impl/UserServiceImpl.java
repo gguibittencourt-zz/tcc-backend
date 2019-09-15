@@ -39,7 +39,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer register(User user) {
+    public Integer register(User user) throws BusinessException {
+        User byUsername = this.userDAO.getByUsername(user.getUsername());
+        if (byUsername != null) {
+            throw new BusinessException("Já existe um usuário cadastrado com esse username.");
+        }
         Company company = new Company()
                 .setName("")
                 .setContributors(0)

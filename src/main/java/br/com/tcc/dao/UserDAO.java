@@ -11,4 +11,6 @@ public interface UserDAO {
     User get(String username, String password);
 
     int update(Integer idUser, User user);
+
+    User getByUsername(String username);
 }

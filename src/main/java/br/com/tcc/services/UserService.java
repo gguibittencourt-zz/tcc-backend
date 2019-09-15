@@ -8,7 +8,7 @@ public interface UserService {
 
     UserLogin login(User user) throws BusinessException;
 
-    Integer register(User user);
+    Integer register(User user) throws BusinessException;
 
     User get(Integer idUser);
 
