@@ -8,6 +8,8 @@ public interface AssessmentDAO {
 
     Collection<Assessment> list(Integer idUser);
 
+    Collection<Assessment> list();
+
     Assessment get(Integer idAssessment);
 
     Integer register(Assessment assessment);

@@ -38,6 +38,15 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
+    public Collection<Assessment> list() {
+        return this.getSelect()
+                .from(Tables.ASSESSMENT)
+                .fetch()
+                .map(this::template);
+    }
+
+
+    @Override
     public Assessment get(Integer idAssessment) {
         return this.getSelect()
                 .from(Tables.ASSESSMENT)

@@ -35,8 +35,16 @@ public class AssessmentResource {
     }
 
     @GET
+    public Response list() {
+        Collection<Assessment> assessments = this.assessmentService.list();
+        return Response.ok(GSON.toJson(assessments))
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .build();
+    }
+
+    @GET
     @Path("/list/{idUser}")
-    public Response list(@PathParam("idUser") Integer idUser) {
+    public Response listByUser(@PathParam("idUser") Integer idUser) {
         Collection<Assessment> assessments = this.assessmentService.list(idUser);
         return Response.ok(GSON.toJson(assessments))
                 .type(MediaType.APPLICATION_JSON_TYPE)
