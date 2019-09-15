@@ -72,48 +72,73 @@ public class AssessmentServiceImpl implements AssessmentService {
         JsonAssessment jsonAssessment = assessment.getJsonAssessment();
         Collection<LevelResult> levelResults = new ArrayList<>();
         Classification targetLevel = jsonAssessment.getTargetLevel();
-        LevelResult levelResult = new LevelResult().setClassification(targetLevel);
-
         MeasurementFramework measurementFramework = jsonAssessment.getMeasurementFramework();
         ReferenceModel referenceModel = jsonAssessment.getReferenceModel();
-        Collection<Process> processes = ((Collection<Process>)this.getProcessByTargetLevel(targetLevel, referenceModel));
-        measurementFramework.getProcessAttributes().forEach(processAttribute -> {
-            if (targetLevel.getProcessAttributes().contains(processAttribute.getIdProcessAttribute())) {
-                if (!processAttribute.getGenerateQuestions()) {
-                    measurementFramework.getGoals().forEach(goal -> {
-                        Process processToResult = processes.stream().filter(process -> process.getIdProcess().equals(goal.getIdReference())).findFirst().orElse(null);
-                        ProcessResult processResult = new ProcessResult().setProcess(processToResult);
-                        Collection<Result> results = jsonAssessment.getResults().stream()
-                                .filter(result -> result.getIdProcess().equals(goal.getIdReference()))
-                                .collect(Collectors.toList());
-                        Collection<String> valuesToResult = goal.getMetrics()[0].getValues().stream()
-                                .map(MetricScale::getIdMetricScale)
-                                .collect(Collectors.toList());
-                        boolean notSatisfied = results.stream().anyMatch(result -> !valuesToResult.contains(result.getValue()));
-                        processResult.setResult(notSatisfied ? "Não satisfeito" : "Satisfeito");
-                        levelResult.getProcesses().add(processResult);
-                    });
-                } else {
-                    levelResult.getProcesses().forEach(processResult -> {
-                        Collection<Result> results = jsonAssessment.getResults().stream()
-                                .filter(result -> result.getIdProcessAttribute().equals(processAttribute.getIdProcessAttribute()) &&
-                                        processResult.getProcess().getIdProcess().equals(result.getIdProcess()))
-                                .collect(Collectors.toList());
-                        boolean notSatisfied = results.stream().anyMatch(result -> !result.getValue().equals("5"));
-                        if (notSatisfied && processResult.getResult().equals("Satisfeito")) {
-                             processResult.setResult("Não satisfeito");
-                        }
-                    });
+        Collection<Classification> classifications = this.getClassifications(targetLevel, measurementFramework);
+        Collection<String> processAttributes = classifications.stream()
+                .map(Classification::getProcessAttributes)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
+        classifications.forEach(classification -> {
+            LevelResult levelResult = new LevelResult().setClassification(classification);
+            Collection<Process> processes = ((Collection<Process>) this.getProcessByTargetLevel(classification.getLevels(), referenceModel));
+            Collection<String> idsProcess = processes.stream().map(Process::getIdProcess).collect(Collectors.toList());
+            measurementFramework.getProcessAttributes().forEach(processAttribute -> {
+                if (processAttributes.contains(processAttribute.getIdProcessAttribute())) {
+                    if (!processAttribute.getGenerateQuestions()) {
+                        measurementFramework.getGoals().stream()
+                                .filter(goal -> idsProcess.contains(goal.getIdReference()))
+                                .forEach(goal -> {
+                                    Process processToResult = processes.stream().filter(process -> process.getIdProcess().equals(goal.getIdReference())).findFirst().orElse(null);
+                                    ProcessResult processResult = new ProcessResult().setProcess(processToResult);
+                                    Collection<Result> results = jsonAssessment.getResults().stream()
+                                            .filter(result -> result.getIdProcess().equals(goal.getIdReference()) && result.getIdProcessAttribute().equals(""))
+                                            .collect(Collectors.toList());
+                                    Collection<String> valuesToResult = goal.getMetrics()[0].getValues().stream()
+                                            .map(MetricScale::getIdMetricScale)
+                                            .collect(Collectors.toList());
+                                    Collection<Result> resultsWithError = results.stream()
+                                            .filter(result -> !valuesToResult.contains(result.getValue()))
+                                            .collect(Collectors.toList());
+                                    processResult.setResult(resultsWithError.isEmpty() ? "Satisfeito" : "Não satisfeito");
+                                    processResult.setResultsWithError(resultsWithError);
+                                    levelResult.getProcesses().add(processResult);
+                                });
+                    } else {
+                        levelResult.getProcesses().forEach(processResult -> {
+                            Collection<Result> results = jsonAssessment.getResults().stream()
+                                    .filter(result -> result.getIdProcessAttribute().equals(processAttribute.getIdProcessAttribute()) &&
+                                            processResult.getProcess().getIdProcess().equals(result.getIdProcess()))
+                                    .collect(Collectors.toList());
+                            Collection<Result> resultsWithError = results.stream()
+                                    .filter(result -> !result.getValue().equals("5"))
+                                    .collect(Collectors.toList());
+                            processResult.getResultsWithError().addAll(resultsWithError);
+                             if (!resultsWithError.isEmpty() && processResult.getResult().equals("Satisfeito")) {
+                                processResult.setResult("Não satisfeito");
+                            }
+                        });
+                    }
                 }
-            }
+            });
+            levelResults.add(levelResult);
         });
-        levelResults.add(levelResult);
+
         jsonAssessment.setLevelResults(levelResults);
         assessment.setJsonAssessment(jsonAssessment);
     }
 
-    private Collection<?> getProcessByTargetLevel(Classification targetLevel, ReferenceModel referenceModel) {
-        return targetLevel.getLevels().stream().map(level -> {
+    private Collection<Classification> getClassifications(Classification targetLevel, MeasurementFramework measurementFramework) {
+        List<Classification> classifications = new ArrayList<>(measurementFramework.getClassifications());
+        int indexLevel = classifications.indexOf(targetLevel);
+        return classifications.stream()
+                .filter(classification -> classifications.indexOf(classification) <= indexLevel)
+                .collect(Collectors.toList());
+    }
+
+    private Collection<?> getProcessByTargetLevel(Collection<Level> levels, ReferenceModel referenceModel) {
+        return levels.stream().map(level -> {
             KnowledgeArea knowledgeAreaFromLevel = referenceModel.getKnowledgeAreas().stream()
                     .filter(knowledgeArea -> level.getIdProcessArea().equals(knowledgeArea.getIdKnowledgeArea()))
                     .findFirst().orElse(null);

@@ -33,6 +33,7 @@ public class AssessmentDAOImpl implements AssessmentDAO {
         return this.getSelect()
                 .from(Tables.ASSESSMENT)
                 .where(Tables.ASSESSMENT.ID_USER.eq(idUser))
+                .orderBy(Tables.ASSESSMENT.DATE.desc())
                 .fetch()
                 .map(this::template);
     }
