@@ -29,13 +29,13 @@ public class AssessmentDAOImpl implements AssessmentDAO {
     }
 
     @Override
-    public Collection<Assessment> list() {
+    public Collection<Assessment> list(Integer idUser) {
         return this.getSelect()
                 .from(Tables.ASSESSMENT)
+                .where(Tables.ASSESSMENT.ID_USER.eq(idUser))
                 .fetch()
                 .map(this::template);
     }
-
 
     @Override
     public Assessment get(Integer idAssessment) {

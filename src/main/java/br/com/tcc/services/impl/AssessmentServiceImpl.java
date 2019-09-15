@@ -23,8 +23,8 @@ public class AssessmentServiceImpl implements AssessmentService {
     }
 
     @Override
-    public Collection<Assessment> list() {
-        return this.assessmentDAO.list();
+    public Collection<Assessment> list(Integer idUser) {
+        return this.assessmentDAO.list(idUser);
     }
 
     @Override

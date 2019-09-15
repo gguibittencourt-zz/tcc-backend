@@ -35,8 +35,9 @@ public class AssessmentResource {
     }
 
     @GET
-    public Response list() {
-        Collection<Assessment> assessments = this.assessmentService.list();
+    @Path("/list/{idUser}")
+    public Response list(@PathParam("idUser") Integer idUser) {
+        Collection<Assessment> assessments = this.assessmentService.list(idUser);
         return Response.ok(GSON.toJson(assessments))
                 .type(MediaType.APPLICATION_JSON_TYPE)
                 .build();
@@ -56,14 +57,9 @@ public class AssessmentResource {
     public Response finish(String assessmentJson) {
         Assessment assessment = GSON.fromJson(assessmentJson, Assessment.class);
         assessment.setStatus(AssessmentStatus.finalized);
+        Assessment finish = this.assessmentService.finish(assessment);
 
-        if (assessment.getIdAssessment() != null) {
-            this.assessmentService.update(assessment.getIdAssessment(), assessment);
-        } else {
-            this.assessmentService.register(assessment);
-        }
-
-        return Response.ok(GSON.toJson(assessment))
+        return Response.ok(GSON.toJson(finish))
                 .type(MediaType.APPLICATION_JSON)
                 .build();
     }

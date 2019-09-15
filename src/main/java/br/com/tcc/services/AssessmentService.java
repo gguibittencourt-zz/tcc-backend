@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface AssessmentService {
 
-    Collection<Assessment> list();
+    Collection<Assessment> list(Integer idUser);
 
     Assessment get(Integer idAssessment);
 
