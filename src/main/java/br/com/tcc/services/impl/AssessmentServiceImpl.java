@@ -132,7 +132,7 @@ public class AssessmentServiceImpl implements AssessmentService {
                 if (assessmentResult.get().equals("")) {
                     assessmentResult.set(String.format("Não atendeu aos requisitos de processos e capacidade do Modelo de Referência %s do %s.", referenceModel.getName(), levelResult.getClassification().getName()));
                 }
-            } else {
+            } else if (assessmentResult.get().equals("") || assessmentResult.get().startsWith("Atendeu")) {
                 assessmentResult.set(String.format("Atendeu aos requisitos de processos e capacidade do Modelo de Referência %s do %s.", referenceModel.getName(), levelResult.getClassification().getName()));
             }
         });
