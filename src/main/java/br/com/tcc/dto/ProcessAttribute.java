@@ -7,6 +7,7 @@ public class ProcessAttribute {
 
     private String idProcessAttribute;
     private String name;
+    private String prefix;
     private Boolean generateQuestions;
     private String description;
     private Collection<ProcessAttributeValue> values;
@@ -27,6 +28,15 @@ public class ProcessAttribute {
 
     public ProcessAttribute setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public ProcessAttribute setPrefix(String prefix) {
+        this.prefix = prefix;
         return this;
     }
 
@@ -73,6 +83,7 @@ public class ProcessAttribute {
         ProcessAttribute that = (ProcessAttribute) o;
         return Objects.equals(getIdProcessAttribute(), that.getIdProcessAttribute()) &&
                 Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getPrefix(), that.getPrefix()) &&
                 Objects.equals(getGenerateQuestions(), that.getGenerateQuestions()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getValues(), that.getValues()) &&
@@ -81,6 +92,6 @@ public class ProcessAttribute {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdProcessAttribute(), getName(), getGenerateQuestions(), getDescription(), getValues(), getRatings());
+        return Objects.hash(getIdProcessAttribute(), getName(), getPrefix(), getGenerateQuestions(), getDescription(), getValues(), getRatings());
     }
 }
