@@ -77,7 +77,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         ReferenceModel referenceModel = jsonAssessment.getReferenceModel();
         Collection<Classification> classifications = this.getClassifications(targetLevel, measurementFramework);
         Collection<String> processAttributes = classifications.stream()
-                .map(Classification::getProcessAttributes)
+                .map(Classification::getCapacityLevels)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
@@ -85,44 +85,44 @@ public class AssessmentServiceImpl implements AssessmentService {
             LevelResult levelResult = new LevelResult().setClassification(classification);
             Collection<Process> processes = ((Collection<Process>) this.getProcessByTargetLevel(classification.getLevels(), referenceModel));
             Collection<String> idsProcess = processes.stream().map(Process::getIdProcess).collect(Collectors.toList());
-            measurementFramework.getProcessAttributes().forEach(processAttribute -> {
-                if (processAttributes.contains(processAttribute.getIdProcessAttribute())) {
-                    if (!processAttribute.getGenerateQuestions()) {
-                        measurementFramework.getGoals().stream()
-                                .filter(goal -> idsProcess.contains(goal.getIdReference()))
-                                .forEach(goal -> {
-                                    Process processToResult = processes.stream().filter(process -> process.getIdProcess().equals(goal.getIdReference())).findFirst().orElse(null);
-                                    ProcessResult processResult = new ProcessResult().setProcess(processToResult);
-                                    Collection<Result> results = jsonAssessment.getResults().stream()
-                                            .filter(result -> result.getIdProcess().equals(goal.getIdReference()) && result.getIdProcessAttribute().equals(""))
-                                            .collect(Collectors.toList());
-                                    Collection<String> valuesToResult = goal.getMetrics()[0].getValues().stream()
-                                            .map(MetricScale::getIdMetricScale)
-                                            .collect(Collectors.toList());
-                                    Collection<Result> resultsWithError = results.stream()
-                                            .filter(result -> !valuesToResult.contains(result.getValue()))
-                                            .collect(Collectors.toList());
-                                    processResult.setResult(resultsWithError.isEmpty() ? "Satisfeito" : "Não satisfeito");
-                                    processResult.setResultsWithError(resultsWithError);
-                                    levelResult.getProcesses().add(processResult);
-                                });
-                    } else {
-                        levelResult.getProcesses().forEach(processResult -> {
-                            Collection<Result> results = jsonAssessment.getResults().stream()
-                                    .filter(result -> result.getIdProcessAttribute().equals(processAttribute.getIdProcessAttribute()) &&
-                                            processResult.getProcess().getIdProcess().equals(result.getIdProcess()))
-                                    .collect(Collectors.toList());
-                            Collection<Result> resultsWithError = results.stream()
-                                    .filter(result -> !result.getValue().equals("5"))
-                                    .collect(Collectors.toList());
-                            processResult.getResultsWithError().addAll(resultsWithError);
-                            if (!resultsWithError.isEmpty() && processResult.getResult().equals("Satisfeito")) {
-                                processResult.setResult("Não satisfeito");
-                            }
-                        });
-                    }
-                }
-            });
+//            measurementFramework.getProcessAttributes().forEach(processAttribute -> {
+//                if (processAttributes.contains(processAttribute.getIdProcessAttribute())) {
+//                    if (!processAttribute.getGenerateQuestions()) {
+//                        measurementFramework.getGoals().stream()
+//                                .filter(goal -> idsProcess.contains(goal.getIdReference()))
+//                                .forEach(goal -> {
+//                                    Process processToResult = processes.stream().filter(process -> process.getIdProcess().equals(goal.getIdReference())).findFirst().orElse(null);
+//                                    ProcessResult processResult = new ProcessResult().setProcess(processToResult);
+//                                    Collection<Result> results = jsonAssessment.getResults().stream()
+//                                            .filter(result -> result.getIdProcess().equals(goal.getIdReference()) && result.getIdProcessAttribute().equals(""))
+//                                            .collect(Collectors.toList());
+//                                    Collection<String> valuesToResult = goal.getMetrics()[0].getValues().stream()
+//                                            .map(MetricScale::getIdMetricScale)
+//                                            .collect(Collectors.toList());
+//                                    Collection<Result> resultsWithError = results.stream()
+//                                            .filter(result -> !valuesToResult.contains(result.getValue()))
+//                                            .collect(Collectors.toList());
+//                                    processResult.setResult(resultsWithError.isEmpty() ? "Satisfeito" : "Não satisfeito");
+//                                    processResult.setResultsWithError(resultsWithError);
+//                                    levelResult.getProcesses().add(processResult);
+//                                });
+//                    } else {
+//                        levelResult.getProcesses().forEach(processResult -> {
+//                            Collection<Result> results = jsonAssessment.getResults().stream()
+//                                    .filter(result -> result.getIdProcessAttribute().equals(processAttribute.getIdProcessAttribute()) &&
+//                                            processResult.getProcess().getIdProcess().equals(result.getIdProcess()))
+//                                    .collect(Collectors.toList());
+//                            Collection<Result> resultsWithError = results.stream()
+//                                    .filter(result -> !result.getValue().equals("5"))
+//                                    .collect(Collectors.toList());
+//                            processResult.getResultsWithError().addAll(resultsWithError);
+//                            if (!resultsWithError.isEmpty() && processResult.getResult().equals("Satisfeito")) {
+//                                processResult.setResult("Não satisfeito");
+//                            }
+//                        });
+//                    }
+//                }
+//            });
             levelResults.add(levelResult);
         });
         AtomicReference<String> assessmentResult = new AtomicReference<>("");

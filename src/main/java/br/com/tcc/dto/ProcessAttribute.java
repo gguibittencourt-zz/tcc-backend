@@ -10,6 +10,7 @@ public class ProcessAttribute {
     private Boolean generateQuestions;
     private String description;
     private Collection<ProcessAttributeValue> values;
+    private Collection<String> ratings;
 
     public String getIdProcessAttribute() {
         return idProcessAttribute;
@@ -56,6 +57,15 @@ public class ProcessAttribute {
         return this;
     }
 
+    public Collection<String> getRatings() {
+        return ratings;
+    }
+
+    public ProcessAttribute setRatings(Collection<String> ratings) {
+        this.ratings = ratings;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,11 +75,12 @@ public class ProcessAttribute {
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getGenerateQuestions(), that.getGenerateQuestions()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&
-                Objects.equals(getValues(), that.getValues());
+                Objects.equals(getValues(), that.getValues()) &&
+                Objects.equals(getRatings(), that.getRatings());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdProcessAttribute(), getName(), getGenerateQuestions(), getDescription(), getValues());
+        return Objects.hash(getIdProcessAttribute(), getName(), getGenerateQuestions(), getDescription(), getValues(), getRatings());
     }
 }

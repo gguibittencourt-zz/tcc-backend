@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Classification {
     private String idClassification;
     private String name;
-    private Collection<String> processAttributes;
+    private Collection<String> capacityLevels;
     private Collection<Level> levels;
 
     public String getIdClassification() {
@@ -36,12 +36,12 @@ public class Classification {
         return this;
     }
 
-    public Collection<String> getProcessAttributes() {
-        return processAttributes;
+    public Collection<String> getCapacityLevels() {
+        return capacityLevels;
     }
 
-    public Classification setProcessAttributes(Collection<String> processAttributes) {
-        this.processAttributes = processAttributes;
+    public Classification setCapacityLevels(Collection<String> capacityLevels) {
+        this.capacityLevels = capacityLevels;
         return this;
     }
 
@@ -52,12 +52,12 @@ public class Classification {
         Classification that = (Classification) o;
         return Objects.equals(getIdClassification(), that.getIdClassification()) &&
                 Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getProcessAttributes(), that.getProcessAttributes()) &&
+                Objects.equals(getCapacityLevels(), that.getCapacityLevels()) &&
                 Objects.equals(getLevels(), that.getLevels());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdClassification(), getName(), getProcessAttributes(), getLevels());
+        return Objects.hash(getIdClassification(), getName(), getCapacityLevels(), getLevels());
     }
 }

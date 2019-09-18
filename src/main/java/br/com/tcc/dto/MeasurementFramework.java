@@ -12,8 +12,9 @@ public class MeasurementFramework {
     private Collection<ScaleValues> scaleValues;
     private Collection<Question> questions;
     private Collection<Goal> goals;
-    private Collection<ProcessAttribute> processAttributes;
+    private Collection<CapacityLevel> capacityLevels;
     private Collection<Classification> classifications;
+    private Collection<Rating> ratings;
 
     public Integer getIdMeasurementFramework() {
         return idMeasurementFramework;
@@ -87,12 +88,21 @@ public class MeasurementFramework {
         return this;
     }
 
-    public Collection<ProcessAttribute> getProcessAttributes() {
-        return processAttributes;
+    public Collection<CapacityLevel> getCapacityLevels() {
+        return capacityLevels;
     }
 
-    public MeasurementFramework setProcessAttributes(Collection<ProcessAttribute> processAttributes) {
-        this.processAttributes = processAttributes;
+    public MeasurementFramework setCapacityLevels(Collection<CapacityLevel> capacityLevels) {
+        this.capacityLevels = capacityLevels;
+        return this;
+    }
+
+    public Collection<Rating> getRatings() {
+        return ratings;
+    }
+
+    public MeasurementFramework setRatings(Collection<Rating> ratings) {
+        this.ratings = ratings;
         return this;
     }
 
@@ -108,12 +118,13 @@ public class MeasurementFramework {
                 Objects.equals(getScaleValues(), that.getScaleValues()) &&
                 Objects.equals(getQuestions(), that.getQuestions()) &&
                 Objects.equals(getGoals(), that.getGoals()) &&
-                Objects.equals(getProcessAttributes(), that.getProcessAttributes()) &&
-                Objects.equals(getClassifications(), that.getClassifications());
+                Objects.equals(getCapacityLevels(), that.getCapacityLevels()) &&
+                Objects.equals(getClassifications(), that.getClassifications()) &&
+                Objects.equals(getRatings(), that.getRatings());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdMeasurementFramework(), getName(), getType(), getIdReferenceModel(), getScaleValues(), getQuestions(), getGoals(), getProcessAttributes(), getClassifications());
+        return Objects.hash(getIdMeasurementFramework(), getName(), getType(), getIdReferenceModel(), getScaleValues(), getQuestions(), getGoals(), getCapacityLevels(), getClassifications(), getRatings());
     }
 }

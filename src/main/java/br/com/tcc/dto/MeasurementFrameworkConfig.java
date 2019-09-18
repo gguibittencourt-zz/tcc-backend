@@ -7,7 +7,8 @@ public class MeasurementFrameworkConfig {
 
     private Collection<Question> questions;
     private Collection<Goal> goals;
-    private Collection<ProcessAttribute> processAttributes;
+    private Collection<CapacityLevel> capacityLevels;
+    private Collection<Rating> ratings;
     private Collection<Classification> classifications;
     private Collection<ScaleValues> scaleValues;
 
@@ -47,12 +48,21 @@ public class MeasurementFrameworkConfig {
         return this;
     }
 
-    public Collection<ProcessAttribute> getProcessAttributes() {
-        return processAttributes;
+    public Collection<CapacityLevel> getCapacityLevels() {
+        return capacityLevels;
     }
 
-    public MeasurementFrameworkConfig setProcessAttributes(Collection<ProcessAttribute> processAttributes) {
-        this.processAttributes = processAttributes;
+    public MeasurementFrameworkConfig setCapacityLevels(Collection<CapacityLevel> capacityLevels) {
+        this.capacityLevels = capacityLevels;
+        return this;
+    }
+
+    public Collection<Rating> getRatings() {
+        return ratings;
+    }
+
+    public MeasurementFrameworkConfig setRatings(Collection<Rating> ratings) {
+        this.ratings = ratings;
         return this;
     }
 
@@ -63,13 +73,14 @@ public class MeasurementFrameworkConfig {
         MeasurementFrameworkConfig that = (MeasurementFrameworkConfig) o;
         return Objects.equals(getQuestions(), that.getQuestions()) &&
                 Objects.equals(getGoals(), that.getGoals()) &&
-                Objects.equals(getProcessAttributes(), that.getProcessAttributes()) &&
+                Objects.equals(getCapacityLevels(), that.getCapacityLevels()) &&
+                Objects.equals(getRatings(), that.getRatings()) &&
                 Objects.equals(getClassifications(), that.getClassifications()) &&
                 Objects.equals(getScaleValues(), that.getScaleValues());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getQuestions(), getGoals(), getProcessAttributes(), getClassifications(), getScaleValues());
+        return Objects.hash(getQuestions(), getGoals(), getCapacityLevels(), getRatings(), getClassifications(), getScaleValues());
     }
 }

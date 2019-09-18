@@ -47,5 +47,4 @@ public class MeasurementFrameworkServiceImpl implements MeasurementFrameworkServ
     public Collection<MeasurementFramework> listByIds(Collection<Integer> idsMeasurementFramework) {
         return this.measurementFrameworkDAO.listByIds(idsMeasurementFramework);
     }
-
 }

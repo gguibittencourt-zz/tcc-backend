@@ -106,7 +106,8 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .setName(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.NAME))
                 .setType(measurementFrameworkRecord.get(Tables.MEASUREMENT_FRAMEWORK.TYPE))
                 .setQuestions(config.getQuestions())
-                .setProcessAttributes(config.getProcessAttributes())
+                .setCapacityLevels(config.getCapacityLevels())
+                .setRatings(config.getRatings())
                 .setClassifications(config.getClassifications())
                 .setGoals(config.getGoals())
                 .setScaleValues(config.getScaleValues());
@@ -115,7 +116,8 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
     private MeasurementFrameworkConfig getConfig(MeasurementFramework measurementFramework) {
         return new MeasurementFrameworkConfig()
                 .setQuestions(measurementFramework.getQuestions())
-                .setProcessAttributes(measurementFramework.getProcessAttributes())
+                .setCapacityLevels(measurementFramework.getCapacityLevels())
+                .setRatings(measurementFramework.getRatings())
                 .setGoals(measurementFramework.getGoals())
                 .setClassifications(measurementFramework.getClassifications())
                 .setScaleValues(measurementFramework.getScaleValues());
