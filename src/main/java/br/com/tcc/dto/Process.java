@@ -10,6 +10,7 @@ public class Process {
     private String prefix;
     private String purpose;
     private Collection<ExpectedResult> expectedResults;
+    private Rating ratingProcessResult;
 
     public String getIdProcess() {
         return idProcess;
@@ -55,6 +56,15 @@ public class Process {
         this.expectedResults = expectedResults;
     }
 
+    public Rating getRatingProcessResult() {
+        return ratingProcessResult;
+    }
+
+    public Process setRatingProcessResult(Rating ratingProcessResult) {
+        this.ratingProcessResult = ratingProcessResult;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,11 +74,12 @@ public class Process {
                 Objects.equals(getName(), process.getName()) &&
                 Objects.equals(getPrefix(), process.getPrefix()) &&
                 Objects.equals(getPurpose(), process.getPurpose()) &&
-                Objects.equals(getExpectedResults(), process.getExpectedResults());
+                Objects.equals(getExpectedResults(), process.getExpectedResults()) &&
+                Objects.equals(getRatingProcessResult(), process.getRatingProcessResult());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdProcess(), getName(), getPrefix(), getPurpose(), getExpectedResults());
+        return Objects.hash(getIdProcess(), getName(), getPrefix(), getPurpose(), getExpectedResults(), getRatingProcessResult());
     }
 }

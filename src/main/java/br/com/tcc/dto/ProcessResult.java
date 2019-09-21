@@ -7,7 +7,7 @@ import java.util.Objects;
 public class ProcessResult {
     private Process process;
     private Collection<Result> resultsWithError;
-    private String result;
+    private Collection<CapacityResult> capacityResults;
 
     public Process getProcess() {
         return process;
@@ -18,12 +18,8 @@ public class ProcessResult {
         return this;
     }
 
-    public String getResult() {
-        return result;
-    }
-
-    public ProcessResult setResult(String result) {
-        this.result = result;
+    public ProcessResult setCapacityResults(Collection<CapacityResult> capacityResult) {
+        this.capacityResults = capacityResult;
         return this;
     }
 
@@ -39,7 +35,6 @@ public class ProcessResult {
         return this;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,11 +42,11 @@ public class ProcessResult {
         ProcessResult that = (ProcessResult) o;
         return Objects.equals(getProcess(), that.getProcess()) &&
                 Objects.equals(getResultsWithError(), that.getResultsWithError()) &&
-                Objects.equals(getResult(), that.getResult());
+                Objects.equals(capacityResults, that.capacityResults);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getProcess(), getResultsWithError(), getResult());
+        return Objects.hash(getProcess(), getResultsWithError(), capacityResults);
     }
 }

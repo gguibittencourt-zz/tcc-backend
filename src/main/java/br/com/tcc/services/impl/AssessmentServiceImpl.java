@@ -68,58 +68,119 @@ public class AssessmentServiceImpl implements AssessmentService {
         return assessment;
     }
 
-    @SuppressWarnings("unchecked")
     private void checkMaturity(Assessment assessment) {
         JsonAssessment jsonAssessment = assessment.getJsonAssessment();
-        List<LevelResult> levelResults = new ArrayList<>();
         Classification targetLevel = jsonAssessment.getTargetLevel();
         MeasurementFramework measurementFramework = jsonAssessment.getMeasurementFramework();
         ReferenceModel referenceModel = jsonAssessment.getReferenceModel();
-        Collection<Classification> classifications = this.getClassifications(targetLevel, measurementFramework);
-        Collection<CapacityLevel> capacityLevels = this.getCapacityLevels(classifications, measurementFramework.getCapacityLevels());
+        List<Classification> classifications = this.getClassifications(targetLevel, measurementFramework);
+        Collection<Process> processesOfClassifications = this.getProcessOfClassifications(classifications, referenceModel);
+        Collection<Result> resultsOfProcesses = this.getResultsOfProcesses(processesOfClassifications, jsonAssessment.getResults());
+        List<LevelResult> levelResults = classifications.stream().map(classification -> {
+            Collection<ProcessResult> processResults = processesOfClassifications.stream().map(process -> {
+                ProcessResult processResult = new ProcessResult();
+                Collection<CapacityLevel> capacityLevels = this.getCapacityLevels(classification, measurementFramework.getCapacityLevels());
+                Collection<CapacityResult> capacityResults = capacityLevels.stream().map(capacityLevel -> {
+                    CapacityResult capacityResult = new CapacityResult();
+                    Collection<ProcessAttributeResult> processAttributeResults = capacityLevel.getProcessAttributes().stream().map(processAttribute -> {
+                        ProcessAttributeResult processAttributeResult = new ProcessAttributeResult();
+                        Rating ratingProcessAttributeByTotalValue = this.getRatingByProcessAttribute(measurementFramework, resultsOfProcesses, process, processAttribute);
+                        processAttributeResult.setProcessAttribute(processAttribute);
+                        processAttributeResult.setRating(ratingProcessAttributeByTotalValue);
+                        return processAttributeResult;
+                    }).collect(Collectors.toList());
+                    capacityResult.setCapacityLevel(capacityLevel);
+                    capacityResult.setProcessAttributeResults(processAttributeResults);
+                    return capacityResult;
+                }).collect(Collectors.toList());
+                processResult.setCapacityResults(capacityResults);
+                processResult.setProcess(process);
+                return processResult;
+            }).collect(Collectors.toList());
 
-        classifications.forEach(classification -> {
-            LevelResult levelResult = new LevelResult().setClassification(classification);
-            Collection<Process> processes = ((Collection<Process>) this.getProcessByTargetLevel(classification.getLevels(), referenceModel));
-            Collection<String> idsProcess = processes.stream().map(Process::getIdProcess).collect(Collectors.toList());
-            levelResults.add(levelResult);
-        });
-        AtomicReference<String> assessmentResult = new AtomicReference<>("");
-        levelResults.forEach(levelResult -> {
-            boolean hasNotSatisfied = levelResult.getProcesses().stream().anyMatch(processResult -> processResult.getResult().equals("Não satisfeito"));
-            if (hasNotSatisfied) {
-                if (assessmentResult.get().equals("")) {
-                    assessmentResult.set(String.format("Não atendeu aos requisitos de processos e capacidade do Modelo de Referência %s do %s.", referenceModel.getName(), levelResult.getClassification().getName()));
-                }
-            } else if (assessmentResult.get().equals("") || assessmentResult.get().startsWith("Atendeu")) {
-                assessmentResult.set(String.format("Atendeu aos requisitos de processos e capacidade do Modelo de Referência %s do %s.", referenceModel.getName(), levelResult.getClassification().getName()));
-            }
-        });
-        jsonAssessment.setAssessmentResult(assessmentResult.get());
+            LevelResult levelResult = new LevelResult();
+            levelResult.setClassification(classification);
+            levelResult.setProcesses(processResults);
+            return levelResult;
+        }).collect(Collectors.toList());
+        Collections.reverse(levelResults);
         jsonAssessment.setLevelResults(levelResults);
-        assessment.setJsonAssessment(jsonAssessment);
     }
 
-    private Collection<CapacityLevel> getCapacityLevels(Collection<Classification> classifications, Collection<CapacityLevel> capacityLevels) {
-        Collection<String> idsCapacityLevels = classifications.stream()
-                .map(Classification::getCapacityLevels)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
-        return capacityLevels.stream()
-                .filter(capacityLevel -> idsCapacityLevels.contains(capacityLevel.getIdCapacityLevel()))
-                .collect(Collectors.toSet());
+    private Rating getRatingByProcessAttribute(MeasurementFramework measurementFramework,
+                                               Collection<Result> resultsOfProcesses,
+                                               Process process,
+                                               ProcessAttribute processAttribute) {
+        if (processAttribute.getGenerateQuestions()) {
+            AtomicReference<Float> valueProcessAttribute = new AtomicReference<>(0F);
+            Collection<Result> resultsByProcessAttribute = resultsOfProcesses.stream()
+                    .filter(result -> processAttribute.getIdProcessAttribute().equals(result.getIdProcessAttribute()) &&
+                            process.getIdProcess().equals(result.getIdProcess()))
+                    .collect(Collectors.toList());
+
+            resultsByProcessAttribute.forEach(result -> {
+                measurementFramework.getRatings().stream().filter(rating -> rating.getId().equals(result.getValue()))
+                        .findFirst()
+                        .ifPresent(ratingOfProcessAttribute -> valueProcessAttribute.updateAndGet(v -> v + ratingOfProcessAttribute.getMaxValue()));
+            });
+            float totalValueProcessAttribute = valueProcessAttribute.get() / resultsByProcessAttribute.size();
+            return this.getRatingByTotalValue(totalValueProcessAttribute, measurementFramework.getRatings());
+        } else {
+            AtomicReference<Float> valueResultProcess = new AtomicReference<>(0F);
+            process.getExpectedResults().forEach(expectedResult -> {
+                float totalValue = this.getTotalValue(measurementFramework, resultsOfProcesses, expectedResult);
+                Rating ratingByTotalValue = this.getRatingByTotalValue(totalValue, measurementFramework.getRatings());
+                expectedResult.setRatingAssessment(ratingByTotalValue);
+                if (ratingByTotalValue != null) {
+                    valueResultProcess.updateAndGet(v -> v + ratingByTotalValue.getMaxValue());
+                }
+            });
+            float totalValueProcess = valueResultProcess.get() / process.getExpectedResults().size();
+            Rating ratingProcessByTotalValue = this.getRatingByTotalValue(totalValueProcess, measurementFramework.getRatings());
+            process.setRatingProcessResult(ratingProcessByTotalValue);
+            return ratingProcessByTotalValue;
+        }
     }
 
-    private Collection<Classification> getClassifications(Classification targetLevel, MeasurementFramework measurementFramework) {
-        List<Classification> classifications = new ArrayList<>(measurementFramework.getClassifications());
-        int indexLevel = classifications.indexOf(targetLevel);
-        return classifications.stream()
-                .filter(classification -> classifications.indexOf(classification) <= indexLevel)
+    private float getTotalValue(MeasurementFramework measurementFramework, Collection<Result> resultsOfProcesses, ExpectedResult expectedResult) {
+        Collection<Result> resultsByExpectedResult = resultsOfProcesses.stream()
+                .filter(result -> expectedResult.getIdExpectedResult().equals(result.getIdExpectedResult()))
+                .collect(Collectors.toList());
+
+        AtomicReference<Float> valueResult = new AtomicReference<>(0F);
+        resultsByExpectedResult.forEach(result -> {
+            measurementFramework.getRatings().stream().filter(rating -> rating.getId().equals(result.getValue()))
+                    .findFirst()
+                    .ifPresent(ratingOfExpectedResult -> valueResult.updateAndGet(v -> v + ratingOfExpectedResult.getMaxValue()));
+        });
+        return valueResult.get() / resultsByExpectedResult.size();
+    }
+
+    private Collection<Result> getResultsOfProcesses(Collection<Process> processesOfClassifications, Collection<Result> results) {
+        return results.stream()
+                .filter(result -> processesOfClassifications.stream().anyMatch(process -> process.getIdProcess().equals(result.getIdProcess())))
                 .collect(Collectors.toList());
     }
 
-    private Collection<?> getProcessByTargetLevel(Collection<Level> levels, ReferenceModel referenceModel) {
-        return levels.stream().map(level -> {
+    private Collection<CapacityLevel> getCapacityLevels(Classification classification, Collection<CapacityLevel> capacityLevels) {
+        return capacityLevels.stream()
+                .filter(capacityLevel -> classification.getCapacityLevels().contains(capacityLevel.getIdCapacityLevel()))
+                .collect(Collectors.toSet());
+    }
+
+    private List<Classification> getClassifications(Classification targetLevel, MeasurementFramework measurementFramework) {
+        List<Classification> classifications = new ArrayList<>(measurementFramework.getClassifications());
+        int indexLevel = classifications.indexOf(targetLevel);
+        List<Classification> allClassifications = classifications.stream()
+                .filter(classification -> classifications.indexOf(classification) <= indexLevel)
+                .collect(Collectors.toList());
+        Collections.reverse(allClassifications);
+        return allClassifications;
+    }
+
+    @SuppressWarnings("unchecked")
+    private Collection<Process> getProcessOfClassifications(Collection<Classification> classifications, ReferenceModel referenceModel) {
+        Collection<?> processes = classifications.stream().map(classification -> classification.getLevels().stream().map(level -> {
             KnowledgeArea knowledgeAreaFromLevel = referenceModel.getKnowledgeAreas().stream()
                     .filter(knowledgeArea -> level.getIdProcessArea().equals(knowledgeArea.getIdKnowledgeArea()))
                     .findFirst().orElse(null);
@@ -130,7 +191,12 @@ public class AssessmentServiceImpl implements AssessmentService {
                         .collect(Collectors.toList());
             }
             return Collections.emptyList();
-        }).flatMap(Collection::stream).collect(Collectors.toList());
+        }).flatMap(Collection::stream).collect(Collectors.toSet())).flatMap(Collection::stream).collect(Collectors.toSet());
+        return ((Collection<Process>) processes);
     }
 
+    private Rating getRatingByTotalValue(Float totalValue, Collection<Rating> ratings) {
+        return ratings.stream().filter(rating -> totalValue > rating.getMinValue() && totalValue <= rating.getMaxValue())
+                .findFirst().orElse(null);
+    }
 }
