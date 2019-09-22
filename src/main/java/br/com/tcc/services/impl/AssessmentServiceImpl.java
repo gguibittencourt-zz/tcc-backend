@@ -103,6 +103,35 @@ public class AssessmentServiceImpl implements AssessmentService {
             levelResult.setProcesses(processResults);
             return levelResult;
         }).collect(Collectors.toList());
+        levelResults.forEach(levelResult -> {
+            Map<Process, Set<ProcessResult>> processResultsByProcessToBeCompleted = levelResults.stream().filter(levelResultToBeComplete -> levelResults.indexOf(levelResultToBeComplete) > levelResults.indexOf(levelResult))
+                    .map(LevelResult::getProcesses)
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.groupingBy(ProcessResult::getProcess, Collectors.toSet()));
+            levelResult.getProcesses().forEach(processResult -> {
+                boolean hasAnyProcessAttributeNotSatisfied = processResult.getCapacityResults().stream()
+                        .anyMatch(capacityResult -> capacityResult.getProcessAttributeResults().stream()
+                                .anyMatch(processAttributeResult -> !processAttributeResult.getProcessAttribute().getRatings().contains(processAttributeResult.getRating().getId())));
+                if (hasAnyProcessAttributeNotSatisfied) {
+                    processResult.setResult("Não satisfeito");
+                } else {
+                    Set<ProcessResult> processResults = processResultsByProcessToBeCompleted.get(processResult.getProcess());
+                    if (processResults != null) {
+                        boolean completed = processResults.stream()
+                                .allMatch(processResultToBeCompleted -> processResultToBeCompleted.getCapacityResults().stream()
+                                        .allMatch(capacityResultToBeCompleted -> capacityResultToBeCompleted.getProcessAttributeResults().stream()
+                                                .allMatch(processAttributeResult -> processAttributeResult.getRating().getId().equals("4"))));
+                        if (completed) {
+                            processResult.setResult("Satisfeito");
+                        } else {
+                            processResult.setResult("Não satisfeito");
+                        }
+                    } else {
+                        processResult.setResult("Satisfeito");
+                    }
+                }
+            });
+        });
         Collections.reverse(levelResults);
         jsonAssessment.setLevelResults(levelResults);
     }
