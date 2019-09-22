@@ -141,23 +141,23 @@ public class AssessmentServiceImpl implements AssessmentService {
                                                Process process,
                                                ProcessAttribute processAttribute) {
         if (processAttribute.getGenerateQuestions()) {
-            AtomicReference<Float> valueProcessAttribute = new AtomicReference<>(0F);
-            Collection<Result> resultsByProcessAttribute = resultsOfProcesses.stream()
-                    .filter(result -> processAttribute.getIdProcessAttribute().equals(result.getIdProcessAttribute()) &&
-                            process.getIdProcess().equals(result.getIdProcess()))
-                    .collect(Collectors.toList());
-
-            resultsByProcessAttribute.forEach(result -> {
-                measurementFramework.getRatings().stream().filter(rating -> rating.getId().equals(result.getValue()))
-                        .findFirst()
-                        .ifPresent(ratingOfProcessAttribute -> valueProcessAttribute.updateAndGet(v -> v + ratingOfProcessAttribute.getMaxValue()));
+            AtomicReference<Float> valueResultProcess = new AtomicReference<>(0F);
+            processAttribute.getValues().forEach(processAttributeValue -> {
+                float totalValue = this.getTotalValueByProcessAttributeValue(measurementFramework, resultsOfProcesses, processAttributeValue.getIdProcessAttributeValue(), process.getIdProcess());
+                Rating ratingByTotalValue = this.getRatingByTotalValue(totalValue, measurementFramework.getRatings());
+                processAttributeValue.setRatingAssessment(ratingByTotalValue);
+                if (ratingByTotalValue != null) {
+                    valueResultProcess.updateAndGet(v -> v + ratingByTotalValue.getMaxValue());
+                }
             });
-            float totalValueProcessAttribute = valueProcessAttribute.get() / resultsByProcessAttribute.size();
-            return this.getRatingByTotalValue(totalValueProcessAttribute, measurementFramework.getRatings());
+            float totalValueProcessAttribute = valueResultProcess.get() / processAttribute.getValues().size();
+            Rating ratingByTotalValue = this.getRatingByTotalValue(totalValueProcessAttribute, measurementFramework.getRatings());
+            processAttribute.setRatingAssessment(ratingByTotalValue);
+            return ratingByTotalValue;
         } else {
             AtomicReference<Float> valueResultProcess = new AtomicReference<>(0F);
             process.getExpectedResults().forEach(expectedResult -> {
-                float totalValue = this.getTotalValue(measurementFramework, resultsOfProcesses, expectedResult);
+                float totalValue = this.getTotalValueByExpectedResult(measurementFramework, resultsOfProcesses, expectedResult);
                 Rating ratingByTotalValue = this.getRatingByTotalValue(totalValue, measurementFramework.getRatings());
                 expectedResult.setRatingAssessment(ratingByTotalValue);
                 if (ratingByTotalValue != null) {
@@ -171,7 +171,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         }
     }
 
-    private float getTotalValue(MeasurementFramework measurementFramework, Collection<Result> resultsOfProcesses, ExpectedResult expectedResult) {
+    private float getTotalValueByExpectedResult(MeasurementFramework measurementFramework, Collection<Result> resultsOfProcesses, ExpectedResult expectedResult) {
         Collection<Result> resultsByExpectedResult = resultsOfProcesses.stream()
                 .filter(result -> expectedResult.getIdExpectedResult().equals(result.getIdExpectedResult()))
                 .collect(Collectors.toList());
@@ -183,6 +183,23 @@ public class AssessmentServiceImpl implements AssessmentService {
                     .ifPresent(ratingOfExpectedResult -> valueResult.updateAndGet(v -> v + ratingOfExpectedResult.getMaxValue()));
         });
         return valueResult.get() / resultsByExpectedResult.size();
+    }
+
+    private float getTotalValueByProcessAttributeValue(MeasurementFramework measurementFramework,
+                                                       Collection<Result> resultsOfProcesses,
+                                                       String idProcessAttributeValue,
+                                                       String idProcess) {
+        Collection<Result> resultsByProcessAttributeValue = resultsOfProcesses.stream()
+                .filter(result -> idProcessAttributeValue.equals(result.getIdProcessAttributeValue()) && idProcess.equals(result.getIdProcess()))
+                .collect(Collectors.toList());
+
+        AtomicReference<Float> valueResult = new AtomicReference<>(0F);
+        resultsByProcessAttributeValue.forEach(result -> {
+            measurementFramework.getRatings().stream().filter(rating -> rating.getId().equals(result.getValue()))
+                    .findFirst()
+                    .ifPresent(ratingOfExpectedResult -> valueResult.updateAndGet(v -> v + ratingOfExpectedResult.getMaxValue()));
+        });
+        return valueResult.get() / resultsByProcessAttributeValue.size();
     }
 
     private Collection<Result> getResultsOfProcesses(Collection<Process> processesOfClassifications, Collection<Result> results) {
