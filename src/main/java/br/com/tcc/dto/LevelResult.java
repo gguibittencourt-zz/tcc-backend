@@ -2,11 +2,12 @@ package br.com.tcc.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 public class LevelResult {
     private Classification classification;
-    private Collection<ProcessResult> processes;
+    private List<ProcessResult> processes;
     private String result;
 
     public Classification getClassification() {
@@ -18,14 +19,14 @@ public class LevelResult {
         return this;
     }
 
-    public Collection<ProcessResult> getProcesses() {
+    public List<ProcessResult> getProcesses() {
         if (this.processes == null) {
             this.processes= new ArrayList<>();
         }
         return processes;
     }
 
-    public LevelResult setProcesses(Collection<ProcessResult> processes) {
+    public LevelResult setProcesses(List<ProcessResult> processes) {
         this.processes = processes;
         return this;
     }

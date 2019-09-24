@@ -63,7 +63,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         if (assessment.getIdAssessment() != null) {
             this.update(assessment.getIdAssessment(), assessment);
         } else {
-            this.register(assessment);
+            assessment.setIdAssessment(this.register(assessment));
         }
         return assessment;
     }
@@ -77,7 +77,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         Collection<Process> processesOfClassifications = this.getProcessOfClassifications(classifications, referenceModel);
         Collection<Result> resultsOfProcesses = this.getResultsOfProcesses(processesOfClassifications, jsonAssessment.getResults());
         List<LevelResult> levelResults = classifications.stream().map(classification -> {
-            Collection<ProcessResult> processResults = processesOfClassifications.stream().map(process -> {
+            List<ProcessResult> processResults = processesOfClassifications.stream().map(process -> {
                 ProcessResult processResult = new ProcessResult();
                 Collection<CapacityLevel> capacityLevels = this.getCapacityLevels(classification, measurementFramework.getCapacityLevels());
                 Collection<CapacityResult> capacityResults = capacityLevels.stream().map(capacityLevel -> {
@@ -133,8 +133,14 @@ public class AssessmentServiceImpl implements AssessmentService {
             });
             boolean naoSatisfeito = levelResult.getProcesses().stream()
                     .anyMatch(processResult -> processResult.getResult().equals("Não satisfeito"));
-            levelResult.setResult(naoSatisfeito ? "Não satisfeito" : "Satisfeito");
+            String result = String.format(" aos requisitos de processos e capacidade do Modelo de Referência: %s do %s", referenceModel.getName(), targetLevel.getName());
+            levelResult.setResult(naoSatisfeito ?
+                    "Não atendeu" + result :
+                    "Atendeu" + result);
+            Collections.reverse(levelResult.getProcesses());
         });
+        levelResults.stream().filter(levelResult -> levelResult.getClassification().getIdClassification().equals(targetLevel.getIdClassification()))
+                .findFirst().ifPresent(targetLevelResult -> jsonAssessment.setAssessmentResult(targetLevelResult.getResult()));
         Collections.reverse(levelResults);
         jsonAssessment.setLevelResults(levelResults);
     }
