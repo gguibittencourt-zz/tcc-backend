@@ -131,6 +131,9 @@ public class AssessmentServiceImpl implements AssessmentService {
                     }
                 }
             });
+            boolean naoSatisfeito = levelResult.getProcesses().stream()
+                    .anyMatch(processResult -> processResult.getResult().equals("Não satisfeito"));
+            levelResult.setResult(naoSatisfeito ? "Não satisfeito" : "Satisfeito");
         });
         Collections.reverse(levelResults);
         jsonAssessment.setLevelResults(levelResults);

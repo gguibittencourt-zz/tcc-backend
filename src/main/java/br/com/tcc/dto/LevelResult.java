@@ -7,6 +7,7 @@ import java.util.Objects;
 public class LevelResult {
     private Classification classification;
     private Collection<ProcessResult> processes;
+    private String result;
 
     public Classification getClassification() {
         return classification;
@@ -29,17 +30,27 @@ public class LevelResult {
         return this;
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public LevelResult setResult(String result) {
+        this.result = result;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof LevelResult)) return false;
         LevelResult that = (LevelResult) o;
         return Objects.equals(getClassification(), that.getClassification()) &&
-                Objects.equals(getProcesses(), that.getProcesses());
+                Objects.equals(getProcesses(), that.getProcesses()) &&
+                Objects.equals(getResult(), that.getResult());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getClassification(), getProcesses());
+        return Objects.hash(getClassification(), getProcesses(), getResult());
     }
 }
