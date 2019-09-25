@@ -154,7 +154,7 @@ public class AssessmentServiceImpl implements AssessmentService {
             processAttribute.getValues().forEach(processAttributeValue -> {
                 float totalValue = this.getTotalValueByProcessAttributeValue(measurementFramework, resultsOfProcesses, processAttributeValue.getIdProcessAttributeValue(), process.getIdProcess());
                 Rating ratingByTotalValue = this.getRatingByTotalValue(totalValue, measurementFramework.getRatings());
-                processAttributeValue.setRatingAssessment(ratingByTotalValue);
+                processAttributeValue.getRatingAssessmentByIdProcess().put(process.getIdProcess(), ratingByTotalValue);
                 if (ratingByTotalValue != null) {
                     valueResultProcess.updateAndGet(v -> v + ratingByTotalValue.getMaxValue());
                 }
@@ -176,6 +176,7 @@ public class AssessmentServiceImpl implements AssessmentService {
             float totalValueProcess = valueResultProcess.get() / process.getExpectedResults().size();
             Rating ratingProcessByTotalValue = this.getRatingByTotalValue(totalValueProcess, measurementFramework.getRatings());
             process.setRatingProcessResult(ratingProcessByTotalValue);
+            processAttribute.getValues().iterator().next().getRatingAssessmentByIdProcess().put(process.getIdProcess(), ratingProcessByTotalValue);
             return ratingProcessByTotalValue;
         }
     }
