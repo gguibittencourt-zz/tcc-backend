@@ -73,8 +73,9 @@ public class AssessmentServiceImpl implements AssessmentService {
         Classification targetLevel = jsonAssessment.getTargetLevel();
         MeasurementFramework measurementFramework = jsonAssessment.getMeasurementFramework();
         ReferenceModel referenceModel = jsonAssessment.getReferenceModel();
+        Collection<String> processesToAssessment = jsonAssessment.getProcessToAssessment();
         List<Classification> classifications = this.getClassifications(targetLevel, measurementFramework);
-        Collection<Process> processesOfClassifications = this.getProcessOfClassifications(classifications, referenceModel);
+        Collection<Process> processesOfClassifications = this.getProcessOfClassifications(classifications, referenceModel, processesToAssessment);
         Collection<Result> resultsOfProcesses = this.getResultsOfProcesses(processesOfClassifications, jsonAssessment.getResults());
         List<LevelResult> levelResults = classifications.stream().map(classification -> {
             List<ProcessResult> processResults = processesOfClassifications.stream().map(process -> {
@@ -235,7 +236,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     }
 
     @SuppressWarnings("unchecked")
-    private Collection<Process> getProcessOfClassifications(Collection<Classification> classifications, ReferenceModel referenceModel) {
+    private Collection<Process> getProcessOfClassifications(Collection<Classification> classifications, ReferenceModel referenceModel, Collection<String> processesToAssessment) {
         Collection<?> processes = classifications.stream().map(classification -> classification.getLevels().stream().map(level -> {
             KnowledgeArea knowledgeAreaFromLevel = referenceModel.getKnowledgeAreas().stream()
                     .filter(knowledgeArea -> level.getIdProcessArea().equals(knowledgeArea.getIdKnowledgeArea()))
@@ -243,7 +244,7 @@ public class AssessmentServiceImpl implements AssessmentService {
             if (knowledgeAreaFromLevel != null) {
                 Collection<Object> idsProcess = Arrays.asList(level.getValues());
                 return knowledgeAreaFromLevel.getProcesses().stream()
-                        .filter(process -> idsProcess.contains(process.getIdProcess()))
+                        .filter(process -> idsProcess.contains(process.getIdProcess()) && processesToAssessment.contains(process.getIdProcess()))
                         .collect(Collectors.toList());
             }
             return Collections.emptyList();

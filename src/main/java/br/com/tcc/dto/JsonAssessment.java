@@ -12,6 +12,7 @@ public class JsonAssessment {
     private Collection<LevelResult> levelResults;
     private Company company;
     private String assessmentResult;
+    private Collection<String> processToAssessment;
 
     public MeasurementFramework getMeasurementFramework() {
         return measurementFramework;
@@ -76,6 +77,15 @@ public class JsonAssessment {
         return this;
     }
 
+    public Collection<String> getProcessToAssessment() {
+        return processToAssessment;
+    }
+
+    public JsonAssessment setProcessToAssessment(Collection<String> processToAssessment) {
+        this.processToAssessment = processToAssessment;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,11 +97,12 @@ public class JsonAssessment {
                 Objects.equals(getResults(), that.getResults()) &&
                 Objects.equals(getLevelResults(), that.getLevelResults()) &&
                 Objects.equals(getCompany(), that.getCompany()) &&
-                Objects.equals(getAssessmentResult(), that.getAssessmentResult());
+                Objects.equals(getAssessmentResult(), that.getAssessmentResult()) &&
+                Objects.equals(getProcessToAssessment(), that.getProcessToAssessment());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMeasurementFramework(), getTargetLevel(), getReferenceModel(), getResults(), getLevelResults(), getCompany(), getAssessmentResult());
+        return Objects.hash(getMeasurementFramework(), getTargetLevel(), getReferenceModel(), getResults(), getLevelResults(), getCompany(), getAssessmentResult(), getProcessToAssessment());
     }
 }
