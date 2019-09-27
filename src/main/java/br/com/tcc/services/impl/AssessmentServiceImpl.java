@@ -150,36 +150,36 @@ public class AssessmentServiceImpl implements AssessmentService {
                                                Collection<Result> resultsOfProcesses,
                                                Process process,
                                                ProcessAttribute processAttribute) {
-        if (processAttribute.getGenerateQuestions()) {
-            AtomicReference<Float> valueResultProcess = new AtomicReference<>(0F);
-            processAttribute.getValues().forEach(processAttributeValue -> {
+        AtomicReference<Float> valueResultProcess = new AtomicReference<>(0F);
+        processAttribute.getValues().forEach(processAttributeValue -> {
+            if (processAttributeValue.getGenerateQuestions()) {
                 float totalValue = this.getTotalValueByProcessAttributeValue(measurementFramework, resultsOfProcesses, processAttributeValue.getIdProcessAttributeValue(), process.getIdProcess());
                 Rating ratingByTotalValue = this.getRatingByTotalValue(totalValue, measurementFramework.getRatings());
                 processAttributeValue.getRatingAssessmentByIdProcess().put(process.getIdProcess(), ratingByTotalValue);
                 if (ratingByTotalValue != null) {
                     valueResultProcess.updateAndGet(v -> v + ratingByTotalValue.getMaxValue());
                 }
-            });
-            float totalValueProcessAttribute = valueResultProcess.get() / processAttribute.getValues().size();
-            Rating ratingByTotalValue = this.getRatingByTotalValue(totalValueProcessAttribute, measurementFramework.getRatings());
-            processAttribute.setRatingAssessment(ratingByTotalValue);
-            return ratingByTotalValue;
-        } else {
-            AtomicReference<Float> valueResultProcess = new AtomicReference<>(0F);
-            process.getExpectedResults().forEach(expectedResult -> {
-                float totalValue = this.getTotalValueByExpectedResult(measurementFramework, resultsOfProcesses, expectedResult);
-                Rating ratingByTotalValue = this.getRatingByTotalValue(totalValue, measurementFramework.getRatings());
-                expectedResult.setRatingAssessment(ratingByTotalValue);
-                if (ratingByTotalValue != null) {
-                    valueResultProcess.updateAndGet(v -> v + ratingByTotalValue.getMaxValue());
-                }
-            });
-            float totalValueProcess = valueResultProcess.get() / process.getExpectedResults().size();
-            Rating ratingProcessByTotalValue = this.getRatingByTotalValue(totalValueProcess, measurementFramework.getRatings());
-            process.setRatingProcessResult(ratingProcessByTotalValue);
-            processAttribute.getValues().iterator().next().getRatingAssessmentByIdProcess().put(process.getIdProcess(), ratingProcessByTotalValue);
-            return ratingProcessByTotalValue;
-        }
+            } else {
+                AtomicReference<Float> valueResultExpectedResult = new AtomicReference<>(0F);
+                process.getExpectedResults().forEach(expectedResult -> {
+                    float totalValue = this.getTotalValueByExpectedResult(measurementFramework, resultsOfProcesses, expectedResult);
+                    Rating ratingByTotalValue = this.getRatingByTotalValue(totalValue, measurementFramework.getRatings());
+                    expectedResult.setRatingAssessment(ratingByTotalValue);
+                    if (ratingByTotalValue != null) {
+                        valueResultExpectedResult.updateAndGet(v -> v + ratingByTotalValue.getMaxValue());
+                    }
+                });
+                float totalExpectedResults = valueResultExpectedResult.get() / process.getExpectedResults().size();
+                Rating ratingProcessByTotalValue = this.getRatingByTotalValue(totalExpectedResults, measurementFramework.getRatings());
+                process.setRatingProcessResult(ratingProcessByTotalValue);
+                processAttributeValue.getRatingAssessmentByIdProcess().put(process.getIdProcess(), ratingProcessByTotalValue);
+                valueResultProcess.updateAndGet(v -> v + ratingProcessByTotalValue.getMaxValue());
+            }
+        });
+        float totalValueProcessAttribute = valueResultProcess.get() / processAttribute.getValues().size();
+        Rating ratingByTotalValue = this.getRatingByTotalValue(totalValueProcessAttribute, measurementFramework.getRatings());
+        processAttribute.setRatingAssessment(ratingByTotalValue);
+        return ratingByTotalValue;
     }
 
     private float getTotalValueByExpectedResult(MeasurementFramework measurementFramework, Collection<Result> resultsOfProcesses, ExpectedResult expectedResult) {

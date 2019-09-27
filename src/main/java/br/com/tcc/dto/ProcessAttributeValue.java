@@ -9,6 +9,7 @@ public class ProcessAttributeValue {
     private String idProcessAttributeValue;
     private String name;
     private Map<String, Rating> ratingAssessmentByIdProcess;
+    private Boolean generateQuestions;
 
     public String getIdProcessAttributeValue() {
         return idProcessAttributeValue;
@@ -40,6 +41,15 @@ public class ProcessAttributeValue {
         return this;
     }
 
+    public Boolean getGenerateQuestions() {
+        return generateQuestions;
+    }
+
+    public ProcessAttributeValue setGenerateQuestions(Boolean generateQuestions) {
+        this.generateQuestions = generateQuestions;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,11 +57,12 @@ public class ProcessAttributeValue {
         ProcessAttributeValue that = (ProcessAttributeValue) o;
         return Objects.equals(getIdProcessAttributeValue(), that.getIdProcessAttributeValue()) &&
                 Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getRatingAssessmentByIdProcess(), that.getRatingAssessmentByIdProcess());
+                Objects.equals(getRatingAssessmentByIdProcess(), that.getRatingAssessmentByIdProcess()) &&
+                Objects.equals(getGenerateQuestions(), that.getGenerateQuestions());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdProcessAttributeValue(), getName(), getRatingAssessmentByIdProcess());
+        return Objects.hash(getIdProcessAttributeValue(), getName(), getRatingAssessmentByIdProcess(), getGenerateQuestions());
     }
 }
