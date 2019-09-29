@@ -15,4 +15,6 @@ public interface ReferenceModelDAO {
     Integer update(Integer idReferenceModel, ReferenceModel referenceModel);
 
     Integer delete(Integer idReferenceModel);
+
+    boolean isPossibleDelete(Integer idReferenceModel);
 }

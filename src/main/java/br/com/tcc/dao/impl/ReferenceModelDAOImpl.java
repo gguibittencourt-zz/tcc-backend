@@ -2,14 +2,12 @@ package br.com.tcc.dao.impl;
 
 import br.com.tcc.dao.ReferenceModelDAO;
 import br.com.tcc.dao.metadata.Tables;
+import br.com.tcc.dao.metadata.tables.records.ReferenceModelRecord;
 import br.com.tcc.dto.KnowledgeArea;
 import br.com.tcc.dto.ReferenceModel;
 import br.com.tcc.util.Constants;
 import com.google.gson.Gson;
-import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Record3;
-import org.jooq.SelectSelectStep;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -72,6 +70,20 @@ public class ReferenceModelDAOImpl implements ReferenceModelDAO {
                 .where(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel))
                 .execute();
     }
+
+    @Override
+    public boolean isPossibleDelete(Integer idReferenceModel) {
+        Result<ReferenceModelRecord> fetch = this.dslContext
+                .selectFrom(Tables.REFERENCE_MODEL)
+                .whereNotExists(
+                        this.dslContext.select()
+                                .from(Tables.REFERENCE_MODEL)
+                                .innerJoin(Tables.MEASUREMENT_FRAMEWORK).using(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL)
+                                .where(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel)))
+                .fetch();
+        return fetch == null;
+    }
+
 
     private SelectSelectStep<Record3<Integer, String, String>> getSelect() {
         return this.dslContext

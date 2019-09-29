@@ -6,7 +6,7 @@ public class KnowledgeArea {
 
     private String idKnowledgeArea;
     private String name;
-    private String purpose;
+    private String prefix;
     private Collection<Process> processes;
 
     public String getIdKnowledgeArea() {
@@ -27,12 +27,12 @@ public class KnowledgeArea {
         return this;
     }
 
-    public String getPurpose() {
-        return purpose;
+    public String getPrefix() {
+        return prefix;
     }
 
-    public KnowledgeArea setPurpose(String purpose) {
-        this.purpose = purpose;
+    public KnowledgeArea setPrefix(String prefix) {
+        this.prefix = prefix;
         return this;
     }
 

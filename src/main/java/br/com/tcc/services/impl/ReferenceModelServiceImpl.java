@@ -2,6 +2,7 @@ package br.com.tcc.services.impl;
 
 import br.com.tcc.dao.ReferenceModelDAO;
 import br.com.tcc.dto.ReferenceModel;
+import br.com.tcc.exceptions.BusinessException;
 import br.com.tcc.services.ReferenceModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,10 @@ public class ReferenceModelServiceImpl implements ReferenceModelService {
 
     @Override
     public Integer delete(Integer idReferenceModel) {
-        return this.referenceModelDAO.delete(idReferenceModel);
+        if (this.referenceModelDAO.isPossibleDelete(idReferenceModel)) {
+            return this.referenceModelDAO.delete(idReferenceModel);
+        }
+        throw new BusinessException("Não foi possível excluir, existem Modelos de Avaliação vinculados a esse Modelo de Referência.");
     }
 
 }
