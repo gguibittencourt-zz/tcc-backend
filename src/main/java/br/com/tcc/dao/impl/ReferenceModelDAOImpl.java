@@ -75,13 +75,14 @@ public class ReferenceModelDAOImpl implements ReferenceModelDAO {
     public boolean isPossibleDelete(Integer idReferenceModel) {
         Result<ReferenceModelRecord> fetch = this.dslContext
                 .selectFrom(Tables.REFERENCE_MODEL)
-                .whereNotExists(
+                .whereExists(
                         this.dslContext.select()
                                 .from(Tables.REFERENCE_MODEL)
                                 .innerJoin(Tables.MEASUREMENT_FRAMEWORK).using(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL)
                                 .where(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel)))
+                .and(Tables.REFERENCE_MODEL.ID_REFERENCE_MODEL.eq(idReferenceModel))
                 .fetch();
-        return fetch == null;
+        return fetch.isEmpty();
     }
 
 
