@@ -7,7 +7,6 @@ public class Goal {
 
     private String idGoal;
     private String idReference;
-    private Float percentage;
     private MetricScale[] metrics;
 
     public String getIdGoal() {
@@ -28,15 +27,6 @@ public class Goal {
         return this;
     }
 
-    public Float getPercentage() {
-        return percentage;
-    }
-
-    public Goal setPercentage(Float percentage) {
-        this.percentage = percentage;
-        return this;
-    }
-
     public MetricScale[] getMetrics() {
         return metrics;
     }
@@ -53,13 +43,12 @@ public class Goal {
         Goal goal = (Goal) o;
         return Objects.equals(getIdGoal(), goal.getIdGoal()) &&
                 Objects.equals(getIdReference(), goal.getIdReference()) &&
-                Objects.equals(getPercentage(), goal.getPercentage()) &&
                 Arrays.equals(getMetrics(), goal.getMetrics());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getIdGoal(), getIdReference(), getPercentage());
+        int result = Objects.hash(getIdGoal(), getIdReference());
         result = 31 * result + Arrays.hashCode(getMetrics());
         return result;
     }

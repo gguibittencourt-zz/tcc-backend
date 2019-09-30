@@ -10,7 +10,6 @@ public class MeasurementFrameworkConfig {
     private Collection<CapacityLevel> capacityLevels;
     private Collection<Rating> ratings;
     private Collection<Classification> classifications;
-    private Collection<ScaleValues> scaleValues;
 
     public Collection<Question> getQuestions() {
         return questions;
@@ -36,15 +35,6 @@ public class MeasurementFrameworkConfig {
 
     public MeasurementFrameworkConfig setClassifications(Collection<Classification> classifications) {
         this.classifications = classifications;
-        return this;
-    }
-
-    public Collection<ScaleValues> getScaleValues() {
-        return scaleValues;
-    }
-
-    public MeasurementFrameworkConfig setScaleValues(Collection<ScaleValues> scaleValues) {
-        this.scaleValues = scaleValues;
         return this;
     }
 
@@ -75,12 +65,11 @@ public class MeasurementFrameworkConfig {
                 Objects.equals(getGoals(), that.getGoals()) &&
                 Objects.equals(getCapacityLevels(), that.getCapacityLevels()) &&
                 Objects.equals(getRatings(), that.getRatings()) &&
-                Objects.equals(getClassifications(), that.getClassifications()) &&
-                Objects.equals(getScaleValues(), that.getScaleValues());
+                Objects.equals(getClassifications(), that.getClassifications());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getQuestions(), getGoals(), getCapacityLevels(), getRatings(), getClassifications(), getScaleValues());
+        return Objects.hash(getQuestions(), getGoals(), getCapacityLevels(), getRatings(), getClassifications());
     }
 }
