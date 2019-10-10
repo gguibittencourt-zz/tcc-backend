@@ -112,12 +112,15 @@ public class AssessmentServiceImpl implements AssessmentService {
             levelResult.getProcesses().forEach(processResult -> {
                 boolean hasAnyProcessAttributeNotSatisfied = processResult.getCapacityResults().stream()
                         .anyMatch(capacityResult -> capacityResult.getProcessAttributeResults().stream()
-                                .anyMatch(processAttributeResult -> !processAttributeResult.getProcessAttribute().getRatings().contains(processAttributeResult.getRating().getId())));
+                                .anyMatch(processAttributeResult -> {
+                                    ProcessAttribute processAttribute = processAttributeResult.getProcessAttribute();
+                                    return !processAttribute.getRatings().contains(processAttribute.getRatingAssessment().getId());
+                                }));
                 if (hasAnyProcessAttributeNotSatisfied) {
                     processResult.setResult("Não satisfeito");
                 } else {
                     Set<ProcessResult> processResults = processResultsByProcessToBeCompleted.get(processResult.getProcess());
-                    if (processResults != null) {
+                    if (processResults != null && measurementFramework.isAccumulate()) {
                         boolean completed = processResults.stream()
                                 .allMatch(processResultToBeCompleted -> processResultToBeCompleted.getCapacityResults().stream()
                                         .allMatch(capacityResultToBeCompleted -> capacityResultToBeCompleted.getProcessAttributeResults().stream()

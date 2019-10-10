@@ -109,7 +109,8 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .setCapacityLevels(config.getCapacityLevels())
                 .setRatings(config.getRatings())
                 .setClassifications(config.getClassifications())
-                .setGoals(config.getGoals());
+                .setGoals(config.getGoals())
+                .setAccumulate(config.isAccumulate());
     }
 
     private MeasurementFrameworkConfig getConfig(MeasurementFramework measurementFramework) {
@@ -118,6 +119,7 @@ public class MeasurementFrameworkDAOImpl implements MeasurementFrameworkDAO {
                 .setCapacityLevels(measurementFramework.getCapacityLevels())
                 .setRatings(measurementFramework.getRatings())
                 .setGoals(measurementFramework.getGoals())
-                .setClassifications(measurementFramework.getClassifications());
+                .setClassifications(measurementFramework.getClassifications())
+                .setAccumulate(measurementFramework.isAccumulate());
     }
 }

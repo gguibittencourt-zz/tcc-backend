@@ -14,6 +14,7 @@ public class MeasurementFramework {
     private Collection<CapacityLevel> capacityLevels;
     private Collection<Classification> classifications;
     private Collection<Rating> ratings;
+    private boolean isAccumulate;
 
     public Integer getIdMeasurementFramework() {
         return idMeasurementFramework;
@@ -96,12 +97,22 @@ public class MeasurementFramework {
         return this;
     }
 
+    public boolean isAccumulate() {
+        return isAccumulate;
+    }
+
+    public MeasurementFramework setAccumulate(boolean accumulate) {
+        isAccumulate = accumulate;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MeasurementFramework)) return false;
         MeasurementFramework that = (MeasurementFramework) o;
-        return Objects.equals(getIdMeasurementFramework(), that.getIdMeasurementFramework()) &&
+        return isAccumulate() == that.isAccumulate() &&
+                Objects.equals(getIdMeasurementFramework(), that.getIdMeasurementFramework()) &&
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getType(), that.getType()) &&
                 Objects.equals(getIdReferenceModel(), that.getIdReferenceModel()) &&
@@ -114,6 +125,6 @@ public class MeasurementFramework {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdMeasurementFramework(), getName(), getType(), getIdReferenceModel(), getQuestions(), getGoals(), getCapacityLevels(), getClassifications(), getRatings());
+        return Objects.hash(getIdMeasurementFramework(), getName(), getType(), getIdReferenceModel(), getQuestions(), getGoals(), getCapacityLevels(), getClassifications(), getRatings(), isAccumulate());
     }
 }

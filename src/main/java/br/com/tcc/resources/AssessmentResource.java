@@ -2,7 +2,6 @@ package br.com.tcc.resources;
 
 import br.com.tcc.dao.metadata.enums.AssessmentStatus;
 import br.com.tcc.dto.Assessment;
-import br.com.tcc.dto.ReferenceModel;
 import br.com.tcc.services.AssessmentService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;

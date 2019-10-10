@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class MeasurementFrameworkConfig {
 
+    private boolean isAccumulate;
     private Collection<Question> questions;
     private Collection<Goal> goals;
     private Collection<CapacityLevel> capacityLevels;
@@ -56,12 +57,22 @@ public class MeasurementFrameworkConfig {
         return this;
     }
 
+    public boolean isAccumulate() {
+        return isAccumulate;
+    }
+
+    public MeasurementFrameworkConfig setAccumulate(boolean accumulate) {
+        isAccumulate = accumulate;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MeasurementFrameworkConfig)) return false;
         MeasurementFrameworkConfig that = (MeasurementFrameworkConfig) o;
-        return Objects.equals(getQuestions(), that.getQuestions()) &&
+        return isAccumulate() == that.isAccumulate() &&
+                Objects.equals(getQuestions(), that.getQuestions()) &&
                 Objects.equals(getGoals(), that.getGoals()) &&
                 Objects.equals(getCapacityLevels(), that.getCapacityLevels()) &&
                 Objects.equals(getRatings(), that.getRatings()) &&
@@ -70,6 +81,6 @@ public class MeasurementFrameworkConfig {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getQuestions(), getGoals(), getCapacityLevels(), getRatings(), getClassifications());
+        return Objects.hash(isAccumulate(), getQuestions(), getGoals(), getCapacityLevels(), getRatings(), getClassifications());
     }
 }
