@@ -6,6 +6,7 @@ package br.com.tcc.dao.metadata;
 
 import br.com.tcc.dao.metadata.tables.Assessment;
 import br.com.tcc.dao.metadata.tables.Company;
+import br.com.tcc.dao.metadata.tables.DataSource;
 import br.com.tcc.dao.metadata.tables.MeasurementFramework;
 import br.com.tcc.dao.metadata.tables.ReferenceModel;
 import br.com.tcc.dao.metadata.tables.User;
@@ -35,6 +36,11 @@ public class Tables {
      * The table <code>app.company</code>.
      */
     public static final Company COMPANY = br.com.tcc.dao.metadata.tables.Company.COMPANY;
+
+    /**
+     * The table <code>app.data_source</code>.
+     */
+    public static final DataSource DATA_SOURCE = br.com.tcc.dao.metadata.tables.DataSource.DATA_SOURCE;
 
     /**
      * The table <code>app.measurement_framework</code>.

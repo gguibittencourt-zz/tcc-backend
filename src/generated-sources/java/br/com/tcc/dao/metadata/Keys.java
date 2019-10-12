@@ -6,11 +6,13 @@ package br.com.tcc.dao.metadata;
 
 import br.com.tcc.dao.metadata.tables.Assessment;
 import br.com.tcc.dao.metadata.tables.Company;
+import br.com.tcc.dao.metadata.tables.DataSource;
 import br.com.tcc.dao.metadata.tables.MeasurementFramework;
 import br.com.tcc.dao.metadata.tables.ReferenceModel;
 import br.com.tcc.dao.metadata.tables.User;
 import br.com.tcc.dao.metadata.tables.records.AssessmentRecord;
 import br.com.tcc.dao.metadata.tables.records.CompanyRecord;
+import br.com.tcc.dao.metadata.tables.records.DataSourceRecord;
 import br.com.tcc.dao.metadata.tables.records.MeasurementFrameworkRecord;
 import br.com.tcc.dao.metadata.tables.records.ReferenceModelRecord;
 import br.com.tcc.dao.metadata.tables.records.UserRecord;
@@ -43,6 +45,7 @@ public class Keys {
 
     public static final Identity<AssessmentRecord, Integer> IDENTITY_ASSESSMENT = Identities0.IDENTITY_ASSESSMENT;
     public static final Identity<CompanyRecord, Integer> IDENTITY_COMPANY = Identities0.IDENTITY_COMPANY;
+    public static final Identity<DataSourceRecord, Integer> IDENTITY_DATA_SOURCE = Identities0.IDENTITY_DATA_SOURCE;
     public static final Identity<MeasurementFrameworkRecord, Integer> IDENTITY_MEASUREMENT_FRAMEWORK = Identities0.IDENTITY_MEASUREMENT_FRAMEWORK;
     public static final Identity<ReferenceModelRecord, Integer> IDENTITY_REFERENCE_MODEL = Identities0.IDENTITY_REFERENCE_MODEL;
     public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
@@ -53,6 +56,7 @@ public class Keys {
 
     public static final UniqueKey<AssessmentRecord> KEY_ASSESSMENT_PRIMARY = UniqueKeys0.KEY_ASSESSMENT_PRIMARY;
     public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = UniqueKeys0.KEY_COMPANY_PRIMARY;
+    public static final UniqueKey<DataSourceRecord> KEY_DATA_SOURCE_PRIMARY = UniqueKeys0.KEY_DATA_SOURCE_PRIMARY;
     public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_PRIMARY = UniqueKeys0.KEY_MEASUREMENT_FRAMEWORK_PRIMARY;
     public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_NAME = UniqueKeys0.KEY_MEASUREMENT_FRAMEWORK_NAME;
     public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = UniqueKeys0.KEY_REFERENCE_MODEL_PRIMARY;
@@ -75,6 +79,7 @@ public class Keys {
     private static class Identities0 extends AbstractKeys {
         public static Identity<AssessmentRecord, Integer> IDENTITY_ASSESSMENT = createIdentity(Assessment.ASSESSMENT, Assessment.ASSESSMENT.ID_ASSESSMENT);
         public static Identity<CompanyRecord, Integer> IDENTITY_COMPANY = createIdentity(Company.COMPANY, Company.COMPANY.ID_COMPANY);
+        public static Identity<DataSourceRecord, Integer> IDENTITY_DATA_SOURCE = createIdentity(DataSource.DATA_SOURCE, DataSource.DATA_SOURCE.ID_DATA_SOURCE);
         public static Identity<MeasurementFrameworkRecord, Integer> IDENTITY_MEASUREMENT_FRAMEWORK = createIdentity(MeasurementFramework.MEASUREMENT_FRAMEWORK, MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK);
         public static Identity<ReferenceModelRecord, Integer> IDENTITY_REFERENCE_MODEL = createIdentity(ReferenceModel.REFERENCE_MODEL, ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
         public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.ID_USER);
@@ -83,6 +88,7 @@ public class Keys {
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<AssessmentRecord> KEY_ASSESSMENT_PRIMARY = createUniqueKey(Assessment.ASSESSMENT, "KEY_assessment_PRIMARY", Assessment.ASSESSMENT.ID_ASSESSMENT);
         public static final UniqueKey<CompanyRecord> KEY_COMPANY_PRIMARY = createUniqueKey(Company.COMPANY, "KEY_company_PRIMARY", Company.COMPANY.ID_COMPANY);
+        public static final UniqueKey<DataSourceRecord> KEY_DATA_SOURCE_PRIMARY = createUniqueKey(DataSource.DATA_SOURCE, "KEY_data_source_PRIMARY", DataSource.DATA_SOURCE.ID_DATA_SOURCE);
         public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_PRIMARY = createUniqueKey(MeasurementFramework.MEASUREMENT_FRAMEWORK, "KEY_measurement_framework_PRIMARY", MeasurementFramework.MEASUREMENT_FRAMEWORK.ID_MEASUREMENT_FRAMEWORK);
         public static final UniqueKey<MeasurementFrameworkRecord> KEY_MEASUREMENT_FRAMEWORK_NAME = createUniqueKey(MeasurementFramework.MEASUREMENT_FRAMEWORK, "KEY_measurement_framework_name", MeasurementFramework.MEASUREMENT_FRAMEWORK.NAME);
         public static final UniqueKey<ReferenceModelRecord> KEY_REFERENCE_MODEL_PRIMARY = createUniqueKey(ReferenceModel.REFERENCE_MODEL, "KEY_reference_model_PRIMARY", ReferenceModel.REFERENCE_MODEL.ID_REFERENCE_MODEL);
