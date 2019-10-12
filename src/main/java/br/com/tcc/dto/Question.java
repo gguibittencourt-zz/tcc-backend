@@ -18,7 +18,8 @@ public class Question {
     private String idDependentQuestion;
     private Object dependentValue;
     private Object updateValue;
-    private QuestionConfig config;
+    private Boolean hasDataSource;
+    private DataSourceQuestion dataSourceQuestion;
 
     public String getIdQuestion() {
         return idQuestion;
@@ -110,12 +111,21 @@ public class Question {
         return this;
     }
 
-    public QuestionConfig getConfig() {
-        return config;
+    public Boolean getHasDataSource() {
+        return hasDataSource;
     }
 
-    public Question setConfig(QuestionConfig config) {
-        this.config = config;
+    public Question setHasDataSource(Boolean hasDataSource) {
+        this.hasDataSource = hasDataSource;
+        return this;
+    }
+
+    public DataSourceQuestion getDataSourceQuestion() {
+        return dataSourceQuestion;
+    }
+
+    public Question setDataSourceQuestion(DataSourceQuestion dataSourceQuestion) {
+        this.dataSourceQuestion = dataSourceQuestion;
         return this;
     }
 
@@ -174,11 +184,12 @@ public class Question {
                 Objects.equals(getIdDependentQuestion(), question.getIdDependentQuestion()) &&
                 Objects.equals(getDependentValue(), question.getDependentValue()) &&
                 Objects.equals(getUpdateValue(), question.getUpdateValue()) &&
-                Objects.equals(getConfig(), question.getConfig());
+                Objects.equals(getHasDataSource(), question.getHasDataSource()) &&
+                Objects.equals(getDataSourceQuestion(), question.getDataSourceQuestion());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getIdProcessAttribute(), getIdProcessAttributeValue(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getUpdateValue(), getConfig());
+        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getIdProcessAttribute(), getIdProcessAttributeValue(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getUpdateValue(), getHasDataSource(), getDataSourceQuestion());
     }
 }

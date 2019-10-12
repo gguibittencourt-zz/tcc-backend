@@ -44,7 +44,8 @@ public class DataSourceResource {
     @POST
     public Response register(String dataSourceJson) {
         DataSource dataSource = GSON.fromJson(dataSourceJson, DataSource.class);
-        this.dataSourceService.register(dataSource);
+        Integer idDataSource = this.dataSourceService.register(dataSource);
+        dataSource.setIdDataSource(idDataSource);
         return Response.ok(GSON.toJson(dataSource))
                 .type(MediaType.APPLICATION_JSON)
                 .build();
