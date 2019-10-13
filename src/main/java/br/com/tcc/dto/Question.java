@@ -20,6 +20,7 @@ public class Question {
     private Object updateValue;
     private Boolean hasDataSource;
     private DataSourceQuestion dataSourceQuestion;
+    private Boolean resultByDataSource;
 
     public String getIdQuestion() {
         return idQuestion;
@@ -165,6 +166,16 @@ public class Question {
         return this;
     }
 
+    public Boolean getResultByDataSource() {
+        return resultByDataSource;
+    }
+
+    public Question setResultByDataSource(Boolean resultByDataSource) {
+        this.resultByDataSource = resultByDataSource;
+        return this;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -185,11 +196,12 @@ public class Question {
                 Objects.equals(getDependentValue(), question.getDependentValue()) &&
                 Objects.equals(getUpdateValue(), question.getUpdateValue()) &&
                 Objects.equals(getHasDataSource(), question.getHasDataSource()) &&
-                Objects.equals(getDataSourceQuestion(), question.getDataSourceQuestion());
+                Objects.equals(getDataSourceQuestion(), question.getDataSourceQuestion()) &&
+                Objects.equals(getResultByDataSource(), question.getResultByDataSource());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getIdProcessAttribute(), getIdProcessAttributeValue(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getUpdateValue(), getHasDataSource(), getDataSourceQuestion());
+        return Objects.hash(getIdQuestion(), getIdProcess(), getIdExpectedResult(), getIdProcessAttribute(), getIdProcessAttributeValue(), getName(), getTip(), getType(), getRequired(), getDefaultValue(), getDependsOnAnyQuestion(), getIdDependentQuestion(), getDependentValue(), getUpdateValue(), getHasDataSource(), getDataSourceQuestion(), getResultByDataSource());
     }
 }

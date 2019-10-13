@@ -5,18 +5,18 @@ import java.util.Objects;
 
 public class DataSourceQuestion {
 
-    private Integer idDataSource;
+    private DataSource dataSource;
     private String path;
     private String typeReturn;
     private String valueReturn;
     private Collection<UpdateValue> updateValues;
 
-    public Integer getIdDataSource() {
-        return idDataSource;
+    public DataSource getDataSource() {
+        return dataSource;
     }
 
-    public DataSourceQuestion setIdDataSource(Integer idDataSource) {
-        this.idDataSource = idDataSource;
+    public DataSourceQuestion setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
         return this;
     }
 
@@ -61,7 +61,7 @@ public class DataSourceQuestion {
         if (this == o) return true;
         if (!(o instanceof DataSourceQuestion)) return false;
         DataSourceQuestion that = (DataSourceQuestion) o;
-        return Objects.equals(getIdDataSource(), that.getIdDataSource()) &&
+        return Objects.equals(getDataSource(), that.getDataSource()) &&
                 Objects.equals(getPath(), that.getPath()) &&
                 Objects.equals(getTypeReturn(), that.getTypeReturn()) &&
                 Objects.equals(getValueReturn(), that.getValueReturn()) &&
@@ -70,6 +70,6 @@ public class DataSourceQuestion {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdDataSource(), getPath(), getTypeReturn(), getValueReturn(), getUpdateValues());
+        return Objects.hash(getDataSource(), getPath(), getTypeReturn(), getValueReturn(), getUpdateValues());
     }
 }
