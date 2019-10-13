@@ -1,5 +1,6 @@
 package br.com.tcc.dto;
 
+import java.util.Collection;
 import java.util.Objects;
 
 public class DataSourceQuestion {
@@ -8,6 +9,7 @@ public class DataSourceQuestion {
     private String path;
     private String typeReturn;
     private String valueReturn;
+    private Collection<UpdateValue> updateValues;
 
     public Integer getIdDataSource() {
         return idDataSource;
@@ -45,6 +47,15 @@ public class DataSourceQuestion {
         return this;
     }
 
+    public Collection<UpdateValue> getUpdateValues() {
+        return updateValues;
+    }
+
+    public DataSourceQuestion setUpdateValues(Collection<UpdateValue> updateValues) {
+        this.updateValues = updateValues;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,11 +64,12 @@ public class DataSourceQuestion {
         return Objects.equals(getIdDataSource(), that.getIdDataSource()) &&
                 Objects.equals(getPath(), that.getPath()) &&
                 Objects.equals(getTypeReturn(), that.getTypeReturn()) &&
-                Objects.equals(getValueReturn(), that.getValueReturn());
+                Objects.equals(getValueReturn(), that.getValueReturn()) &&
+                Objects.equals(getUpdateValues(), that.getUpdateValues());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdDataSource(), getPath(), getTypeReturn(), getValueReturn());
+        return Objects.hash(getIdDataSource(), getPath(), getTypeReturn(), getValueReturn(), getUpdateValues());
     }
 }
